@@ -1,0 +1,26 @@
+{
+  "name": "example-5",
+  "version": "0.0.2",
+  "description": null,
+  "keywords": [],
+  "homepage": "https://codesandbox.io/s/4j7m47vlm4",
+  "main": "index.js",
+  "dependencies": {
+    "@material-ui/core": "latest",
+    "@material-ui/icons": "latest",
+    "@priolo/iistore": "0.1.9",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-router-dom": "^5.2.0"
+  },
+  "devDependencies": {
+    "react-scripts": "1.0.0",
+    "msw": "^0.21.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
