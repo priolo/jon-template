@@ -1,0 +1,482 @@
+{
+	"pag": {
+		"default": {
+			"btt_save": "Apply",
+			"btt_cancel": "Cancel",
+			"dlg": {
+				"router_confirm": {
+					"title": "Warning! Data not saved",
+					"text": "By continuing you will lose the modified data\nbecause they weren't saved.\nDo you want to continue?",
+					"labelOk": "Yes, change page",
+					"labelCancel": "No! Stay here"
+				}
+			}
+		},
+		"user": {
+			"title": "Users list",
+			"tbl": {
+				"username": "User name",
+				"role": "Role",
+				"actions": "Actions"
+			},
+			"btt_new": "New User",
+			"dlg": {
+				"title_new": "New user",
+				"title_edit": "Edit user",
+				"lbl_username": "User name",
+				"lbl_role": "Role",
+				"lbl_password": "Password",
+				"lbl_password2": "Retype password",
+				"save": "Save",
+				"cancel": "Cancel"
+			}
+		},
+		"profile": {
+			"title": "Profile",
+			"par_general": "General",
+			"prp_username": "Name",
+			"prp_role": "Role",
+			"btn_change_password": "Change Password",
+			"dlg":{
+				"title": "Change password",
+				"save": "Change!",
+				"cancel": "Cancel"
+			}
+		},
+		"login": {
+			"title": "Sign in",
+			"username": "User name",
+			"password": "Password",
+			"btt_signin": "Sign in"
+		},
+		"password": {
+			"title": "Change password",
+			"oldpassword": "Old password",
+			"password": "New password",
+			"repassword": "Retype password",
+			"btt_change": "Change",
+			"btt_logout": "Sign out",
+			"msg_success": "password changed successfully"
+		},
+		"network": {
+			"title": "Network Setting",
+			"par_adderess": "Address",
+			"par_extern": "Extern",
+			"prp_ip": "Ip",
+			"prp_subnet": "Subnet",
+			"prp_gateway": "Gateway IP",
+			"prp_modem1ka": "Modem 1 KA",
+			"prp_modem1ku": "Modem 1 KU",
+			"prp_modem1x": "Modem 1 X",
+			"prp_modem2ka": "Modem 2 KA",
+			"prp_modem2ku": "Modem 2 KU",
+			"prp_modem2x": "Modem 2 X",
+			"prp_acu1": "ACU1",
+			"prp_acu2": "ACU2",
+			"prp_slu": "SLU IP",
+			"msg_sdu_save_success": "You have successfully modified the SDU!",
+			"msg_sdu_ext_save_success": "You have successfully modified the SDU external!"
+		},
+		"antenna": {
+			"title": "Antenna Setting",
+			"position": {
+				"title": "Position",
+				"absolute": "Absolute",
+				"relative": "Relative",
+				"azimuth": "Azimuth",
+				"elevation": "Elevation",
+				"lnb": "LNB Polarization",
+				"adv": {
+					"title": "Advanced",
+					"errors": {
+						"title": "Errors",
+						"x": "Error X",
+						"y": "Error Y",
+						"z": "Error Z",
+						"xf": "Error XF",
+						"zf": "Error ZF"
+					},
+					"attributes": {
+						"title": "Attributes",
+						"tilt": "Tilt",
+						"bx": "BX",
+						"by": "BY",
+						"bz": "BZ"
+					}
+				}
+			},
+			"offset": {
+				"title": "Offset",
+				"c_heading": "C Heading",
+				"c_elevation": "C Elevation",
+				"c_skew": "C Skew",
+				"dlg": {
+					"success": "You have succefully modified the offsets parameters"
+				}
+			},
+			"signal": {
+				"title": "Signal",
+				"lbl_signal": "Signal"
+			},
+			"mirror_position": {
+				"title": "Mirror Position",
+				"lbl_mirror_position": "Mirror Position"
+			},
+			"state": {
+				"title": "State",
+				"acu": "From ACU",
+				"acu2": "read-only ACU value",
+				"user": "User Settings",
+				"dlg": {
+					"success": "You have succefully modified the state"
+				}
+			},
+			"satellite": {
+				"title": "Current Satellite",
+				"select": "Satellite Select",
+				"longitude": "Longitude",
+				"screw": "Screw",
+				"frequency": "Frequency",
+				"rx_polarization": "RX Polarization",
+				"tx_polarization": "TX Polarization",
+				"dlg": {
+					"title": "Select a Satellite",
+					"save": "Save",
+					"cancel": "Cancel",
+					"name": "Name",
+					"longitude": "Longitude",
+					"frequency": "Frequency",
+					"success": "You have succefully modified the satellite"
+				}
+			},
+			"search": {
+				"title": "Search Parameters",
+				"threshold": "Threshold",
+				"step_unit": "Step Unit",
+				"extension": "Extension",
+				"dlg": {
+					"success": "You have succefully modified the search parameters"
+				}
+			},
+			"axis_blockage": {
+				"title": "Axis Blockage",
+				"lbl_azimuth_blockage": "Azimuth",
+				"lbl_elevation_blockage": "Elevation",
+				"lbl_x_level_blockage": "X Level",
+				"lbl_polarization_blockage": "Polarization",
+				"lbl_mirror_blockage": "Mirror"
+			}
+		},
+		"satellite": {
+			"title": "Satellites",
+			"btt_new": "New Satellite",
+			"btt_import": "Import",
+			"tbl": {
+				"name": "Name",
+				"antenna": "Antenna",
+				"longitude": "Longitude",
+				"actions": "Actions"
+			},
+			"dlg": {
+				"title_edit": "Modify Satellite",
+				"title_new": "New Satellite",
+				"lbl_antenna": "Antenna number",
+				"lbl_name": "Name",
+				"lbl_longitude": "Longitude",
+				"lbl_frequency": "Frequency",
+				"lbl_polarization": "Polarization",
+				"lbl_v_pid": "V Pid",
+				"lbl_symbol_rate": "Symbol Rate",
+				"lbl_signal_threshold": "Threshold",
+				"lbl_sk_offset": "Sk Offset",
+				
+				"save": "Save",
+				"cancel": "Cancel",
+
+				"import": {
+					"title": "Import Satellites",
+					"import": "Import",
+					"cancel": "Cancel",
+					"success": "You have succefully update the satellites"
+				}
+			}
+		},
+		"ship": {
+			"title": "Ship",
+			"main": {
+				"title": "GPS and Gyro",
+				"latitude": "Latitude",
+				"longitude": "Longitude",
+				"heading": "Heading"
+			}
+		},
+		"slu": {
+			"title": "SLU",
+			"matrix": {
+				"title": "Matrix"
+			},
+			"conf": {
+				"title": "Settings",
+				"output": "Output",
+				"input": "Input",
+				"antenna1": "Antenna 1",
+				"antenna2": "Antenna 2",
+				"ka": "KA",
+				"ku": "KU",
+				"x": "X",
+				"dlg": {
+					"success": "You have succefully modified the SLU config",
+					"err_same": {
+						"title": "Avoid equal values",
+						"text_in": "In the inputs there are at least two equal values",
+						"text_out": "In the outputs there are at least two equal values"
+					}
+				}
+			}
+		},
+		"antennasys": {
+			"title": "Antenna System",
+			"enable": {
+				"title": "Enable",
+				"lbl_enable": "Enable",
+				"lbl_disable": "Disable",
+				"antenna1": "Antenna 1",
+				"antenna2": "Antenna 2",
+				"dlg": {
+					"success": "You have succefully modified the antenna"
+				}
+			},
+			"settings": {
+				"title": "Settings",
+				"lbl_share": "Share Modem",
+				"lbl_band1": "Antenna 1 Band",
+				"lbl_band2": "Antenna 2 Band",
+				"lbl_mode": "Mode",
+				"dlg": {
+					"success": "You have succefully modified the antenna",
+					"role_backup": {
+						"title": "The bands must be the same",
+						"text": "In backup mode then the band of both antennas must be the same",
+						"ok": "Ok"
+					},
+					"role_standalone_share": {
+						"title": "No same band",
+						"text": "if the modems are in share then the band of both antennas must be different",
+						"text_ka_x_1": "if the modems are in share and antenna 1 is in 'KA-X' then antenna 2 must be KU",
+						"text_ka_x_2": "if the modems are in share and antenna 2 is in 'KA-X' then antenna 1 must be KU",
+						"ok": "Ok"
+					}
+				}
+			}
+		},
+		"chart": {
+			"title": "Chart",
+			"selector": {
+				"title": "Selector",
+				"lbl_types": "Types",
+				"lbl_view": "View",
+				"lbl_antenna": "Antennas",
+				"lbl_timespan": "Minutes",
+				"btt_save": "Apply",
+				"dlg": {
+					"success": "You have succefully modified the selector"
+				}
+			},
+
+			"relative_azimuth": {
+				"title": "Azimut Relative"
+			},
+			"heading": {
+				"title": "Heading"
+			},
+			"relative_elevation": {
+				"title": "Elevation Relative"
+			},
+			"signal": {
+				"title": "Signal"
+			},
+
+			"el_graph": {
+				"title": "Azimut Elevation"
+			},
+			"union":  {
+				"title": "Antennas",
+				"title1": "Antenna 1",
+				"title2": "Antenna 2"
+			}
+		}
+	},
+	"validation": {
+		"obligatory": "This field is mandatory",
+		"same_password": "must be the same as the password",
+		"not_the_same": "the two values must be different"
+	},
+	"dialog": {
+		"error":{
+			"default": {
+				"title": "Error",
+				"text": "Something went wrong!",
+				"ok": "Ok"
+			},
+			"500": {
+				"default": {
+					"text": "Something went wrong! Please try again or contact the administrator",
+					"ok": "Certainly"
+				}
+			},
+			"400": {
+				"default": {
+					"title": "Bad request",
+					"text": "Something was entered incorrectly. Try again.",
+					"ok": "Ok"
+				},
+				"password_match": {
+					"title": "Wrong username or password",
+					"text": "We couldn't find your account.\nPlease try again or contact the administrator",
+					"ok": "Ok, I will!"
+				}
+			},
+			"401": {
+				"default": {
+					"title": "Unauthorized access",
+					"text": "Strange, you shouldn't be here",
+					"ok": "try again"
+				}
+			},
+			"users": {
+				"unique": {
+					"title": "Ooops...",
+					"text": "Username already exists. Try to change it"
+				},
+				"old_password_match": {
+					"title": "Mmmm...",
+					"text": "Old password not match. Try again"
+				}
+			}
+		},
+		"delete": {
+			"title": "WARNING!!!",
+			"text": "Are you sure you want to delete it?",
+			"ok": "Yes!",
+			"cancel": "No"
+		},
+		"render_error": {
+			"title": "Unhandled error!",
+			"body": "If the problem persists contact the administrator",
+			"reload": "Reload"
+		}
+	},
+	"app":{
+		"bar": {
+			"title": "Web app: 3WayCom"
+		},
+		"drawer": {
+			"dashboard": "Dashboard",
+			"ship": "Ship",
+			"antenna1": "Antenna 1",
+			"antenna2": "Antenna 2",
+			"satellite": "Satellites",
+			"slu": "SLU",
+			"antennasys": "Antenna System",
+			"chart": "Chart",
+			"admin": {
+				"title": "Administration",
+				"user": "User",
+				"network": "Network",
+				"diagnostic": "Diagnostic",
+				"firmware": "Firmware"
+			}
+		},
+		"avatar": {
+			"profile": "My Profile",
+			"logout": "Sign out",
+			"dark": "Dark"
+		},
+		"roles": {
+			"100": "admin",
+			"200": "crew"
+		},
+		"auth": {
+			"msg_login": "you have logged in successfully",
+			"msg_logout": "you have logged out successfully"
+		},
+		"socket": {
+			"ico": {
+				"connected": "connected",
+				"retry": "retry",
+				"error": "error"
+			},
+			"dialog": {
+				"error": {
+					"title": "Socket connection error",
+					"text": "I can't connect to the server.\nTry to check the connection",
+					"ok": "Ok"
+				}
+			}
+		},
+		"tooltip": {
+			"clipboard": "copy to clipboard"
+		},
+		"footer": {
+			"antenna":{
+				"antenna": "Antenna",
+				"state": "State",
+				"satellite": "Satellite select",
+				"signal": "Signal value"
+			}
+		},
+		"antenna":{
+			"number": {
+				"1": "Antenna 1",
+				"2": "Antenna 2"
+			},
+			"mode": {
+				"null": "unknown",
+				"0": "unknown",
+				"1": "basic",
+				"2": "search",
+				"3": "tracking"
+			},
+			"modesys": {
+				"null": "--",
+				"1": "standalone",
+				"2": "backup"
+			},
+			"band": {
+				"null": "--",
+				"1": "ka",
+				"2": "ku",
+				"3": "x",
+				"4": "ka-x"
+			},
+			"enabled": {
+				"null": "--",
+				"true": "enabled",
+				"false": "disabled"
+			},
+			"shared": {
+				"null": "--",
+				"true": "shared",
+				"false": "not shared"
+			}
+		},
+		"satellite": {
+			"polarization": {
+				"H": "horizontal",
+				"V": "vertical"
+			}
+		},
+		"chart": {
+			"enabled": {
+				"RELATIVE_AZIMUTH": "Rel. Azimut",
+				"HEADING": "Heading",
+				"RELATIVE_ELEVATION": "Rel. Elevation",
+				"SIGNAL": "Signal"
+			},
+			"aggregate": {
+				"true": "Single",
+				"false": "Multi"
+			}
+		}
+	}
+}

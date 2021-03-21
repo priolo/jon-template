@@ -1,4 +1,4 @@
-import { themeLight } from "../theme"
+import { themeLight } from "../../theme"
 import {Dashboard, Person} from '@material-ui/icons';
 
 
@@ -9,7 +9,7 @@ export default {
 		theme: themeLight,
 		drawerIsOpen: true,
 		menu: [
-			{label: "Users", icon: Person, route: "/user" },
+			{label: "Users44", icon: Person, route: "/user" },
 		]
 	},
 	getters: {

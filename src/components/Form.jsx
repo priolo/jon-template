@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles } from "@material-ui/core"
-import CentralSpace from '../../app/CentralSpace'
+import CentralSpace from './CentralSpace'
 
 
 export default function Form({

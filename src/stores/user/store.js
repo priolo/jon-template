@@ -13,12 +13,13 @@ export default {
 
 			setBusy(true)
 			// simulat request http
+
+			const response = await fetch('/api/users')
+			const data = await response.json()
+			console.log(data);
+
 			await new Promise(res=>setTimeout(res,1000))
-			store.setAll([
-				{ id:1, name: "Ivano" },
-				{ id:2, name: "Adoardo" },
-				{ id:3, name: "Alfredo" },
-			])
+			store.setAll(data)
 			setBusy(false)
 		},
 	},

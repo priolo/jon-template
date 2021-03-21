@@ -7,8 +7,8 @@ import AppBar from "./AppBar"
 import Drawer from "./Drawer"
 import Body from "./Body"
 
-import UserPag from "../pages/UserPag"
-import DashboardPag from "../pages/DashboardPag"
+import UserList from "../pages/user/UserList"
+
 
 
 export default function Main() {
@@ -23,12 +23,12 @@ export default function Main() {
 				<Drawer />
 				<Body>
 					<Switch>
-						<Route path="/user">
-							<UserPag />
+						<Route path={["/","/user"]}>
+							<UserList />
 						</Route>
-						<Route path={["/","/dashboard"]}>
+						{/* <Route path={["/","/dashboard"]}>
 							<DashboardPag />
-						</Route>
+						</Route> */}
 					</Switch>
 				</Body>
 			</Router>
