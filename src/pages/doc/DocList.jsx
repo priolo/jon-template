@@ -1,7 +1,6 @@
 /* eslint eqeqeq: "off" */
 import React, { useEffect } from 'react';
 
-import { useUser } from '../../stores/user';
 import { useLayout } from '../../stores/layout';
 
 
@@ -10,15 +9,16 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconB
 import { Delete as DeleteIcon, Add as AddIcon } from '@material-ui/icons';
 import Form from '../../components/form/Form';
 import { useTranslation } from 'react-i18next';
+import { useDoc } from '../../stores/doc';
 import { useHistory } from 'react-router';
 
 
 
-function UserPag () {
+function DocList () {
 
 	const {t} = useTranslation()
 	const history = useHistory()
-	const { state: user, fetchAll} = useUser();
+	const { state: doc, fetchAll} = useDoc();
 	const { setTitle } = useLayout()
 	const classes = useStyles();
 
@@ -28,7 +28,7 @@ function UserPag () {
 	}, [])
 
 	const handleDelete = e => console.log("item.id")
-	const handleClickRow = e => history.push("/profile")
+	const handleClickRow = id => history.push(`/docs/${id}`)
 
 	return (<Form
 		renderFooter={
@@ -43,26 +43,26 @@ function UserPag () {
 		}
 	>
 		<TableContainer component={Paper}>
-			{user.all ? (
+			{doc.all ? (
 
 				<Table className={classes.table} aria-label="simple table">
 					<TableHead>
 						<TableRow>
-							<TableCell>{t("pag.user.tbl.username")}</TableCell>
-							<TableCell>{t("pag.user.tbl.role")}</TableCell>
+							<TableCell>title</TableCell>
+							<TableCell>link</TableCell>
 							<TableCell align="center" className={classes.actionsCell}>
 								{t("pag.user.tbl.actions")}
 							</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{user.all.map(item => (
+						{doc.all.map(item => (
 
 							<TableRow hover key={item.id}
-								onClick={handleClickRow}
+								onClick={e => handleClickRow(item.id)}
 							>
-								<TableCell >{item.username}</TableCell>
-								<TableCell >{t(`app.roles.${item.role}`)}</TableCell>
+								<TableCell >{item.title}</TableCell>
+								<TableCell >{item.link}</TableCell>
 								<TableCell align="center" className={classes.actionsCell}>
 									<IconButton id="btt-delete"
 										onClick={handleDelete}
@@ -77,12 +77,12 @@ function UserPag () {
 			) : (<div>...</div>)}
 		</TableContainer>
 
-		<EditDialog />
+		{/* <EditDialog /> */}
 		
 	</Form>)
 }
 
-export default UserPag
+export default DocList
 
 const useStyles = makeStyles({
 	table: {

@@ -1,4 +1,6 @@
-import { getStore } from "@priolo/iistore"
+import { getStoreLayout } from "../layout"
+import ajax from "../../plugins/AjaxService"
+
 
 export default {
 	state: {
@@ -9,19 +11,10 @@ export default {
 	actions: {
 		// get alla USER
 		fetchAll: async (state, payload, store)=> {
-			const { setBusy } = getStore("layout")
-
-			setBusy(true)
-			// simulat request http
-
-			const response = await fetch('/api/users')
-			const data = await response.json()
-			console.log(data);
-
-			await new Promise(res=>setTimeout(res,1000))
+			const data = await ajax.get(`users`);
 			store.setAll(data)
-			setBusy(false)
 		},
+
 	},
 	mutators: {
 		setAll: (state,all)=>({all}),

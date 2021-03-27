@@ -1,54 +1,54 @@
+import { USER_ROLES } from "../../stores/user/utils";
 
-export const auth = [
+export default [
 	{
-		"id": "111",
+		"id": "usr-1",
 		"username": "admin",
 		"password": "secret",
-		"has_to_change_password": true,
-		"role": 100,
-		"token": "((admin))",
+		"role": USER_ROLES.ADMIN,
+		"token": null,
 	},
 	{
-		"id": "112",
+		"id": "usr-2",
 		"username": "admin2",
-		"password": "secret",
-		"has_to_change_password": false,
-		"role": 100,
-		"token": "((admin2))",
+		"password": null,
+		"role": USER_ROLES.ADMIN,
+		"token": null,
 	},
 	{
-		"id": "222",
+		"id": "user-3",
 		"username": "mario",
 		"password": "secret",
-		"has_to_change_password": true,
-		"role": 200,
-		"token": "((crew))",
+		"role": USER_ROLES.WRITER,
+		"token": null,
 	},
 	{
-		"id": "223",
+		"id": "user-4",
 		"username": "giovanni",
+		"password": null,
+		"role": USER_ROLES.WRITER,
+		"token": null,
+	},
+	{
+		"id": "user-5",
+		"username": "daniele",
 		"password": "secret",
-		"has_to_change_password": false,
-		"role": 200,
-		"token": "((crew2))",
+		"role": USER_ROLES.CUSTOMER,
+		"token": null,
 	},
-]
+	{
+		"id": "user-6",
+		"username": "giorgio",
+		"password": null,
+		"role": USER_ROLES.CUSTOMER,
+		"token": null,
+	},
+	{
+		"id": "user-7",
+		"username": "riccardo",
+		"password": null,
+		"role": USER_ROLES.CUSTOMER,
+		"token": null,
+	},
 
-
-export const index = [
-	{
-		"id": 11,
-		"username": "Mario",
-		"role": 200,
-	},
-	{
-		"id": 33,
-		"username": "Giovanni",
-		"role": 200,
-	},
-	{
-		"id": 22,
-		"username": "Elisa",
-		"role": 200,
-	},
 ]

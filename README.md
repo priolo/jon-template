@@ -1,70 +1,73 @@
-# Getting Started with Create React App
+Ti prego devi usare questo STACK REACT
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# TEMPLATE JON
+Template di uno stack tecnologico
+per realizzare un Front End SPA
 
-In the project directory, you can run:
+### GESTIONE STORE
+[Jon](https://github.com/priolo/jon)
 
-### `npm start`
+### GESTIONE PROGETTO
+[CRA](https://create-react-app.dev/)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Libreria VIEW
+[React ](https://reactjs.org/)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Componenti
+[Material-UI](https://material-ui.com/)
 
-### `npm test`
+### Router
+[reactrouter](https://reactrouter.com/web/guides/quick-start)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Internazionalizzation
+[react-i18next](https://react.i18next.com/)
 
-### `npm run build`
+### Mock
+[msw](https://mswjs.io/)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Test
+[Cycpress](https://www.cypress.io/)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Una rinfrescata generale
 
-### `npm run eject`
+#### Tradizione
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Usa l'HOOK per importare la funzione di traduzione
+```js
+import { useTranslation } from 'react-i18next'
+...
+const {t} = useTranslation()
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Traduci tramite PATH
+```jsx
+<TableCell>{t("pag.user.tbl.username")}</TableCell>
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Oppure, fuori da un componente
+```js
+import i18n from "i18next"
+...
+const title = i18n.t("pag.default.dlg.router_confirm.title")
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+La PATH fa riferimento al file json in `locales`
 
-## Learn More
+[doc](https://react.i18next.com/getting-started)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### AJAX
+Non è necessario importare liberire. 
+Possiamo utilizzare una SEMPLICISSIMA implementazione del `fetch` nativo.
+Dentro la quale c'e' la gestione:
+del token JWT,
+degli errori
+e la visualizzazione del loading
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+#### Routing
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

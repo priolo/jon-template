@@ -1,7 +1,9 @@
 /* eslint eqeqeq: "off" */
 import { requestValidator } from '../utils'
-import { auth as users, index as usersList } from "../../data/users"
+import list from "../../data/users"
+import { USER_ROLES } from '../../../stores/user/utils'
 
+//const list = [...users]
 
 export default [
 
@@ -10,49 +12,42 @@ export default [
 		return res(
 			ctx.delay(500),
 			ctx.status(200),
-			ctx.json(usersList)
+			ctx.json(list)
 		)
 	}),
 
 	// get
 	requestValidator("get", '/api/users/:id', (req, res, ctx) => {
 		if (req.cookies.token == null) return res(ctx.status(401))
+		const id = req.params.id
+		const item = list.find(item => item.id == id)
+		if (!item) return res(ctx.status(404))
 		return res(
 			ctx.delay(500),
 			ctx.status(200),
-			ctx.json({
-				"id": req.params.id,
-				"username": "Mario",
-				"role": 200,
-				"has_to_change_password": false,
-				"created_at": "2020-08-21T16:31:30.364146146Z",
-				"updated_at": "2020-08-21T19:55:50.188570215+03:00",
-			})
+			ctx.json(item)
 		)
 	}),
 
 	// create
 	requestValidator("post", '/api/users', (req, res, ctx) => {
 		if (req.cookies.token == null) return res(ctx.status(401))
-		const { username, password, role } = req.body;
-		if (username == null || password == null || role==null) return res(ctx.status(500))
-		const user = users.find(u => u.username == username);
-		if (user != null) return res(
+		const { email } = req.body;
+
+		// check params
+		if (email == null) return res(ctx.status(500))
+
+		// check univocity
+		const item = list.find(u => u.username == email);
+		if (item != null) return res(
 			ctx.status(400),
 			ctx.json({ "errors": [{ "code": "unique", "field": "username" }] })
 		)
 
+		// check email
 		return res(
 			ctx.delay(500),
 			ctx.status(200),
-			ctx.json({
-				"id": Math.floor(Math.random() * 100),
-				"username": username,
-				"role": role,
-				"has_to_change_password": true,
-				"created_at": "2020-08-21T16:31:30.364146146Z",
-				"updated_at": "2020-08-21T19:55:50.188570215+03:00",
-			})
 		)
 	}),
 
@@ -60,24 +55,28 @@ export default [
 	requestValidator("patch", '/api/users/:id', (req, res, ctx) => {
 		if (req.cookies.token == null) return res(ctx.status(401))
 		const { username, role } = req.body;
-		if (!username) return res(ctx.status(401))
+
+		// find item
+		const item = list.find(item => item.username == username)
+		if (!item) return res(ctx.status(404))
+
+		// modify item
+		item.role = role
+
 		return res(
 			ctx.delay(500),
 			ctx.status(200),
-			ctx.json({
-				"id": req.params.id,
-				"username": username,
-				"role": role,
-				"has_to_change_password": false,
-				"created_at": "2020-08-21T16:31:30.364146146Z",
-				"updated_at": "2020-08-21T19:55:50.188570215+03:00",
-			})
+			ctx.json(item)
 		)
 	}),
 
 	// delete
 	requestValidator("delete", '/api/users/:id', (req, res, ctx) => {
 		if (req.cookies.token == null) return res(ctx.status(401))
+		const id = req.params.id
+		const index = list.findIndex(item => item.id == id)
+		if (index == -1) return res(ctx.status(404))
+		const item = list.splice(index, 1)
 		return res(
 			ctx.delay(500),
 			ctx.status(200),
@@ -88,15 +87,17 @@ export default [
 	requestValidator("patch", '/api/users/:id/password', (req, res, ctx) => {
 		if (req.cookies.token == null) return res(ctx.status(401))
 		const { old_password, new_password } = req.body;
-		const user = users.find(u => u.password == old_password && u.token == req.cookies.token);
+		const user = list.find(u => u.password == old_password && u.token == req.cookies.token);
 		if (user == null) return res(
 			ctx.status(400),
-			ctx.json({ "errors": [
-				  {
-					"code": "old_password_match",
-					"field": "old_password"
-				  },
-			]})
+			ctx.json({
+				"errors": [
+					{
+						"code": "old_password_match",
+						"field": "old_password"
+					},
+				]
+			})
 		)
 		if (!old_password || !new_password || old_password == new_password) res(ctx.status(500))
 		return res(

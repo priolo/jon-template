@@ -31,6 +31,23 @@
 				"cancel": "Cancel"
 			}
 		},
+		"doc": {
+			"title": "Documents list",
+			"tbl": {
+				"title": "Title",
+				"author": "Author",
+				"actions": "Actions"
+			},
+			"btt_new": "New Document",
+			"detail": {
+				"title_new": "New document",
+				"title_edit": "Edit document",
+				"title": "Title",
+				"author": "Author",
+				"save": "Save",
+				"cancel": "Cancel"
+			}
+		},
 		"profile": {
 			"title": "Profile",
 			"par_general": "General",
@@ -57,253 +74,6 @@
 			"btt_change": "Change",
 			"btt_logout": "Sign out",
 			"msg_success": "password changed successfully"
-		},
-		"network": {
-			"title": "Network Setting",
-			"par_adderess": "Address",
-			"par_extern": "Extern",
-			"prp_ip": "Ip",
-			"prp_subnet": "Subnet",
-			"prp_gateway": "Gateway IP",
-			"prp_modem1ka": "Modem 1 KA",
-			"prp_modem1ku": "Modem 1 KU",
-			"prp_modem1x": "Modem 1 X",
-			"prp_modem2ka": "Modem 2 KA",
-			"prp_modem2ku": "Modem 2 KU",
-			"prp_modem2x": "Modem 2 X",
-			"prp_acu1": "ACU1",
-			"prp_acu2": "ACU2",
-			"prp_slu": "SLU IP",
-			"msg_sdu_save_success": "You have successfully modified the SDU!",
-			"msg_sdu_ext_save_success": "You have successfully modified the SDU external!"
-		},
-		"antenna": {
-			"title": "Antenna Setting",
-			"position": {
-				"title": "Position",
-				"absolute": "Absolute",
-				"relative": "Relative",
-				"azimuth": "Azimuth",
-				"elevation": "Elevation",
-				"lnb": "LNB Polarization",
-				"adv": {
-					"title": "Advanced",
-					"errors": {
-						"title": "Errors",
-						"x": "Error X",
-						"y": "Error Y",
-						"z": "Error Z",
-						"xf": "Error XF",
-						"zf": "Error ZF"
-					},
-					"attributes": {
-						"title": "Attributes",
-						"tilt": "Tilt",
-						"bx": "BX",
-						"by": "BY",
-						"bz": "BZ"
-					}
-				}
-			},
-			"offset": {
-				"title": "Offset",
-				"c_heading": "C Heading",
-				"c_elevation": "C Elevation",
-				"c_skew": "C Skew",
-				"dlg": {
-					"success": "You have succefully modified the offsets parameters"
-				}
-			},
-			"signal": {
-				"title": "Signal",
-				"lbl_signal": "Signal"
-			},
-			"mirror_position": {
-				"title": "Mirror Position",
-				"lbl_mirror_position": "Mirror Position"
-			},
-			"state": {
-				"title": "State",
-				"acu": "From ACU",
-				"acu2": "read-only ACU value",
-				"user": "User Settings",
-				"dlg": {
-					"success": "You have succefully modified the state"
-				}
-			},
-			"satellite": {
-				"title": "Current Satellite",
-				"select": "Satellite Select",
-				"longitude": "Longitude",
-				"screw": "Screw",
-				"frequency": "Frequency",
-				"rx_polarization": "RX Polarization",
-				"tx_polarization": "TX Polarization",
-				"dlg": {
-					"title": "Select a Satellite",
-					"save": "Save",
-					"cancel": "Cancel",
-					"name": "Name",
-					"longitude": "Longitude",
-					"frequency": "Frequency",
-					"success": "You have succefully modified the satellite"
-				}
-			},
-			"search": {
-				"title": "Search Parameters",
-				"threshold": "Threshold",
-				"step_unit": "Step Unit",
-				"extension": "Extension",
-				"dlg": {
-					"success": "You have succefully modified the search parameters"
-				}
-			},
-			"axis_blockage": {
-				"title": "Axis Blockage",
-				"lbl_azimuth_blockage": "Azimuth",
-				"lbl_elevation_blockage": "Elevation",
-				"lbl_x_level_blockage": "X Level",
-				"lbl_polarization_blockage": "Polarization",
-				"lbl_mirror_blockage": "Mirror"
-			}
-		},
-		"satellite": {
-			"title": "Satellites",
-			"btt_new": "New Satellite",
-			"btt_import": "Import",
-			"tbl": {
-				"name": "Name",
-				"antenna": "Antenna",
-				"longitude": "Longitude",
-				"actions": "Actions"
-			},
-			"dlg": {
-				"title_edit": "Modify Satellite",
-				"title_new": "New Satellite",
-				"lbl_antenna": "Antenna number",
-				"lbl_name": "Name",
-				"lbl_longitude": "Longitude",
-				"lbl_frequency": "Frequency",
-				"lbl_polarization": "Polarization",
-				"lbl_v_pid": "V Pid",
-				"lbl_symbol_rate": "Symbol Rate",
-				"lbl_signal_threshold": "Threshold",
-				"lbl_sk_offset": "Sk Offset",
-				
-				"save": "Save",
-				"cancel": "Cancel",
-
-				"import": {
-					"title": "Import Satellites",
-					"import": "Import",
-					"cancel": "Cancel",
-					"success": "You have succefully update the satellites"
-				}
-			}
-		},
-		"ship": {
-			"title": "Ship",
-			"main": {
-				"title": "GPS and Gyro",
-				"latitude": "Latitude",
-				"longitude": "Longitude",
-				"heading": "Heading"
-			}
-		},
-		"slu": {
-			"title": "SLU",
-			"matrix": {
-				"title": "Matrix"
-			},
-			"conf": {
-				"title": "Settings",
-				"output": "Output",
-				"input": "Input",
-				"antenna1": "Antenna 1",
-				"antenna2": "Antenna 2",
-				"ka": "KA",
-				"ku": "KU",
-				"x": "X",
-				"dlg": {
-					"success": "You have succefully modified the SLU config",
-					"err_same": {
-						"title": "Avoid equal values",
-						"text_in": "In the inputs there are at least two equal values",
-						"text_out": "In the outputs there are at least two equal values"
-					}
-				}
-			}
-		},
-		"antennasys": {
-			"title": "Antenna System",
-			"enable": {
-				"title": "Enable",
-				"lbl_enable": "Enable",
-				"lbl_disable": "Disable",
-				"antenna1": "Antenna 1",
-				"antenna2": "Antenna 2",
-				"dlg": {
-					"success": "You have succefully modified the antenna"
-				}
-			},
-			"settings": {
-				"title": "Settings",
-				"lbl_share": "Share Modem",
-				"lbl_band1": "Antenna 1 Band",
-				"lbl_band2": "Antenna 2 Band",
-				"lbl_mode": "Mode",
-				"dlg": {
-					"success": "You have succefully modified the antenna",
-					"role_backup": {
-						"title": "The bands must be the same",
-						"text": "In backup mode then the band of both antennas must be the same",
-						"ok": "Ok"
-					},
-					"role_standalone_share": {
-						"title": "No same band",
-						"text": "if the modems are in share then the band of both antennas must be different",
-						"text_ka_x_1": "if the modems are in share and antenna 1 is in 'KA-X' then antenna 2 must be KU",
-						"text_ka_x_2": "if the modems are in share and antenna 2 is in 'KA-X' then antenna 1 must be KU",
-						"ok": "Ok"
-					}
-				}
-			}
-		},
-		"chart": {
-			"title": "Chart",
-			"selector": {
-				"title": "Selector",
-				"lbl_types": "Types",
-				"lbl_view": "View",
-				"lbl_antenna": "Antennas",
-				"lbl_timespan": "Minutes",
-				"btt_save": "Apply",
-				"dlg": {
-					"success": "You have succefully modified the selector"
-				}
-			},
-
-			"relative_azimuth": {
-				"title": "Azimut Relative"
-			},
-			"heading": {
-				"title": "Heading"
-			},
-			"relative_elevation": {
-				"title": "Elevation Relative"
-			},
-			"signal": {
-				"title": "Signal"
-			},
-
-			"el_graph": {
-				"title": "Azimut Elevation"
-			},
-			"union":  {
-				"title": "Antennas",
-				"title1": "Antenna 1",
-				"title2": "Antenna 2"
-			}
 		}
 	},
 	"validation": {
@@ -367,9 +137,7 @@
 		}
 	},
 	"app":{
-		"bar": {
-			"title": "Web app: 3WayCom"
-		},
+		
 		"drawer": {
 			"dashboard": "Dashboard",
 			"ship": "Ship",
@@ -393,12 +161,14 @@
 			"dark": "Dark"
 		},
 		"roles": {
-			"100": "admin",
-			"200": "crew"
+			"admin": "admin",
+			"writer": "writer",
+			"customer": "customer"
 		},
 		"auth": {
-			"msg_login": "you have logged in successfully",
-			"msg_logout": "you have logged out successfully"
+			"failed": "I couldn't find your account. Try again",
+			"succeeded": "you have logged in successfully",
+			"logout": "you have logged out successfully"
 		},
 		"socket": {
 			"ico": {
