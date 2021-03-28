@@ -2,10 +2,11 @@ import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Roles } from '../../../store/user/roles';
+import { USER_ROLES } from "../../stores/user/utils"
 
 
-export default function RolesSelector({
+
+function RolesSelector({
 	label,
 	value,
 	onChange,
@@ -24,14 +25,14 @@ export default function RolesSelector({
 				onChange={onChange}
 				disabled={disabled}
 			>
-				{Roles.map( i => (
-					<MenuItem key={i.code} 
-						value={i.code}
-					>
-						{t(`app.roles.${i.code}`)}
+				{Object.values(USER_ROLES).map( (role) => (
+					<MenuItem key={role} value={role}>
+						{t(`app.roles.${role}`)}
 					</MenuItem>
 				))}
 			</Select>
 		</FormControl>
 	)
 }
+
+export default RolesSelector

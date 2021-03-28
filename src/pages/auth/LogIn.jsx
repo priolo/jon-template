@@ -7,8 +7,7 @@ import { LockOutlined as LockOutlinedIcon } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { useAuth } from '../../stores/auth';
-import { useValidator } from '@priolo/iistore';
-import { rules } from '../../utils/rules';
+import { useValidator, rules } from '@priolo/iistore';
 import { useLayout } from '../../stores/layout';
 
 
@@ -18,10 +17,10 @@ export default function LogIn() {
 
 	const classes = useStyles()
 	const { t } = useTranslation()
-	const { state: auth, setUsername, setPassword, login } = useAuth()
+	const { state: auth, setEmail, setPassword, login } = useAuth()
 	const { state: layout } = useLayout()
 
-	const nameProp = useValidator(auth.username, [rules.obligatory])
+	const emailProp = useValidator(auth.email, [rules.obligatory/*,rules.email*/])
 	const pswProp = useValidator(auth.password, [rules.obligatory])
 
 	// useEffect(() => {
@@ -41,13 +40,13 @@ export default function LogIn() {
 				</Typography>
 
 				<TextField fullWidth autoFocus
-					{...nameProp}
+					{...emailProp}
 					disabled={layout.busy}
-					label={t("pag.login.username")}
+					label={t("pag.login.email")}
 					variant="outlined"
 					margin="normal"
-					value={auth.username}
-					onChange={e => setUsername(e.target.value)}
+					value={auth.email}
+					onChange={e => setEmail(e.target.value)}
 				/>
 
 				<TextField fullWidth
@@ -68,7 +67,7 @@ export default function LogIn() {
 						className={classes.submit}
 						onClick={() => login()}
 					>
-						{t("pag.login.btt_signin")}
+						{t("pag.login.signin")}
 					</Button>
 				) : (
 						<CircularProgress />

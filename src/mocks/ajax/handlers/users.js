@@ -9,10 +9,11 @@ export default [
 
 	// index
 	requestValidator("get", '/api/users', (req, res, ctx) => {
+		const users = list.map(({ id, email, role }) => ({ id, email, role }))
 		return res(
 			ctx.delay(500),
 			ctx.status(200),
-			ctx.json(list)
+			ctx.json(users)
 		)
 	}),
 
@@ -20,31 +21,46 @@ export default [
 	requestValidator("get", '/api/users/:id', (req, res, ctx) => {
 		if (req.cookies.token == null) return res(ctx.status(401))
 		const id = req.params.id
-		const item = list.find(item => item.id == id)
-		if (!item) return res(ctx.status(404))
+
+		let user = list.find(item => item.id == id)
+		if (!user) return res(ctx.status(404))
+		user = {
+			id: user.id,
+			email: user.email,
+			role: user.role,
+		}
+
 		return res(
 			ctx.delay(500),
 			ctx.status(200),
-			ctx.json(item)
+			ctx.json(user)
 		)
 	}),
 
 	// create
 	requestValidator("post", '/api/users', (req, res, ctx) => {
 		if (req.cookies.token == null) return res(ctx.status(401))
-		const { email } = req.body;
+		const { email, role } = req.body;
 
 		// check params
 		if (email == null) return res(ctx.status(500))
 
 		// check univocity
-		const item = list.find(u => u.username == email);
-		if (item != null) return res(
+		const index = list.findIndex(user => user.email == email);
+		if (index != -1) return res(
 			ctx.status(400),
-			ctx.json({ "errors": [{ "code": "unique", "field": "username" }] })
+			ctx.json({ "errors": [{ "code": "unique", "field": "email" }] })
 		)
 
-		// check email
+		// create and add
+		const user = {
+			id: Math.floor(Math.random()*9999),
+			email, 
+			role 
+		}
+		list.push(user)
+
+		// send success
 		return res(
 			ctx.delay(500),
 			ctx.status(200),
@@ -52,21 +68,23 @@ export default [
 	}),
 
 	// update
-	requestValidator("patch", '/api/users/:id', (req, res, ctx) => {
+	requestValidator("put", '/api/users/:id', (req, res, ctx) => {
 		if (req.cookies.token == null) return res(ctx.status(401))
-		const { username, role } = req.body;
+		const { email, role } = req.body
+		const id = req.params.id
 
 		// find item
-		const item = list.find(item => item.username == username)
-		if (!item) return res(ctx.status(404))
+		const index = list.findIndex(user => user.id == id)
+		if (index == -1) return res(ctx.status(404))
 
 		// modify item
-		item.role = role
+		const user = { ...list[index], ...{ email, role } }
+		list[index] = user
 
 		return res(
 			ctx.delay(500),
 			ctx.status(200),
-			ctx.json(item)
+			ctx.json(user)
 		)
 	}),
 
@@ -74,9 +92,15 @@ export default [
 	requestValidator("delete", '/api/users/:id', (req, res, ctx) => {
 		if (req.cookies.token == null) return res(ctx.status(401))
 		const id = req.params.id
+
+		// check if exist
 		const index = list.findIndex(item => item.id == id)
 		if (index == -1) return res(ctx.status(404))
+
+		// delete user
 		const item = list.splice(index, 1)
+
+		// send success
 		return res(
 			ctx.delay(500),
 			ctx.status(200),

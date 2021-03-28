@@ -14,6 +14,7 @@ import { useLayout } from "../../stores/layout";
 import { useAuth } from "../../stores/auth";
 import MsgBox from "../app/MsgBox";
 import LogIn from "../../pages/auth/LogIn";
+import RightDrawer from "./RightDrawer";
 
 
 
@@ -32,6 +33,7 @@ export default function Main() {
 				<Router>
 					<AppBar />
 					<Drawer />
+					<RightDrawer />
 					<Body>
 						{/* ATTENZIONE: l'ordine è importante */}
 						<Switch>

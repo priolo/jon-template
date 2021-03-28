@@ -1,6 +1,10 @@
 import { themeLight, themeDark } from "../../theme"
 import { Dashboard, Person } from '@material-ui/icons';
 import Cookies from "js-cookie";
+import { DIALOG_TYPES } from "./utils";
+import i18n from "i18next";
+
+
 
 // used when dialog closed
 let resolveClose = null;
@@ -15,6 +19,7 @@ export default {
 		//sortName: null,
 		//sortIsAsc: true,
 		drawerIsOpen: true,
+		drawerRightIsOpen: false,
 
 		theme: Cookies.get('theme') == "dark" ? themeDark : themeLight,
 
@@ -70,6 +75,8 @@ export default {
 		// },
 
 		setDrawerIsOpen: (state, drawerIsOpen) => ({ drawerIsOpen }),
+		setDrawerRightIsOpen: (state, drawerRightIsOpen) => ({ drawerRightIsOpen }),
+
 		toggleDrawerIsOpen: (state) => ({ drawerIsOpen: !state.drawerIsOpen }),
 
 		toggleTheme: (state) => {
@@ -79,20 +86,28 @@ export default {
 			}
 		},
 
-		setDialogOpen: (state, dialogOptions) => ({
-			dialogOptions: {...optionsDefault, ...dialogOptions},
-			dialogIsOpen: true
-		}),
+		setDialogOpen: (state, options) => {
+			options = { ...optionsDefault, ...options}
+			if ( options.type && options.modal ) {
+				const path = `dialog.${options.type}.default`
+				options = {
+					title: i18n.t(`${path}.title`),
+					text: i18n.t(`${path}.text`),
+					labelOk: i18n.t(`${path}.ok`),
+					... options
+				}
+			}
+			return {
+				dialogOptions: options,
+				dialogIsOpen: true
+			}
+		},
 		setDialogClose: (state, _) => ({ dialogIsOpen: false }),
 	},
 }
 
 
-const optionsDefault = { 
-	title: "", 
-	text: "", 
-	labelOk: "Ok", 
-	labelCancel: null, 
-	modal: true, 
-	type: "info" 
+const optionsDefault = {
+	modal: true,
+	type: DIALOG_TYPES.INFO,
 }

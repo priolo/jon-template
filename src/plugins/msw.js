@@ -6,7 +6,7 @@ if (process.env.NODE_ENV === 'development' || process.env.REACT_APP_MOCK === 'tr
 
 	// used in cypres
 	// window.getStoreAuth = ()=>{
-	// 	const { getStoreAuth } = require('../store/auth')
+	// 	const { getStoreAuth } = require('../stores/auth')
 	// 	return getStoreAuth();
 	// }
 }

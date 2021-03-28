@@ -15,7 +15,7 @@
 		"user": {
 			"title": "Users list",
 			"tbl": {
-				"username": "User name",
+				"email": "E-mail",
 				"role": "Role",
 				"actions": "Actions"
 			},
@@ -23,10 +23,8 @@
 			"dlg": {
 				"title_new": "New user",
 				"title_edit": "Edit user",
-				"lbl_username": "User name",
-				"lbl_role": "Role",
-				"lbl_password": "Password",
-				"lbl_password2": "Retype password",
+				"email": "Email",
+				"role": "Role",
 				"save": "Save",
 				"cancel": "Cancel"
 			}
@@ -36,6 +34,7 @@
 			"tbl": {
 				"title": "Title",
 				"author": "Author",
+				"link": "Link",
 				"actions": "Actions"
 			},
 			"btt_new": "New Document",
@@ -51,7 +50,7 @@
 		"profile": {
 			"title": "Profile",
 			"par_general": "General",
-			"prp_username": "Name",
+			"prp_email": "Name",
 			"prp_role": "Role",
 			"btn_change_password": "Change Password",
 			"dlg":{
@@ -62,9 +61,9 @@
 		},
 		"login": {
 			"title": "Sign in",
-			"username": "User name",
+			"email": "Email",
 			"password": "Password",
-			"btt_signin": "Sign in"
+			"signin": "Sign in"
 		},
 		"password": {
 			"title": "Change password",
@@ -82,6 +81,27 @@
 		"not_the_same": "the two values must be different"
 	},
 	"dialog": {
+		"info": {
+			"default": {
+				"title": "Info",
+				"text": "...",
+				"ok": "Ok"
+			}
+		},
+		"success": {
+			"default": {
+				"title": "Success",
+				"text": "...",
+				"ok": "Ok"
+			}
+		},
+		"warning": {
+			"default": {
+				"title": "Warning",
+				"text": "...",
+				"ok": "Ok"
+			}
+		},
 		"error":{
 			"default": {
 				"title": "Error",
@@ -101,7 +121,7 @@
 					"ok": "Ok"
 				},
 				"password_match": {
-					"title": "Wrong username or password",
+					"title": "Wrong email or password",
 					"text": "We couldn't find your account.\nPlease try again or contact the administrator",
 					"ok": "Ok, I will!"
 				}
@@ -116,7 +136,7 @@
 			"users": {
 				"unique": {
 					"title": "Ooops...",
-					"text": "Username already exists. Try to change it"
+					"text": "email already exists. Try to change it"
 				},
 				"old_password_match": {
 					"title": "Mmmm...",
@@ -134,6 +154,23 @@
 			"title": "Unhandled error!",
 			"body": "If the problem persists contact the administrator",
 			"reload": "Reload"
+		},
+		"login": {
+			"form": {
+				"text": "compila bene la form!"
+			}
+		},
+		"feedback": {
+			"delete": {
+				"success": "l'elemento è stato eliminato con successo",
+				"confirm": {
+					"title": "ATTENTO TU!!!",
+					"text": "davvero vuoi fare cio'?",
+					"yes": "Certo!",
+					"no": "NO!"
+				}
+			},
+			"create": "l'elemento è stato creato con successo"
 		}
 	},
 	"app":{

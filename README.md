@@ -32,7 +32,8 @@ per realizzare un Front End SPA
 
 ## Una rinfrescata generale
 
-#### Tradizione
+
+#### I18N
 
 Usa l'HOOK per importare la funzione di traduzione
 ```js
@@ -69,5 +70,24 @@ e la visualizzazione del loading
 
 ---
 
+#### Mock
+
+#### Test
+
 #### Routing
 
+#### Dynamic Theme
+
+#### Route
+
+#### Store
+
+#### Lists
+
+##### Sort
+store generici (mixStores)
+useMemo
+
+##### Filter
+
+#### Validator

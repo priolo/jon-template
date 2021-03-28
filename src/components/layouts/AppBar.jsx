@@ -1,16 +1,20 @@
 import React from "react"
 import { useStore } from "@priolo/iistore";
-import {makeStyles} from "@material-ui/core/styles"
-import {Menu as MenuIcon} from "@material-ui/icons"
-import {AppBar, Toolbar, Typography, IconButton, LinearProgress} from "@material-ui/core"
+import { makeStyles } from "@material-ui/core/styles"
+import { Menu as MenuIcon } from "@material-ui/icons"
+import { AppBar, Toolbar, Typography, IconButton, LinearProgress } from "@material-ui/core"
 import CentralSpace from "./CentralSpace";
 import Avatar from "../app/Avatar";
+import { Switch, Route } from 'react-router-dom';
+import UserHeader from "../../pages/user/UserHeader";
+import DocHeader from "../../pages/doc/DocHeader";
 
 
-export default function () {
+
+function Header () {
 
 	const classes = useStyles()
-	const {state: layout, toggleDrawerIsOpen} = useStore("layout")
+	const { state: layout, toggleDrawerIsOpen } = useStore("layout")
 	const cnAppBar = `${classes.appBar} ${layout.drawerIsOpen ? classes.appBarShift : ""}`
 	const cnIconButton = `${classes.menuButton} ${layout.drawerIsOpen ? classes.hide : ""}`
 
@@ -26,7 +30,7 @@ export default function () {
 				>
 					<MenuIcon />
 				</IconButton>
-				
+
 				<CentralSpace
 					renderLeft={
 						<Typography variant="h6" noWrap className={classes.title}>
@@ -35,11 +39,17 @@ export default function () {
 					}
 					renderRight={<>
 						<div className={classes.grow}></div>
-						
 						<Avatar />
 					</>}
 				>
-
+					<Switch>
+						<Route path="/users">
+							<UserHeader />
+						</Route>
+						<Route path="/docs">
+							<DocHeader />
+						</Route>
+					</Switch>
 				</CentralSpace>
 
 			</Toolbar>
@@ -50,6 +60,7 @@ export default function () {
 	)
 }
 
+export default Header
 
 const useStyles = makeStyles(theme => ({
 	appBar: {

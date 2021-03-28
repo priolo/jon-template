@@ -6,11 +6,14 @@ const themeCommon = {
 	app: {
 		footerbar: {
 			height: 30,
-			zIndex: 1201
+			zIndex: 1201,
 		},
 		drawer: {
-			width: 240
-		}
+			width: 240,
+		},
+		header: {
+			height: 64,
+		},
 	}
 }
 

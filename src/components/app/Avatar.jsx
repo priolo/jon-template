@@ -42,7 +42,7 @@ export default function Avatar() {
 			onClose={handleClose}
 		>
 			<Box className={classes.box}>
-				<Typography variant="subtitle2">{auth.user.username}</Typography>
+				<Typography variant="subtitle2">{auth.user.email}</Typography>
 				<Typography variant="caption">({t(`app.roles.${auth.user.role}`)})</Typography>
 			</Box>
 
