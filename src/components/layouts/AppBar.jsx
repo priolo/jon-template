@@ -5,16 +5,17 @@ import { Menu as MenuIcon } from "@material-ui/icons"
 import { AppBar, Toolbar, Typography, IconButton, LinearProgress } from "@material-ui/core"
 import CentralSpace from "./CentralSpace";
 import Avatar from "../app/Avatar";
-import { Switch, Route } from 'react-router-dom';
 import UserHeader from "../../pages/user/UserHeader";
 import DocHeader from "../../pages/doc/DocHeader";
+import { useRoute } from "../../stores/route";
 
 
 
-function Header () {
+function Header() {
 
 	const classes = useStyles()
 	const { state: layout, toggleDrawerIsOpen } = useStore("layout")
+	const { state: route } = useRoute()
 	const cnAppBar = `${classes.appBar} ${layout.drawerIsOpen ? classes.appBarShift : ""}`
 	const cnIconButton = `${classes.menuButton} ${layout.drawerIsOpen ? classes.hide : ""}`
 
@@ -42,14 +43,12 @@ function Header () {
 						<Avatar />
 					</>}
 				>
-					<Switch>
-						<Route path="/users">
-							<UserHeader />
-						</Route>
-						<Route path="/docs">
-							<DocHeader />
-						</Route>
-					</Switch>
+
+					{{
+						"user.list": <UserHeader />,
+						"doc.list": <DocHeader />,
+					}[route.currentPage] ?? null}
+
 				</CentralSpace>
 
 			</Toolbar>

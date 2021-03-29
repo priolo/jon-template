@@ -1,22 +1,26 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 import { TableSortLabel } from '@material-ui/core';
 import React from 'react';
+import { useRoute } from '../stores/route';
 
 
 
 function TableSortProp ({
 	children,
 	name,
-	sortName,
-	isAsc,
-	onSort,
 }) {
+
+	const { state:route, getSearchUrl, setSort } = useRoute()
+	const active = getSearchUrl("sortName") == name
+	const direction = getSearchUrl("isAsc") ? "asc" : "desc"
+
+	const handleClickSort = e => setSort(name)
 
 	return (
 		<TableSortLabel
-			active={sortName == name}
-			direction={isAsc ? "asc" : "desc"}
-			onClick={() => onSort(name)}
+			active={active}
+			direction={direction}
+			onClick={handleClickSort}
 		>{children}
 		</TableSortLabel>
 	)

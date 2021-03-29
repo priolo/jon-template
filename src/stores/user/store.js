@@ -5,8 +5,7 @@ import i18n from "i18next";
 import { DIALOG_TYPES } from "../layout/utils";
 import { USER_ROLES } from "./utils";
 
-import sortStore from "../common/sort"
-import searchUrlStore from "../common/searchUrl";
+import { getStoreRoute } from "../route";
 
 
 /**
@@ -25,14 +24,15 @@ const store = {
 	},
 	getters: {
 		getList: (state, _, store) => {
+			const { getSearchUrl, getSorted } = getStoreRoute()
 			let users = [...state.all]
 
-			let txt = store.getSearchUrl("search").trim().toLowerCase()
+			let txt = getSearchUrl("search").trim().toLowerCase()
 			if (txt.length > 0) {
 				users = users.filter(i => i.email.toLowerCase().indexOf(txt) != -1)
 			}
-			users = store.getSorted(users)
-			return users;
+			users = getSorted(users)
+			return users
 		},
 		canSave: (state, _, store) => {
 			const { select: user, selectOrigin: original } = state
@@ -106,8 +106,4 @@ const store = {
 }
 
 
-export default mixStores(
-	store,
-	sortStore,
-	searchUrlStore,
-)
+export default store

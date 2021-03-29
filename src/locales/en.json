@@ -42,6 +42,8 @@
 				"title_new": "New document",
 				"title_edit": "Edit document",
 				"title": "Title",
+				"desc": "Description",
+				"link": "Link",
 				"author": "Author",
 				"save": "Save",
 				"cancel": "Cancel"

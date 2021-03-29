@@ -1,10 +1,12 @@
 import SearchBox from "../../components/SearchBox"
+import { useRoute } from "../../stores/route"
 import { useUser } from "../../stores/user"
 
 
 function UserHeader() {
 
-	const { state: user, setSearchUrl, getSearchUrl } = useUser()
+	const { state: user } = useUser()
+	const { getSearchUrl, setSearchUrl } = useRoute()
 
 	return (<>
 		<SearchBox

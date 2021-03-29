@@ -15,15 +15,17 @@ export default [
 	}),
 
 	// get
-	requestValidator("get", '/api/users/:id', (req, res, ctx) => {
+	requestValidator("get", '/api/docs/:id', (req, res, ctx) => {
 		if (req.cookies.token == null) return res(ctx.status(401))
 		const id = req.params.id
-		const item = list.find(item=>item.id==id)
-		if ( !item ) return res(ctx.status(404))
+
+		const doc = list.find(item=>item.id==id)
+		if ( !doc ) return res(ctx.status(404))
+		
 		return res(
 			ctx.delay(500),
 			ctx.status(200),
-			ctx.json(item)
+			ctx.json(doc)
 		)
 	}),
 

@@ -1,8 +1,6 @@
-import { mixStores } from "@priolo/iistore";
+import { mixStores } from "@priolo/iistore"
 import ajax from "../../plugins/AjaxService"
-import sortStore from "../common/sort"
-import searchUrlStore from "../common/searchUrl";
-import { getStoreUser } from "../user";
+import { getStoreRoute } from "../route"
 
 
 
@@ -13,10 +11,11 @@ const store = {
 	},
 	getters: {
 		getList: (state, _, store) => {
+			const { getSearchUrl, getSorted } = getStoreRoute()
 			let docs = [...state.all]
 
-			let txt = store.getSearchUrl("search").trim().toLowerCase()
-			let authorId = store.getSearchUrl("author")
+			let txt = getSearchUrl("search").trim().toLowerCase()
+			let authorId = getSearchUrl("author")
 			if (txt.length > 0 || authorId ) {
 				docs = docs.filter(doc => 
 					(!txt || doc.title.toLowerCase().indexOf(txt) != -1)
@@ -25,9 +24,8 @@ const store = {
 				)
 			}
 
-
-			//docs = store.getSorted(docs)
-			return docs;
+			docs = getSorted(docs)
+			return docs
 		},
 	},
 	actions: {
@@ -38,17 +36,24 @@ const store = {
 		},
 		fetchById: async (state, id, store) => {
 			const data = await ajax.get(`docs/${id}`);
-			store.setAll(data)
+			store.setSelect(data)
+			return data
+		},
+		edit: async (state, doc, store) => {
+			if (!doc) doc = {
+				title: "",
+				desc: "",
+				link: "",
+				author_id: null,
+			}
+			store.setSelect(doc)
 		},
 	},
 	mutators: {
 		setAll: (state, all) => ({ all }),
 		setSelect: (state, select) => ({ select }),
+		setSelectProp: (state, {name, value}) => ({ select: {...state.select, [name]: value} }),
 	},
 }
 
-export default mixStores(
-	store,
-	sortStore,
-	searchUrlStore,
-)
+export default store

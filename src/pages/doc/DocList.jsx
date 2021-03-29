@@ -12,7 +12,9 @@ import { useTranslation } from 'react-i18next';
 import { useDoc } from '../../stores/doc';
 import { useHistory } from 'react-router';
 import { useUser } from '../../stores/user';
+import { useRoute } from '../../stores/route';
 import { useMemo } from 'react';
+import TableSortProp from '../../components/TableSortProp';
 
 
 
@@ -23,11 +25,12 @@ function DocList() {
 	const history = useHistory()
 	const { state: doc, fetchAll, getList } = useDoc();
 	const { state: user, fetchAll: fetchAllUsers, getById: getUserById } = useUser()
+	const { state: route, setCurrentPage } = useRoute()
 	const { setTitle } = useLayout()
 	const classes = useStyles();
 
 	useEffect(() => {
-		setTitle(t("pag.user.title"))
+		setCurrentPage("doc.list")
 		if (user.all.length == 0) fetchAllUsers().then(() => fetchAll())
 		else fetchAll()
 	}, [])
@@ -36,7 +39,7 @@ function DocList() {
 	//PROPERTIES
 	const docs = useMemo(
 		() => getList(),
-		[doc.all, doc.queryUrl]
+		[doc.all, route.queryUrl]
 	)
 
 
@@ -66,9 +69,21 @@ function DocList() {
 			<Table className={classes.table} aria-label="simple table">
 				<TableHead>
 					<TableRow>
-						<TableCell>{t("pag.doc.tbl.title")}</TableCell>
-						<TableCell>{t("pag.doc.tbl.author")}</TableCell>
-						<TableCell>{t("pag.doc.tbl.link")}</TableCell>
+						<TableCell>
+							<TableSortProp name="title">
+								{t("pag.doc.tbl.title")}
+							</TableSortProp>
+						</TableCell>
+						<TableCell>
+							<TableSortProp name="author">
+								{t("pag.doc.tbl.author")}
+							</TableSortProp>
+						</TableCell>
+						<TableCell>
+							<TableSortProp name="link">
+								{t("pag.doc.tbl.link")}
+							</TableSortProp>
+						</TableCell>
 						<TableCell align="center" className={classes.actionsCell}>
 							{t("pag.user.tbl.actions")}
 						</TableCell>

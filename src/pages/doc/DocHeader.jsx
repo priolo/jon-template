@@ -3,12 +3,14 @@ import SearchBox from "../../components/SearchBox"
 import { FilterList as FiltersIcon } from '@material-ui/icons'
 import { useLayout } from "../../stores/layout"
 import { useDoc } from "../../stores/doc"
+import { useRoute } from "../../stores/route"
 
 
 function DocHeader() {
 
 	const { state: layout, setDrawerRightIsOpen } = useLayout()
-	const { state: doc, getSearchUrl, setSearchUrl } = useDoc()
+	const { state: doc } = useDoc()
+	const { getSearchUrl, setSearchUrl } = useRoute()
 
 	const notHaveFilter = !getSearchUrl("author")
 

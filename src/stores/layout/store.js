@@ -62,22 +62,10 @@ export default {
 		setTitle: (state, title) => ({ title }),
 		setFocus: (state, focus) => ({ focus }),
 
-		// searchIsVisible: true,
-		// searchText: "",
-		// sortName: null,
-		// sortIsAsc: true,
-
-		//setSearchIsVisible: (state, searchIsVisible) => ({ searchIsVisible }),
-		//setSearchText: (state, searchText) => ({ searchText }),
-		// setSort: (state, sortName) => {
-		// 	let sortIsAsc = state.sortName == sortName ? !state.sortIsAsc : state.sortIsAsc
-		// 	return { sortName, sortIsAsc }
-		// },
-
 		setDrawerIsOpen: (state, drawerIsOpen) => ({ drawerIsOpen }),
-		setDrawerRightIsOpen: (state, drawerRightIsOpen) => ({ drawerRightIsOpen }),
-
 		toggleDrawerIsOpen: (state) => ({ drawerIsOpen: !state.drawerIsOpen }),
+
+		setDrawerRightIsOpen: (state, drawerRightIsOpen) => ({ drawerRightIsOpen }),
 
 		toggleTheme: (state) => {
 			Cookies.set("theme", state.theme == themeLight ? "dark" : "light")

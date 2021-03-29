@@ -1,140 +1,43 @@
-/* eslint eqeqeq: "off" */
-import ajax from "../../plugins/AjaxService";
-
-import Cookies from 'js-cookie'
 import i18n from "i18next";
-import { getStoreLayout } from "../layout"
-import { DIALOG_TYPES } from "../layout/utils";
-import { validateAll } from "@priolo/iistore";
-
-
-let idPolling = null
 
 export default {
 	state: {
-		user: null, //{ id:<???>, email:<string>, has_to_change_password:<bool>, role:<???> }
-		token: Cookies.get('token'),
-
-		email: "",
-		oldpassword: "",
-		password: "",
-		repassword: "",
-		isChangePasswordOpen: false,
+		currentPage: "",
+		queryUrl: "",
 	},
 	getters: {
-		isLogged: state => state.token != null && state.user != null,
-		isRepassword: state => {
-			return state.user != null && state.user.has_to_change_password == true
+		getSearchUrl: (state, name, store) => {
+			const searchParams = new URLSearchParams(window.location.search)
+			return (searchParams.get(name) ?? "")
 		},
+		getTitleCurrentPage: (state, name, store) => {
+			return i18n.t(`pag.${state.currentPage}.title`)
+		},
+		getSorted: ( state, items, store) => {
+			const sortName = store.getSearchUrl("sortName")
+			const isAsc = store.getSearchUrl("isAsc") == "true"
+			return items.sort(
+				(a, b) => (a[sortName] < b[sortName] ? -1 : 1) * (isAsc ? 1 : -1)
+			)
+		}
 	},
 	actions: {
-		login: async (state, payload, store) => {
-			const { dialogOpen } = getStoreLayout()
-
-			const res = validateAll()
-			if ( res.length>0 ) {
-				dialogOpen({ type: DIALOG_TYPES.WARNING, text: i18n.t("dialog.login.form.text")})
-				return
-			}
-
-			const data = {
-				email: state.email,
-				password: state.password,
-			}
-			try {
-				const response = await ajax.post("auth/login", data)
-				store.resetTexts() // remove password from memory
-				store.setToken(response.access_token)
-			} catch (error) {
-				//dialogOpen({ type: DIALOG_TYPES.WARNING, text: i18n.t("app.auth.failed"), modal: false })
-				store.logout()
-				return
-			}
-			// msg success!!
-			dialogOpen({ type: DIALOG_TYPES.SUCCESS, text: i18n.t("app.auth.succeeded"), modal: false })
-			// get the user
-			await store.fetchCurrentUser()
-		},
-		logout: (state, { flash } = { flash: false }, store) => {
-			const { dialogOpen } = getStoreLayout()
-			store.stopPollingRefreshToken()
-			store.setToken(null)
-			store.setUser(null)
-			if (flash) dialogOpen({ type: DIALOG_TYPES.SUCCESS, text: i18n.t("app.auth.logout"), modal: false })
-		},
-		refresh: async (state, payload, store) => {
-			if (state.token == null) return
-			await store.fetchCurrentUser()
-		},
-		changePassword: async (state, payload, store) => {
-			const { dialogOpen } = getStoreLayout()
-			const data = {
-				old_password: state.oldpassword,
-				new_password: state.repassword,
-			}
-			store.resetTexts()
-
-			try {
-				await ajax.patch(`users/${state.user.id}/password`, data);
-			} catch (e) {
-				return { error: true }
-			}
-
-			dialogOpen({
-				type: "success",
-				text: i18n.t("pag.password.msg_success"),
-				modal: false,
-			})
-			store.setUser({ ...state.user, has_to_change_password: false })
-			return { error: false }
-		},
-		fetchCurrentUser: async (state, payload, store) => {
-			try {
-				const response = await ajax.get("auth/me");
-				store.setUser(response)
-				store.startPollingRefreshToken()
-			} catch (error) {
-				store.logout()
-			}
-		},
-		refreshToken: async (state, payload, store) => {
-			try {
-				const response = await ajax.get("auth/refresh", null, { noBusy: true });
-				store.setToken(response.access_token)
-			} catch (error) {
-				store.logout()
-			}
-		},
-		startPollingRefreshToken: (state, payload, store) => {
-			if (idPolling != null) return;
-			const delay = process.env.REACT_APP_TOKEN_POLLING_TIME != null ? +process.env.REACT_APP_TOKEN_POLLING_TIME : 720000
-			idPolling = setInterval(() => {
-				store.refreshToken()
-			}, delay)
-		},
-		stopPollingRefreshToken: (state, payload, store) => {
-			if (idPolling == null) return;
-			clearInterval(idPolling)
-			idPolling = null
-		},
+		
 	},
 	mutators: {
-		// [II] deve essere il layout che pesca lo user e adatta la lista non il contrario
-		setUser: (state, user, store) => ({ user }),
-		setToken: (state, token, store) => {
-			if (token == null) {
-				Cookies.remove('token');
-			} else {
-				Cookies.set('token', token) //, { expires: remember ? 365 : null });
-			}
-			return { token }
+		setSearchUrl: (state, { name, value }) => {
+			const queryParams = new URLSearchParams(window.location.search)
+			queryParams.set(name, value)
+			window.history.replaceState(null, null, "?" + queryParams.toString())
+			return { queryUrl: queryParams.toString() }
 		},
-		setIsChangePasswordOpen: (state, isChangePasswordOpen) => ({ isChangePasswordOpen }),
-
-		setEmail: (state, email) => ({ email }),
-		setPassword: (state, password) => ({ password }),
-		setOldPassword: (state, oldpassword) => ({ oldpassword }),
-		setRepassword: (state, repassword) => ({ repassword }),
-		resetTexts: (state) => ({ email: "", password: "", repassword: "", oldpassword: "" }),
+		setCurrentPage: (state, currentPage) => ({currentPage}),
+		setSort: (state, sortName, store) => {
+			const oldSortName = store.getSearchUrl("sortName")
+			const oldIsAsc = store.getSearchUrl("isAsc") == "true"
+			let sortIsAsc = oldSortName == sortName ? !oldIsAsc : oldIsAsc
+			store.setSearchUrl({name: "sortName", value: sortName})
+			store.setSearchUrl({name: "isAsc", value: sortIsAsc})
+		},
 	},
 }
