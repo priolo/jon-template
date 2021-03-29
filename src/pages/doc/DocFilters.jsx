@@ -5,18 +5,18 @@ import { useRoute } from "../../stores/route"
 
 function DocFilters() {
 
-	const { state: doc  } = useDoc()
+	const { state: doc } = useDoc()
 	const { getSearchUrl, setSearchUrl } = useRoute()
 
 	const handleChange = value => setSearchUrl({ name: "author", value })
 
-	return (<>
+	return (
 		<UserWriterSelector
 			label="Author"
 			value={getSearchUrl("author")}
 			onChange={handleChange}
 		/>
-	</>)
+	)
 }
 
 

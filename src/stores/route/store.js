@@ -19,6 +19,11 @@ export default {
 			return items.sort(
 				(a, b) => (a[sortName] < b[sortName] ? -1 : 1) * (isAsc ? 1 : -1)
 			)
+		},
+		haveSearchExtra: (state, name, store) => {
+			const searchParams = new URLSearchParams(window.location.search)
+			const keys = searchParams.keys()
+			return [...keys].some ( key => key!="sortName" || key!="isAsc" || key!="search")
 		}
 	},
 	actions: {

@@ -1,17 +1,33 @@
 import { Drawer, Grid, IconButton, makeStyles, Typography } from "@material-ui/core"
 import { Close as CloseIcon } from '@material-ui/icons'
 import { useLayout } from "../../stores/layout"
-import { Switch, Route } from 'react-router-dom';
 import DocFilters from "../../pages/doc/DocFilters";
+import { useRoute } from "../../stores/route";
+import { useEffect } from "react";
 
 
 function RightDrawer() {
 
 	const classes = useStyles()
 	const { state: layout, setDrawerRightIsOpen } = useLayout()
+	const { state:route, haveSearchExtra } = useRoute()
 
 
 	const handleClickClose = ()=> setDrawerRightIsOpen(false)
+
+	const renderCont = {
+		"doc.list": <DocFilters />,
+	}[route.currentPage] ?? null
+
+	const haveExtra = haveSearchExtra()
+
+	useEffect (()=>{
+		if ( !renderCont ) setDrawerRightIsOpen(false)
+		else if ( haveExtra ) setDrawerRightIsOpen(true)
+	},[route.currentPage,haveExtra])
+
+
+	
 
 	return (
 		<Drawer anchor="right" variant="persistent"
@@ -25,11 +41,7 @@ function RightDrawer() {
 					</IconButton>
 				</Grid>
 
-				<Switch>
-					<Route path="/docs">
-						<DocFilters />
-					</Route>
-				</Switch>
+				{renderCont}
 
 			</Grid>
 		</Drawer>
