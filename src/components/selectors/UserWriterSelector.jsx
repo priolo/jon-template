@@ -1,4 +1,4 @@
-import { FormControl, Grid, IconButton, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { FormControl, Grid, IconButton, InputAdornment, InputLabel, makeStyles, MenuItem, Select } from '@material-ui/core';
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +14,7 @@ function UserWriterSelector({
 	disabled,
 }) {
 
+	const classes = useStyles()
 	const { state: user, fetchAll } = useUser()
 
 	const handleClickClear = e => onChange("")
@@ -30,9 +31,11 @@ function UserWriterSelector({
 						value={value}
 						onChange={handleChange}
 						disabled={disabled}
-						Input={{
-							endAdornment: "P"
-						}}
+						endAdornment={<InputAdornment className={classes.selectAdornment} position="end">
+							{value && (<IconButton size="small" onClick={handleClickClear}>
+								<CloseIcon fontSize="small" />
+							</IconButton>)}
+						</InputAdornment>}
 					>
 						{user.all
 							.filter(user => user.role != USER_ROLES.CUSTOMER)
@@ -47,12 +50,20 @@ function UserWriterSelector({
 				</FormControl>
 			</Grid>
 			<Grid item >
-				<IconButton onClick={handleClickClear}>
-					<CloseIcon />
-				</IconButton>
+
 			</Grid>
 		</Grid>
 	)
 }
 
 export default UserWriterSelector
+
+
+
+
+
+const useStyles = makeStyles(theme => ({
+	selectAdornment: {
+		marginRight: theme.spacing(3),
+	},
+}));

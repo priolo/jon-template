@@ -13,13 +13,13 @@
 			}
 		},
 		"user": {
-			"title": "Users list",
-			"tbl": {
+			"list": {
+				"title": "Users list",
 				"email": "E-mail",
 				"role": "Role",
-				"actions": "Actions"
+				"actions": "Actions",
+				"btt_new": "New User"
 			},
-			"btt_new": "New User",
 			"dlg": {
 				"title_new": "New user",
 				"title_edit": "Edit user",
@@ -30,14 +30,14 @@
 			}
 		},
 		"doc": {
-			"title": "Documents list",
-			"tbl": {
-				"title": "Title",
+			"list": {
+				"title": "Documents list",
+				"title_doc": "Title",
 				"author": "Author",
 				"link": "Link",
-				"actions": "Actions"
+				"actions": "Actions",
+				"btt_new": "New Document"
 			},
-			"btt_new": "New Document",
 			"detail": {
 				"title_new": "New document",
 				"title_edit": "Edit document",

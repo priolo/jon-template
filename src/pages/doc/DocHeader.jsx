@@ -1,4 +1,4 @@
-import { Badge, IconButton } from "@material-ui/core"
+import { Badge, Grid, IconButton } from "@material-ui/core"
 import SearchBox from "../../components/SearchBox"
 import { FilterList as FiltersIcon } from '@material-ui/icons'
 import { useLayout } from "../../stores/layout"
@@ -16,17 +16,17 @@ function DocHeader() {
 
 	const handleClickFilter = e => setDrawerRightIsOpen(!layout.drawerRightIsOpen)
 
-	return (<>
+	return (<Grid container wrap="nowrap">
 		<SearchBox
 			value={getSearchUrl("search")}
 			onChange={value => setSearchUrl({ name: "search", value })}
 		/>
 		<Badge color="error" variant="dot" invisible={notHaveFilter} overlap="circle">
-			<IconButton onClick={handleClickFilter}>
+			<IconButton color="inherit" onClick={handleClickFilter}>
 				<FiltersIcon />
 			</IconButton>
 		</Badge>
-	</>)
+	</Grid>)
 }
 
 

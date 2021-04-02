@@ -2,12 +2,16 @@ import React from "react"
 import { useStore } from "@priolo/iistore";
 
 import {makeStyles} from "@material-ui/core/styles"
+import { useLayout } from "../../stores/layout";
 
 
-export default function ({children}) {
+
+function Body ({
+	children
+}) {
 
 	const classes = useStyles()
-	const {state: layout} = useStore("layout")
+	const {state: layout} = useLayout()
 	const cnContent = `${classes.content} ${layout.drawerIsOpen ? classes.contentShift : ""}`
 
 	return (
@@ -18,10 +22,13 @@ export default function ({children}) {
 	)
 }
 
+export default Body
+
 const useStyles = makeStyles((theme) => ({
 	content: {
-		flexGrow: 1,
-		padding: theme.spacing(3),
+		display:"flex", flexDirection:"column",
+		height: "100%",
+		//padding: theme.spacing(3),
 		transition: theme.transitions.create("margin", {
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.leavingScreen
@@ -37,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	drawerHeader: {
 		// necessary for content to be below app bar
+		flex: `0 1 ${theme.app.header}`,
 		...theme.mixins.toolbar
 	}
 }))

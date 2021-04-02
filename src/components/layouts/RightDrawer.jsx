@@ -10,10 +10,10 @@ function RightDrawer() {
 
 	const classes = useStyles()
 	const { state: layout, setDrawerRightIsOpen } = useLayout()
-	const { state:route, haveSearchExtra } = useRoute()
+	const { state: route, haveSearchExtra } = useRoute()
 
 
-	const handleClickClose = ()=> setDrawerRightIsOpen(false)
+	const handleClickClose = () => setDrawerRightIsOpen(false)
 
 	const renderCont = {
 		"doc.list": <DocFilters />,
@@ -21,13 +21,13 @@ function RightDrawer() {
 
 	const haveExtra = haveSearchExtra()
 
-	useEffect (()=>{
-		if ( !renderCont ) setDrawerRightIsOpen(false)
-		else if ( haveExtra ) setDrawerRightIsOpen(true)
-	},[route.currentPage,haveExtra])
+	useEffect(() => {
+		if (!renderCont) setDrawerRightIsOpen(false)
+		else if (haveExtra) setDrawerRightIsOpen(true)
+	}, [route.currentPage, haveExtra])
 
 
-	
+
 
 	return (
 		<Drawer anchor="right" variant="persistent"
@@ -52,7 +52,7 @@ export default RightDrawer
 
 const useStyles = makeStyles(theme => ({
 	container: {
-		marginTop: theme.app.header.height,
+		margin: `${theme.app.header.height}px 15px 10px 15px`,
 		width: theme.app.drawer.width,
 	}
 }));

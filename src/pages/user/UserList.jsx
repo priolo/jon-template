@@ -59,7 +59,7 @@ function UserPag() {
 				startIcon={<AddIcon />}
 				onClick={handleClickAdd}
 			>
-				{t("pag.user.btt_new")}
+				{t("pag.user.list.btt_new")}
 			</Button>
 		}
 	>
@@ -71,16 +71,16 @@ function UserPag() {
 					<TableRow>
 						<TableCell>
 							<TableSortProp name="email">
-								{t("pag.user.tbl.email")}
+								{t("pag.user.list.email")}
 							</TableSortProp>
 						</TableCell>
 						<TableCell>
 							<TableSortProp name="role">
-								{t("pag.user.tbl.role")}
+								{t("pag.user.list.role")}
 							</TableSortProp>
 						</TableCell>
 						<TableCell align="center" className={classes.actionsCell}>
-							{t("pag.user.tbl.actions")}
+							{t("pag.user.list.actions")}
 						</TableCell>
 					</TableRow>
 				</TableHead>

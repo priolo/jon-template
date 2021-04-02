@@ -1,36 +1,40 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Search as SearchIcon, Clear as ClearIcon} from '@material-ui/icons';
-import { InputBase, fade, IconButton } from '@material-ui/core';
+import { Search as SearchIcon, Clear as ClearIcon } from '@material-ui/icons';
+import { InputBase, fade, IconButton, Box } from '@material-ui/core';
 
 
-function SearchBox ({
+function SearchBox({
 	value,
 	onChange,
 }) {
 
-	const classes = useStyles();
+	const classes = useStyles()
+
+	const haveAdorner = value != null && value.length > 0
+	const handleChange = e => onChange(e?.target.value ?? "")
 
 	return (
-		<div className={classes.search}>
-			<div className={classes.searchIcon}>
-				<SearchIcon />
-			</div>
+		<div className={classes.searchBox}>
+
+			<SearchIcon className={classes.searchIcon} />
+
+			<Box ml={2} />
+
 			<InputBase
 				placeholder="Search…"
-				classes={{
-					root: classes.inputRoot,
-					input: classes.inputInput,
-				}}
+				className={classes.input}
 				value={value}
-				onChange={e=>onChange(e.target.value)}
-				endAdornment={value!=null && value.length>0 && (
-					<IconButton color="inherit" style={{padding: "0 5px"}}
-						onClick={e=>onChange("")}
+				onChange={handleChange}
+				endAdornment={haveAdorner && (
+					<IconButton 
+						className={classes.clearIcon} 
+						onClick={e => handleChange()}
 					><ClearIcon /></IconButton>
 				)}
 			/>
+
 		</div>
 	)
 }
@@ -39,32 +43,31 @@ export default SearchBox
 
 const useStyles = makeStyles((theme) => ({
 
-	search: {
-		position: 'relative', width: '100%',
+	searchBox: {
+		display: "flex",
+		alignItems: "center",
+		width: "100%",
+		minHeight: "48px",
+		padding: "0px 10px",
 		borderRadius: theme.shape.borderRadius,
 		backgroundColor: fade(theme.palette.common.white, 0.15),
 		'&:hover': {
 			backgroundColor: fade(theme.palette.common.white, 0.25),
 		},
 	},
+
 	searchIcon: {
-		padding: theme.spacing(0, 2),
-		height: '100%',
-		position: 'absolute',
-		pointerEvents: 'none',
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'center',
+		flex: "0 1 auto",
 	},
-	inputRoot: {
+
+	clearIcon: {
+		color: "inherit",
+		padding: "0 5px"
+	},
+
+	input: {
+		flex: "1 1 auto",
 		color: 'inherit',
-	},
-	inputInput: {
-		padding: theme.spacing(1, 1, 1, 0),
-		// vertical padding + font size from searchIcon
-		paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-		transition: theme.transitions.create('width'),
-		width: '100%',
 	},
 
 }));

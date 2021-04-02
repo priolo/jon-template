@@ -60,32 +60,32 @@ function DocList() {
 				startIcon={<AddIcon />}
 			//onClick={() => dialogOpen()}
 			>
-				{t("pag.user.btt_new")}
+				{t("pag.doc.list.btt_new")}
 			</Button>
 		}
 	>
 		<TableContainer component={Paper}>
 
-			<Table className={classes.table} aria-label="simple table">
+			<Table className={classes.table}>
 				<TableHead>
 					<TableRow>
 						<TableCell>
 							<TableSortProp name="title">
-								{t("pag.doc.tbl.title")}
+								{t("pag.doc.list.title_doc")}
 							</TableSortProp>
 						</TableCell>
 						<TableCell>
 							<TableSortProp name="author">
-								{t("pag.doc.tbl.author")}
+								{t("pag.doc.list.author")}
 							</TableSortProp>
 						</TableCell>
 						<TableCell>
 							<TableSortProp name="link">
-								{t("pag.doc.tbl.link")}
+								{t("pag.doc.list.link")}
 							</TableSortProp>
 						</TableCell>
 						<TableCell align="center" className={classes.actionsCell}>
-							{t("pag.user.tbl.actions")}
+							{t("pag.user.list.actions")}
 						</TableCell>
 					</TableRow>
 				</TableHead>

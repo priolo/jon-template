@@ -2,7 +2,7 @@ import React from "react"
 import { useStore } from "@priolo/iistore";
 import { makeStyles } from "@material-ui/core/styles"
 import { Menu as MenuIcon } from "@material-ui/icons"
-import { AppBar, Toolbar, Typography, IconButton, LinearProgress } from "@material-ui/core"
+import { AppBar, Toolbar, Typography, IconButton, LinearProgress, Grid, useTheme, useMediaQuery } from "@material-ui/core"
 import CentralSpace from "./CentralSpace";
 import Avatar from "../app/Avatar";
 import UserHeader from "../../pages/user/UserHeader";
@@ -14,29 +14,34 @@ import { useRoute } from "../../stores/route";
 function Header() {
 
 	const classes = useStyles()
+	const theme = useTheme();
+  	const matches = useMediaQuery(theme.breakpoints.up('md'));
 	const { state: layout, toggleDrawerIsOpen } = useStore("layout")
-	const { state: route } = useRoute()
+	const { state: route, getTitleCurrentPage } = useRoute()
+
 	const cnAppBar = `${classes.appBar} ${layout.drawerIsOpen ? classes.appBarShift : ""}`
-	const cnIconButton = `${classes.menuButton} ${layout.drawerIsOpen ? classes.hide : ""}`
+	const title = getTitleCurrentPage()
 
 	return (
 		<AppBar position="fixed" className={cnAppBar}>
 			<Toolbar>
-				<IconButton
-					color="inherit"
-					aria-label="open drawer"
-					onClick={toggleDrawerIsOpen}
-					edge="start"
-					className={cnIconButton}
-				>
-					<MenuIcon />
-				</IconButton>
 
 				<CentralSpace
+					isCentered
 					renderLeft={
-						<Typography variant="h6" noWrap className={classes.title}>
-							{layout.title}
-						</Typography>
+						<Grid container alignItems="center" wrap="nowrap">
+
+							{!layout.drawerIsOpen && <IconButton
+								onClick={toggleDrawerIsOpen}
+								edge="start"
+								className={classes.menuButton}
+							><MenuIcon /></IconButton>}
+
+							{matches && <Typography variant="h6" noWrap className={classes.title}>
+								{title}
+							</Typography>}
+							
+						</Grid>
 					}
 					renderRight={<>
 						<div className={classes.grow}></div>
@@ -78,13 +83,12 @@ const useStyles = makeStyles(theme => ({
 		}),
 	},
 	menuButton: {
-		marginRight: 36,
+		color: "inherit",
+		marginRight: "10px",
 	},
-	hide: {
-		display: 'none',
-	},
+
 	title: {
-		minWidth: "150px"
+		minWidth: "150px",
 	},
 	grow: {
 		flexGrow: 1,

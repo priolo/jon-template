@@ -31,7 +31,7 @@ const store = {
 			if (txt.length > 0) {
 				users = users.filter(i => i.email.toLowerCase().indexOf(txt) != -1)
 			}
-			users = getSorted(users)
+			users = getSorted({items: users})
 			return users
 		},
 		canSave: (state, _, store) => {

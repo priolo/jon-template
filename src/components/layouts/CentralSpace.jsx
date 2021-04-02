@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core'
+import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core'
 import React from 'react'
 
 
@@ -6,19 +6,21 @@ export default function CentralSpace ({
 	renderLeft,
 	renderRight,
 	children,
-	className
+	className,
+	isCentered = false,
 }) {
 
 	const classes = useStyles()
+	const cnContainer = `${classes.centralSpace} ${className??""} ${isCentered?"centered":""}`
 
 	return (
-		<div className={classes.container}>
+		<div className={cnContainer}>
 
 			<div className={classes.space}>
 				{renderLeft}
 			</div>
 
-			<div className={`${classes.body} ${className}`}>
+			<div className={classes.body}>
 				{children}
 			</div>
 
@@ -32,14 +34,19 @@ export default function CentralSpace ({
 
 const useStyles = makeStyles( theme => ({
 
-    container: {
-		display: "flex", flexDirection: "row", width: "100%", alignItems: "center"
+    centralSpace: {
+		display: "flex",
+		width: "100%", 
+		"&.centered": {
+			alignItems: "center"
+		}
 	},
 	space:  {
-		flex: "1 1 0%", display: "flex",
+		 display: "flex", flex: "1 1 0%",
 	},
 	body: {
-		display: "flex", flex: "3 1 0%",
+		//display: "flex", 
+		flex: "3 1 0%",
 		minWidth: "400px", maxWidth: "700px",
 	},
 	

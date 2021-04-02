@@ -6,23 +6,32 @@ export default {
 		queryUrl: "",
 	},
 	getters: {
+		getTitleCurrentPage: (state, _, store) => {
+			return i18n.t(`pag.${state.currentPage}.title`)
+		},
+
 		getSearchUrl: (state, name, store) => {
 			const searchParams = new URLSearchParams(window.location.search)
 			return (searchParams.get(name) ?? "")
 		},
-		getTitleCurrentPage: (state, name, store) => {
-			return i18n.t(`pag.${state.currentPage}.title`)
-		},
-		getSorted: ( state, items, store) => {
+		getSorted: ( state, {items, map}, store) => {
 			const sortName = store.getSearchUrl("sortName")
 			const isAsc = store.getSearchUrl("isAsc") == "true"
+			const extractor = map?.[sortName]
+			if ( !extractor ) {
+				return items.sort(
+					(a, b) => (a[sortName] < b[sortName] ? -1 : 1) * (isAsc ? 1 : -1)
+				)
+			}
 			return items.sort(
-				(a, b) => (a[sortName] < b[sortName] ? -1 : 1) * (isAsc ? 1 : -1)
+				(a, b) => extractor(a,b) * (isAsc ? 1 : -1)
 			)
 		},
 		haveSearchExtra: (state, name, store) => {
 			const searchParams = new URLSearchParams(window.location.search)
 			const keys = searchParams.keys()
+			console.log([...keys] )
+
 			return [...keys].some ( key => key!="sortName" || key!="isAsc" || key!="search")
 		}
 	},
@@ -45,4 +54,8 @@ export default {
 			store.setSearchUrl({name: "isAsc", value: sortIsAsc})
 		},
 	},
+}
+
+export const URL_PARAMS_COMMON = {
+
 }

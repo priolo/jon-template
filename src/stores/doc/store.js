@@ -11,7 +11,7 @@ const store = {
 	},
 	getters: {
 		getList: (state, _, store) => {
-			const { getSearchUrl, getSorted } = getStoreRoute()
+			const { getSearchUrl, fc00 } = getStoreRoute()
 			let docs = [...state.all]
 
 			let txt = getSearchUrl("search").trim().toLowerCase()
@@ -24,7 +24,7 @@ const store = {
 				)
 			}
 
-			docs = getSorted(docs)
+			docs = getSorted({items: docs})
 			return docs
 		},
 	},

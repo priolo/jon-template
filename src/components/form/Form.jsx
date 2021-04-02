@@ -15,7 +15,7 @@ export default function Form({
 		<div className={classes.frame}>
 
 			<CentralSpace
-				className={classes.body}
+				className={classes.content}
 				renderRight={renderMenu && (
 					<div className={classes.menu}>
 						{renderMenu}
@@ -38,12 +38,15 @@ export default function Form({
 
 const useStyles = makeStyles(theme => ({
 	frame: {
-		display: "flex", flexDirection: "column",
-		height: "100%",
+		flex: "1 1 auto", display: "flex", flexDirection: "column",
 	},
-	body: {
-		marginBottom: "50px",
+
+	content: {
+		flex: "1 1 auto",
 	},
+	// body: {
+	// 	marginBottom: "50px",
+	// },
 	menu: {
 		display: "flex", flexDirection: "column",
 		position: "sticky", top: "64px",
@@ -53,7 +56,7 @@ const useStyles = makeStyles(theme => ({
 		borderTop: "#e0e0e0 1px solid",
 		padding: "18px 0",
 		display: "flex", flexDirection: "row", alignItems: "center",
-		position: "sticky", zIndex: "1", bottom: `${theme.app.footerbar.height}px`,
+		position: "sticky", zIndex: "1", bottom: 0,//`${theme.app.footerbar.height}px`,
 		height: "70px",
 		backgroundColor: theme.palette.background.default,
 	},
