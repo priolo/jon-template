@@ -1,17 +1,21 @@
-import { mixStores } from "@priolo/iistore"
+
 import ajax from "../../plugins/AjaxService"
 import { getStoreRoute } from "../route"
-
+import { mixStores, ref, validateAll } from "@priolo/iistore"
+import { getStoreLayout } from "../layout"
+import { DIALOG_TYPES } from "../layout/utils"
+import i18n from "i18next";
 
 
 const store = {
 	state: {
 		all: [],
-		select: null
+		select: null,
+		selectOrigin: null,
 	},
 	getters: {
 		getList: (state, _, store) => {
-			const { getSearchUrl, fc00 } = getStoreRoute()
+			const { getSearchUrl, getSorted } = getStoreRoute()
 			let docs = [...state.all]
 
 			let txt = getSearchUrl("search").trim().toLowerCase()
@@ -26,6 +30,14 @@ const store = {
 
 			docs = getSorted({items: docs})
 			return docs
+		},
+		canSave: (state, _, store) => {
+			const { select: doc, selectOrigin: original } = state
+			return doc && !ref.isEqualDeep(doc, original)
+		},
+		isSelectChanged: (state, _, store) => {
+			const { select: doc, selectOrigin: original } = state
+			return doc && !ref.isEqualDeep(doc, original)
 		},
 	},
 	actions: {
@@ -48,10 +60,50 @@ const store = {
 			}
 			store.setSelect(doc)
 		},
+		save: async (state, _, store) => {
+			const { dialogOpen } = getStoreLayout()
+			const { select: doc } = state
+			if (!doc) return false
+
+			// validation
+			const errs = validateAll()
+			if ( errs.length > 0 ) return false
+
+			if (!doc.id) {
+				await ajax.post(`docs`, doc);
+			} else {
+				await ajax.put(`docs/${doc.id}`, doc);
+			}
+
+			store.setSelect(null)
+			dialogOpen({ type: DIALOG_TYPES.SUCCESS, text: i18n.t("dialog.feedback.create"), modal: false })
+			//window.history.back()
+			return true
+		},
+
+		destroy: async (state, doc, store) => {
+			const { dialogOpen } = getStoreLayout()
+			if (!doc) return
+
+			const res = await dialogOpen({
+				type: DIALOG_TYPES.WARNING,
+				title: i18n.t("dialog.feedback.delete.confirm.title"),
+				text: i18n.t("dialog.feedback.delete.confirm.text"),
+				labelOk: i18n.t("dialog.feedback.delete.confirm.yes"),
+				labelCancel: i18n.t("dialog.feedback.delete.confirm.no"),
+			})
+			if (!res) return
+
+			await ajax.delete(`docs/${doc.id}`);
+			dialogOpen({ type: DIALOG_TYPES.SUCCESS, text: i18n.t("dialog.feedback.delete.success"), modal: false })
+
+			store.fetchAll()
+		},
+
 	},
 	mutators: {
 		setAll: (state, all) => ({ all }),
-		setSelect: (state, select) => ({ select }),
+		setSelect: (state, selectOrigin) => ({ selectOrigin, select: selectOrigin ? { ...selectOrigin }: null }),
 		setSelectProp: (state, {name, value}) => ({ select: {...state.select, [name]: value} }),
 	},
 }

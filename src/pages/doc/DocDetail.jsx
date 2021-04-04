@@ -1,17 +1,17 @@
-import { Button, TextField } from "@material-ui/core";
-import { Add as AddIcon  } from "@material-ui/icons";
+import { Button, makeStyles, TextField } from "@material-ui/core";
+import { Add as AddIcon, Save  } from "@material-ui/icons";
 import { rules, useValidator } from "@priolo/iistore";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import Form from "../../components/form/Form";
 import FormParagraph from "../../components/form/FormParagraph";
 import FormRow from "../../components/form/FormRow";
 import UserWriterSelector from "../../components/selectors/UserWriterSelector";
+import { useConfirmationRouter } from "../../plugins/confirmationRouter";
 import { useDoc } from "../../stores/doc";
-import { useLayout } from "../../stores/layout";
 import { useRoute } from "../../stores/route";
-import { useUser } from "../../stores/user";
+
 
 
 function DocDetail() {
@@ -19,19 +19,21 @@ function DocDetail() {
 	// HOOKS
 	const { id } = useParams()
 	const { t } = useTranslation()
-	const { state: layout, setTitle } = useLayout()
-	const { state: doc, fetchById, edit, setSelectProp } = useDoc()
-	const { state: user, fetchAll: fetchAllUsers} = useUser()
+	const history = useHistory()
+	const classes = useStyles()
+
+	const { state: doc, fetchById, edit, setSelectProp, canSave,isSelectChanged, save } = useDoc()
 	const { setCurrentPage } = useRoute()
-	const titleProp = useValidator(doc.select.title, [rules.obligatory])
+	const titleProp = useValidator(doc.select?.title, [rules.obligatory])
 
 	useEffect(() => {
 		setCurrentPage("doc.detail")
 		if (!id) return
 		if (id == "new") edit()
 		else fetchById(id).then((doc) => edit(doc))
-		if (user.all.length == 0) fetchAllUsers()
 	}, [id])
+
+	useConfirmationRouter(isSelectChanged, [])
 
 
 
@@ -39,9 +41,11 @@ function DocDetail() {
 	const handleChangeTitle = e => setSelectProp({ name: "title", value: e.target.value })
 	const handleChangeDesc = e => setSelectProp({ name: "desc", value: e.target.value })
 	const handleChangeLink = e => setSelectProp({ name: "link", value: e.target.value })
-	const handleChangeAuthor = e => setSelectProp({ name: "author_id", value: e.target.value })
-	const handleClickCancel = e => console.log("handleClickCance")
-	const handleClickSave = e => console.log("handleClickSave")
+	const handleChangeAuthor = value => setSelectProp({ name: "author_id", value })
+	const handleClickCancel = e => history.goBack()
+	const handleClickSave = e => save().then((success)=>{
+		if ( success ) history.goBack()
+	})
 
 
 
@@ -57,6 +61,7 @@ function DocDetail() {
 				<Button variant="contained"
 					color="primary"
 					startIcon={<AddIcon />}
+					disabled={!canSave()}
 					onClick={handleClickSave}
 				>
 					{t("pag.doc.detail.save")}
@@ -99,3 +104,7 @@ function DocDetail() {
 }
 
 export default DocDetail
+
+const useStyles = makeStyles(theme => ({
+	
+}))

@@ -1,11 +1,12 @@
 import { getStoreLayout } from "../layout"
 import ajax from "../../plugins/AjaxService"
-import { mixStores, ref } from "@priolo/iistore"
+import { mixStores, ref, validateAll } from "@priolo/iistore"
 import i18n from "i18next";
 import { DIALOG_TYPES } from "../layout/utils";
 import { USER_ROLES } from "./utils";
 
 import { getStoreRoute } from "../route";
+import { LaptopWindows } from "@material-ui/icons";
 
 
 /**
@@ -62,7 +63,11 @@ const store = {
 		save: async (state, _, store) => {
 			const { dialogOpen } = getStoreLayout()
 			const { select: user } = state
-			if (!user) return
+			if (!user) return false
+
+			// validation
+			const errs = validateAll()
+			if ( errs.length > 0 ) return false
 
 			if (!user.id) {
 				await ajax.post(`users`, user);
@@ -73,7 +78,8 @@ const store = {
 			store.setDialogEditIsOpen(false)
 			store.setSelect(null)
 			dialogOpen({ type: DIALOG_TYPES.SUCCESS, text: i18n.t("dialog.feedback.create"), modal: false })
-			store.fetchAll()
+			//window.history.back()
+			return true
 		},
 
 		destroy: async (state, user, store) => {

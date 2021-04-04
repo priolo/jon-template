@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 
 import { useLayout } from '../../stores/layout';
 
-
 import { makeStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton, Button, Paper, Typography } from '@material-ui/core';
 import { Delete as DeleteIcon, Add as AddIcon } from '@material-ui/icons';
@@ -23,16 +22,16 @@ function DocList() {
 	// HOOKs
 	const { t } = useTranslation()
 	const history = useHistory()
-	const { state: doc, fetchAll, getList } = useDoc();
-	const { state: user, fetchAll: fetchAllUsers, getById: getUserById } = useUser()
+	const { state: doc, fetchAll, getList, destroy, setSelect } = useDoc();
+	const { state: user, getById: getUserById } = useUser()
 	const { state: route, setCurrentPage } = useRoute()
 	const { setTitle } = useLayout()
 	const classes = useStyles();
 
 	useEffect(() => {
 		setCurrentPage("doc.list")
-		if (user.all.length == 0) fetchAllUsers().then(() => fetchAll())
-		else fetchAll()
+		setSelect(null)
+		fetchAll()
 	}, [])
 
 
@@ -44,8 +43,12 @@ function DocList() {
 
 
 	//HANDLEs
-	const handleDelete = e => console.log("item.id")
 	const handleClickRow = id => history.push(`/docs/${id}`)
+	const handleClickNew = _ => history.push(`/docs/new`)
+	const handleClickDelete = (doc, e) => {
+		e.stopPropagation()
+		destroy(doc)
+	}
 
 
 	// RENDER
@@ -58,7 +61,7 @@ function DocList() {
 				variant="contained"
 				color="primary"
 				startIcon={<AddIcon />}
-			//onClick={() => dialogOpen()}
+				onClick={handleClickNew}
 			>
 				{t("pag.doc.list.btt_new")}
 			</Button>
@@ -101,7 +104,7 @@ function DocList() {
 							<TableCell >{doc.link}</TableCell>
 							<TableCell align="center" className={classes.actionsCell}>
 								<IconButton id="btt-delete"
-									onClick={handleDelete}
+									onClick={(e) => handleClickDelete(doc, e)}
 								><DeleteIcon /></IconButton>
 							</TableCell>
 						</TableRow>

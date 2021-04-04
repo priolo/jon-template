@@ -17,6 +17,10 @@ function UserWriterSelector({
 	const classes = useStyles()
 	const { state: user, fetchAll } = useUser()
 
+	useEffect(() => {
+		if ( user.all.length == 0 ) fetchAll()
+	}, [])
+
 	const handleClickClear = e => onChange("")
 	const handleChange = e => onChange(e.target.value)
 
