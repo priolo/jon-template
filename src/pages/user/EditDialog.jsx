@@ -8,6 +8,7 @@ import RolesSelector from '../../components/selectors/RolesSelector';
 import { useValidator, rules } from '@priolo/iistore';
 import { useHistory } from 'react-router';
 import { Link as LinkIcon } from '@material-ui/icons';
+import { USER_ROLES } from '../../stores/user/utils';
 
 
 
@@ -20,7 +21,7 @@ function EditDialog() {
 	const history = useHistory()
 	const uniqueUserRole = (value) => value != user.selectOrigin.email && user.all.some(user => user.email == value) ? "not.univoque" : null
 	const emailProps = useValidator(user.select?.email, [rules.obligatory, uniqueUserRole/*, rules.email*/])
-	const roleProp = useValidator(user.select?.role, [rules.obligatory])
+	const showLinkBook = user.select && user.select.id && user.select.role != USER_ROLES.CUSTOMER
 
 	
 	// HANDLEs
@@ -66,10 +67,10 @@ function EditDialog() {
 				</Grid>
 				<Box mt={2} />
 				<Grid container alignItems="center">
-					<Typography>Books</Typography>
-					<IconButton onClick={handleClickBook}>
-						<LinkIcon />
-					</IconButton>
+					{showLinkBook && <Button 
+						endIcon={<LinkIcon />}
+						onClick={handleClickBook}
+					>{t(`pag.user.dlg.btt_books`)}</Button>}
 				</Grid>
 
 			</DialogContent>

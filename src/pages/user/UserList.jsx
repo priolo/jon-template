@@ -89,6 +89,7 @@ function UserPag() {
 					{users.map(user => (
 
 						<TableRow hover key={user.id}
+							className={classes.row}
 							onClick={e => handleClickRow(user)}
 						>
 							<TableCell >{user.email}</TableCell>
@@ -117,6 +118,9 @@ export default UserPag
 const useStyles = makeStyles({
 	table: {
 		//minWidth: 650,
+	},
+	row: {
+		cursor: "pointer",
 	},
 	container: {
 		display: "flex",

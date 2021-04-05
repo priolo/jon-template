@@ -1,12 +1,11 @@
 import { getStoreLayout } from "../layout"
 import ajax from "../../plugins/AjaxService"
-import { mixStores, ref, validateAll } from "@priolo/iistore"
+import { ref, validateAll, resetAll } from "@priolo/iistore"
 import i18n from "i18next";
 import { DIALOG_TYPES } from "../layout/utils";
 import { USER_ROLES } from "./utils";
 
 import { getStoreRoute } from "../route";
-import { LaptopWindows } from "@material-ui/icons";
 
 
 /**
@@ -57,6 +56,7 @@ const store = {
 				role: USER_ROLES.CUSTOMER
 			}
 			store.setSelect(user)
+			resetAll()
 			store.setDialogEditIsOpen(true)
 		},
 

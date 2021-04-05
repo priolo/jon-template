@@ -96,7 +96,8 @@ function DocList() {
 				<TableBody>
 					{docs.map(doc => (
 
-						<TableRow hover key={doc.id}
+						<TableRow hover key={doc.id} 
+							className={classes.row}
 							onClick={e => handleClickRow(doc.id)}
 						>
 							<TableCell >{doc.title}</TableCell>
@@ -126,6 +127,9 @@ export default DocList
 const useStyles = makeStyles({
 	table: {
 		//minWidth: 650,
+	},
+	row: {
+		cursor: "pointer",
 	},
 	container: {
 		display: "flex",
