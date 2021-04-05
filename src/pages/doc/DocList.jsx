@@ -26,7 +26,7 @@ function DocList() {
 	const { state: user, getById: getUserById } = useUser()
 	const { state: route, setCurrentPage } = useRoute()
 	const { setTitle } = useLayout()
-	const classes = useStyles();
+	const classes = useStyles()
 
 	useEffect(() => {
 		setCurrentPage("doc.list")

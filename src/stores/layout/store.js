@@ -1,5 +1,5 @@
 import { themeLight, themeDark } from "../../theme"
-import { Person } from '@material-ui/icons';
+import { People, Description } from '@material-ui/icons';
 import Cookies from "js-cookie";
 import { DIALOG_TYPES } from "./utils";
 import i18n from "i18next";
@@ -20,8 +20,8 @@ export default {
 		theme: Cookies.get('theme') == "dark" ? themeDark : themeLight,
 
 		menu: [
-			{ label: "Users", icon: Person, route: "/users" },
-			{ label: "Docs", icon: Person, route: "/docs" },
+			{ label: "Users", icon: People, route: "/users" },
+			{ label: "Docs", icon: Description, route: "/docs" },
 		],
 
 		dialogIsOpen: false,
