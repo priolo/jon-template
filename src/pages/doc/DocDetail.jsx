@@ -1,5 +1,5 @@
-import { Button, makeStyles, TextField } from "@material-ui/core";
-import { Add as AddIcon, Save  } from "@material-ui/icons";
+import { Box, Button, makeStyles, TextField } from "@material-ui/core";
+import { Add as AddIcon, Save } from "@material-ui/icons";
 import { rules, useValidator } from "@priolo/iistore";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -22,9 +22,10 @@ function DocDetail() {
 	const history = useHistory()
 	const classes = useStyles()
 
-	const { state: doc, fetchById, edit, setSelectProp, canSave,isSelectChanged, save } = useDoc()
+	const { state: doc, fetchById, edit, setSelectProp, canSave, isSelectChanged, save } = useDoc()
 	const { setCurrentPage } = useRoute()
 	const titleProp = useValidator(doc.select?.title, [rules.obligatory])
+	const linkProp = useValidator(doc.select?.link, [rules.url])
 
 	useEffect(() => {
 		setCurrentPage("doc.detail")
@@ -43,8 +44,8 @@ function DocDetail() {
 	const handleChangeLink = e => setSelectProp({ name: "link", value: e.target.value })
 	const handleChangeAuthor = value => setSelectProp({ name: "author_id", value })
 	const handleClickCancel = e => history.goBack()
-	const handleClickSave = e => save().then((success)=>{
-		if ( success ) history.goBack()
+	const handleClickSave = e => save().then((success) => {
+		if (success) history.goBack()
 	})
 
 
@@ -55,9 +56,6 @@ function DocDetail() {
 	return (
 		<Form
 			renderFooter={<>
-				<Button onClick={handleClickCancel}>
-					{t("pag.doc.detail.cancel")}
-				</Button>
 				<Button variant="contained"
 					color="primary"
 					startIcon={<AddIcon />}
@@ -66,11 +64,15 @@ function DocDetail() {
 				>
 					{t("pag.doc.detail.save")}
 				</Button>
+				<Box ml={2} />
+				<Button onClick={handleClickCancel}>
+					{t("pag.doc.detail.cancel")}
+				</Button>
 			</>}
 		>
-			<FormParagraph title={t("pag.doc.detail.title")}>
+			<FormParagraph title={t("pag.doc.detail.title_form")}>
 
-				<FormRow label={t("pag.doc.detail.title")}>
+				<FormRow label={t("pag.doc.detail.title_field")}>
 					<TextField autoFocus fullWidth
 						{...titleProp}
 						value={doc.select.title}
@@ -87,6 +89,7 @@ function DocDetail() {
 
 				<FormRow label={t("pag.doc.detail.link")}>
 					<TextField fullWidth
+						{...linkProp}
 						value={doc.select.link}
 						onChange={handleChangeLink}
 					/>
@@ -106,5 +109,5 @@ function DocDetail() {
 export default DocDetail
 
 const useStyles = makeStyles(theme => ({
-	
+
 }))

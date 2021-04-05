@@ -1,5 +1,5 @@
 import React from 'react'
-import { makeStyles } from "@material-ui/core"
+import { Grid, makeStyles } from "@material-ui/core"
 import CentralSpace from '../layouts/CentralSpace'
 
 
@@ -27,7 +27,7 @@ export default function Form({
 
 			{renderFooter && (
 				<CentralSpace className={classes.footer}>
-					{renderFooter}
+					<Grid container>{renderFooter}</Grid>
 				</CentralSpace>
 			)}
 

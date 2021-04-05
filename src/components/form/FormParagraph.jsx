@@ -42,6 +42,7 @@ export default function FormParagraph({
 const useStyles = makeStyles((theme) => ({
 	root: {
 		padding: "9px 16px 16px 16px",
+		marginTop: theme.spacing(3),
 		marginBottom: theme.spacing(3),
 		width: "100%",
 	},

@@ -7,10 +7,10 @@ export default [
 
 	// login
 	rest.post('/api/auth/login', (req, res, ctx) => {
-		const { email, password } = req.body
-		if (!email || !password) return res(ctx.status(500))
+		const { username, password } = req.body
+		if (!username || !password) return res(ctx.status(500))
 
-		const user = users.find(u => u.email == email && u.password == password);
+		const user = users.find(u => u.username == username && u.password == password);
 		if (!user) return res(
 			ctx.status(400),
 			ctx.json({ "errors": [{ "code": "password_match", "field": "password" }] })

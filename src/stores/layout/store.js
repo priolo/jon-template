@@ -1,5 +1,5 @@
 import { themeLight, themeDark } from "../../theme"
-import { Dashboard, Person } from '@material-ui/icons';
+import { Person } from '@material-ui/icons';
 import Cookies from "js-cookie";
 import { DIALOG_TYPES } from "./utils";
 import i18n from "i18next";
@@ -14,10 +14,6 @@ export default {
 		busy: false,
 		title: "...",
 		focus: "",
-		//searchIsVisible: true,
-		//searchText: "",
-		//sortName: null,
-		//sortIsAsc: true,
 		drawerIsOpen: true,
 		drawerRightIsOpen: false,
 
@@ -34,12 +30,6 @@ export default {
 	getters: {
 		getDrawerList: (state, payload, store) => {
 			return state.menu
-			// const { state: auth } = getStoreAuth()
-			// return auth.user == null
-			// 	? guestMenu
-			// 	: auth.user.role == 100
-			// 		? manuAdmin
-			// 		: crewMenu
 		},
 		isDarkTheme: (state, payload, store) => state.theme == themeDark,
 	},

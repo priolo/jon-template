@@ -1,21 +1,18 @@
 import React from "react"
-import { useStore } from "@priolo/iistore";
 
 import {makeStyles} from "@material-ui/core/styles"
-import {Divider, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core"
+import {Divider, Drawer, IconButton, List } from "@material-ui/core"
 import {ChevronLeft as ChevronLeftIcon} from "@material-ui/icons"
 
-import { useHistory } from "react-router-dom";
 import { useLayout } from "../../stores/layout";
+import ItemMenu from "./ItemMenu";
 
 
 export default function () {
 
 	const {state: layout, toggleDrawerIsOpen, getDrawerList} = useLayout()
 	const classes = useStyles()
-	const history = useHistory()
-	const handleClick = item => history.push(item.route)
-
+	
 	return (
 		<Drawer
 			variant="persistent"
@@ -30,15 +27,8 @@ export default function () {
 			</div>
 			<Divider />
 			<List>
-				{getDrawerList().map( (item, index) => (
-					<ListItem button key={item.label} 
-						onClick={() => handleClick(item)} 
-					>
-						<ListItemIcon>
-							<item.icon />
-						</ListItemIcon>
-						<ListItemText primary={item.label} />
-					</ListItem>
+				{getDrawerList().map( item => (
+					<ItemMenu value={item} key={item.label}/>
 				))}
 			</List>
 		</Drawer>

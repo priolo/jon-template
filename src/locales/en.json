@@ -15,7 +15,7 @@
 		"user": {
 			"list": {
 				"title": "Users list",
-				"email": "E-mail",
+				"username": "Name",
 				"role": "Role",
 				"actions": "Actions",
 				"btt_new": "New User"
@@ -23,6 +23,7 @@
 			"dlg": {
 				"title_new": "New user",
 				"title_edit": "Edit user",
+				"username": "Name",
 				"email": "Email",
 				"role": "Role",
 				"save": "Save",
@@ -40,9 +41,9 @@
 				"btt_new": "New Document"
 			},
 			"detail": {
-				"title_new": "New document",
-				"title_edit": "Edit document",
-				"title": "Title",
+				"title": "Document",
+				"title_form": "",
+				"title_field": "Title",
 				"desc": "Description",
 				"link": "Link",
 				"author": "Author",
@@ -64,7 +65,7 @@
 		},
 		"login": {
 			"title": "Sign in",
-			"email": "Email",
+			"username": "Username",
 			"password": "Password",
 			"signin": "Sign in"
 		},
@@ -76,6 +77,11 @@
 			"btt_change": "Change",
 			"btt_logout": "Sign out",
 			"msg_success": "password changed successfully"
+		}
+	},
+	"drawer":{
+		"rigth": {
+			"title": "Filters"
 		}
 	},
 	"validation": {
@@ -124,7 +130,7 @@
 					"ok": "Ok"
 				},
 				"password_match": {
-					"title": "Wrong email or password",
+					"title": "Wrong username or password",
 					"text": "We couldn't find your account.\nPlease try again or contact the administrator",
 					"ok": "Ok, I will!"
 				}
@@ -139,7 +145,7 @@
 			"users": {
 				"unique": {
 					"title": "Ooops...",
-					"text": "email already exists. Try to change it"
+					"text": "username already exists. Try to change it"
 				},
 				"old_password_match": {
 					"title": "Mmmm...",
@@ -177,24 +183,6 @@
 		}
 	},
 	"app":{
-		
-		"drawer": {
-			"dashboard": "Dashboard",
-			"ship": "Ship",
-			"antenna1": "Antenna 1",
-			"antenna2": "Antenna 2",
-			"satellite": "Satellites",
-			"slu": "SLU",
-			"antennasys": "Antenna System",
-			"chart": "Chart",
-			"admin": {
-				"title": "Administration",
-				"user": "User",
-				"network": "Network",
-				"diagnostic": "Diagnostic",
-				"firmware": "Firmware"
-			}
-		},
 		"avatar": {
 			"profile": "My Profile",
 			"logout": "Sign out",
@@ -209,84 +197,6 @@
 			"failed": "I couldn't find your account. Try again",
 			"succeeded": "you have logged in successfully",
 			"logout": "you have logged out successfully"
-		},
-		"socket": {
-			"ico": {
-				"connected": "connected",
-				"retry": "retry",
-				"error": "error"
-			},
-			"dialog": {
-				"error": {
-					"title": "Socket connection error",
-					"text": "I can't connect to the server.\nTry to check the connection",
-					"ok": "Ok"
-				}
-			}
-		},
-		"tooltip": {
-			"clipboard": "copy to clipboard"
-		},
-		"footer": {
-			"antenna":{
-				"antenna": "Antenna",
-				"state": "State",
-				"satellite": "Satellite select",
-				"signal": "Signal value"
-			}
-		},
-		"antenna":{
-			"number": {
-				"1": "Antenna 1",
-				"2": "Antenna 2"
-			},
-			"mode": {
-				"null": "unknown",
-				"0": "unknown",
-				"1": "basic",
-				"2": "search",
-				"3": "tracking"
-			},
-			"modesys": {
-				"null": "--",
-				"1": "standalone",
-				"2": "backup"
-			},
-			"band": {
-				"null": "--",
-				"1": "ka",
-				"2": "ku",
-				"3": "x",
-				"4": "ka-x"
-			},
-			"enabled": {
-				"null": "--",
-				"true": "enabled",
-				"false": "disabled"
-			},
-			"shared": {
-				"null": "--",
-				"true": "shared",
-				"false": "not shared"
-			}
-		},
-		"satellite": {
-			"polarization": {
-				"H": "horizontal",
-				"V": "vertical"
-			}
-		},
-		"chart": {
-			"enabled": {
-				"RELATIVE_AZIMUTH": "Rel. Azimut",
-				"HEADING": "Heading",
-				"RELATIVE_ELEVATION": "Rel. Elevation",
-				"SIGNAL": "Signal"
-			},
-			"aggregate": {
-				"true": "Single",
-				"false": "Multi"
-			}
 		}
 	}
 }

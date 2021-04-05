@@ -17,10 +17,10 @@ export default function LogIn() {
 
 	const classes = useStyles()
 	const { t } = useTranslation()
-	const { state: auth, setEmail, setPassword, login } = useAuth()
+	const { state: auth, setUsername, setPassword, login } = useAuth()
 	const { state: layout } = useLayout()
 
-	const emailProp = useValidator(auth.email, [rules.obligatory/*,rules.email*/])
+	const usernameProp = useValidator(auth.username, [rules.obligatory/*,rules.email*/])
 	const pswProp = useValidator(auth.password, [rules.obligatory])
 
 	// useEffect(() => {
@@ -40,13 +40,13 @@ export default function LogIn() {
 				</Typography>
 
 				<TextField fullWidth autoFocus
-					{...emailProp}
+					{...usernameProp}
 					disabled={layout.busy}
-					label={t("pag.login.email")}
+					label={t("pag.login.username")}
 					variant="outlined"
 					margin="normal"
-					value={auth.email}
-					onChange={e => setEmail(e.target.value)}
+					value={auth.username}
+					onChange={e => setUsername(e.target.value)}
 				/>
 
 				<TextField fullWidth

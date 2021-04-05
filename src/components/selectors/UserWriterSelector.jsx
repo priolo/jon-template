@@ -45,7 +45,7 @@ function UserWriterSelector({
 							.filter(user => user.role != USER_ROLES.CUSTOMER)
 							.map((user) => (
 								<MenuItem key={user.id} value={user.id}>
-									{user.email}
+									{user.username}
 								</MenuItem>
 							))
 						}

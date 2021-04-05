@@ -29,7 +29,10 @@ const store = {
 
 			let txt = getSearchUrl("search").trim().toLowerCase()
 			if (txt.length > 0) {
-				users = users.filter(i => i.email.toLowerCase().indexOf(txt) != -1)
+				users = users.filter(user => 
+					user.username.toLowerCase().indexOf(txt) != -1
+					|| user.email.toLowerCase().indexOf(txt) != -1
+				)
 			}
 			users = getSorted({items: users})
 			return users
@@ -52,6 +55,7 @@ const store = {
 
 		edit: async (state, user, store) => {
 			if (!user) user = {
+				username: "",
 				email: "",
 				role: USER_ROLES.CUSTOMER
 			}
@@ -107,6 +111,7 @@ const store = {
 		setDialogEditIsOpen: (state, dialogEditIsOpen) => ({ dialogEditIsOpen }),
 		setSelect: (state, selectOrigin) => ({ selectOrigin, select: { ...selectOrigin } }),
 		setEmail: (state, email) => ({ select: { ...state.select, email } }),
+		setUsername: (state, username) => ({ select: { ...state.select, username } }),
 		setRole: (state, role) => ({ select: { ...state.select, role } }),
 	},
 }

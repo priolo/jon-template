@@ -53,7 +53,7 @@ function DocList() {
 
 	// RENDER
 
-	if (!doc.all || doc.all.length == 0) return <Typography>NUN C'E' NULLA!!!</Typography>
+	if (!doc.all || doc.all.length == 0) return null
 
 	return (<Form
 		renderFooter={
@@ -101,7 +101,7 @@ function DocList() {
 							onClick={e => handleClickRow(doc.id)}
 						>
 							<TableCell >{doc.title}</TableCell>
-							<TableCell >{getUserById(doc.author_id)?.email}</TableCell>
+							<TableCell >{getUserById(doc.author_id)?.username}</TableCell>
 							<TableCell >{doc.link}</TableCell>
 							<TableCell align="center" className={classes.actionsCell}>
 								<IconButton id="btt-delete"

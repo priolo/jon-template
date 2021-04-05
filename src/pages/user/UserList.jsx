@@ -49,7 +49,7 @@ function UserPag() {
 
 	// RENDER
 
-	if (!user.all || user.all.length == 0) return <Typography>NUN C'E' NULLA!!!</Typography>
+	if (!user.all || user.all.length == 0) return null
 
 	return (<Form
 		renderFooter={
@@ -70,8 +70,8 @@ function UserPag() {
 				<TableHead>
 					<TableRow>
 						<TableCell>
-							<TableSortProp name="email">
-								{t("pag.user.list.email")}
+							<TableSortProp name="username">
+								{t("pag.user.list.username")}
 							</TableSortProp>
 						</TableCell>
 						<TableCell>
@@ -92,7 +92,7 @@ function UserPag() {
 							className={classes.row}
 							onClick={e => handleClickRow(user)}
 						>
-							<TableCell >{user.email}</TableCell>
+							<TableCell >{user.username}</TableCell>
 							<TableCell >{t(`app.roles.${user.role}`)}</TableCell>
 							<TableCell align="center" className={classes.actionsCell}>
 								<IconButton id="btt-delete"

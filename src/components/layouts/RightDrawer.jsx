@@ -4,11 +4,13 @@ import { useLayout } from "../../stores/layout"
 import DocFilters from "../../pages/doc/DocFilters";
 import { useRoute } from "../../stores/route";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 
 function RightDrawer() {
 
 	const classes = useStyles()
+	const { t } = useTranslation()
 	const { state: layout, setDrawerRightIsOpen } = useLayout()
 	const { state: route, haveSearchExtra } = useRoute()
 
@@ -36,6 +38,9 @@ function RightDrawer() {
 			<Grid container direction="column" className={classes.container}>
 
 				<Grid item container alignItems="center">
+					<Grid xs item>
+						<Typography>{t("drawer.rigth.title")}</Typography>
+					</Grid>
 					<IconButton onClick={handleClickClose}>
 						<CloseIcon />
 					</IconButton>
@@ -52,7 +57,8 @@ export default RightDrawer
 
 const useStyles = makeStyles(theme => ({
 	container: {
-		margin: `${theme.app.header.height}px 15px 10px 15px`,
+		margin: `${theme.app.header.height+10}px 15px 10px 15px`,
 		width: theme.app.drawer.width,
 	}
+	
 }));

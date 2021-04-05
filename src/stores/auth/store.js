@@ -5,17 +5,17 @@ import Cookies from 'js-cookie'
 import i18n from "i18next";
 import { getStoreLayout } from "../layout"
 import { DIALOG_TYPES } from "../layout/utils";
-import { validateAll } from "@priolo/iistore";
+import { validateAll, resetAll } from "@priolo/iistore";
 
 
 let idPolling = null
 
 export default {
 	state: {
-		user: null, //{ id:<???>, email:<string>, has_to_change_password:<bool>, role:<???> }
+		user: null, //{ id:<???>, username:<string>, has_to_change_password:<bool>, role:<???> }
 		token: Cookies.get('token'),
 
-		email: "",
+		username: "",
 		oldpassword: "",
 		password: "",
 		repassword: "",
@@ -32,13 +32,13 @@ export default {
 			const { dialogOpen } = getStoreLayout()
 
 			const res = validateAll()
-			if ( res.length>0 ) {
-				dialogOpen({ type: DIALOG_TYPES.WARNING, text: i18n.t("dialog.login.form.text")})
+			if (res.length > 0) {
+				dialogOpen({ type: DIALOG_TYPES.WARNING, text: i18n.t("dialog.login.form.text") })
 				return
 			}
 
 			const data = {
-				email: state.email,
+				username: state.username,
 				password: state.password,
 			}
 			try {
@@ -131,10 +131,13 @@ export default {
 		},
 		setIsChangePasswordOpen: (state, isChangePasswordOpen) => ({ isChangePasswordOpen }),
 
-		setEmail: (state, email) => ({ email }),
+		setUsername: (state, username) => ({ username }),
 		setPassword: (state, password) => ({ password }),
 		setOldPassword: (state, oldpassword) => ({ oldpassword }),
 		setRepassword: (state, repassword) => ({ repassword }),
-		resetTexts: (state) => ({ email: "", password: "", repassword: "", oldpassword: "" }),
+		resetTexts: (state) => {
+			resetAll()
+			return { username: "", password: "", repassword: "", oldpassword: "" }
+		},
 	},
 }

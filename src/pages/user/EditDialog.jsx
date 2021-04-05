@@ -15,18 +15,20 @@ import { USER_ROLES } from '../../stores/user/utils';
 function EditDialog() {
 
 	// HOOKs
-	const { state: user, setEmail, setRole, save, canSave, setDialogEditIsOpen } = useUser()
+	const { state: user, setEmail, setUsername, setRole, save, canSave, setDialogEditIsOpen } = useUser()
 	const { t } = useTranslation();
 	const classes = useStyles()
 	const history = useHistory()
-	const uniqueUserRole = (value) => value != user.selectOrigin.email && user.all.some(user => user.email == value) ? "not.univoque" : null
-	const emailProps = useValidator(user.select?.email, [rules.obligatory, uniqueUserRole/*, rules.email*/])
+	const uniqueUserRole = (value) => value != user.selectOrigin.username && user.all.some(user => user.username == value) ? "not.univoque" : null
+	const usernameProps = useValidator(user.select?.username, [rules.obligatory, uniqueUserRole])
+	const emailProps = useValidator(user.select?.email, [rules.email])
 	const showLinkBook = user.select && user.select.id && user.select.role != USER_ROLES.CUSTOMER
 
-	
+
 	// HANDLEs
 	const handleCloseDialog = e => setDialogEditIsOpen(false)
 	const handleChangeEmail = e => setEmail(e.target.value)
+	const handleChangeUsername = e => setUsername(e.target.value)
 	const handleChangeRole = e => setRole(e.target.value)
 	const handleClickSave = e => save()
 	const handleClickBook = e => history.push(`/docs?author=${user.select.id}`)
@@ -50,6 +52,16 @@ function EditDialog() {
 
 				<Grid item sm>
 					<TextField autoFocus fullWidth
+						{...usernameProps}
+						label={t(`pag.user.dlg.username`)}
+						margin="dense"
+						value={user.select.username}
+						onChange={handleChangeUsername}
+					/>
+				</Grid>
+				<Box mt={2} />
+				<Grid item sm>
+					<TextField autoFocus fullWidth
 						{...emailProps}
 						label={t(`pag.user.dlg.email`)}
 						margin="dense"
@@ -60,14 +72,13 @@ function EditDialog() {
 				<Box mt={2} />
 				<Grid item>
 					<RolesSelector label={t(`pag.user.dlg.role`)}
-						//{...roleProps}
 						value={user.select.role}
 						onChange={handleChangeRole}
 					/>
 				</Grid>
 				<Box mt={2} />
 				<Grid container alignItems="center">
-					{showLinkBook && <Button 
+					{showLinkBook && <Button
 						endIcon={<LinkIcon />}
 						onClick={handleClickBook}
 					>{t(`pag.user.dlg.btt_books`)}</Button>}

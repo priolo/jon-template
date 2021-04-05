@@ -9,7 +9,7 @@ export default [
 
 	// index
 	requestValidator("get", '/api/users', (req, res, ctx) => {
-		const users = list.map(({ id, email, role }) => ({ id, email, role }))
+		const users = list.map(({ id, username, email, role }) => ({ id, username, email, role }))
 		return res(
 			ctx.delay(500),
 			ctx.status(200),
@@ -26,6 +26,7 @@ export default [
 		if (!user) return res(ctx.status(404))
 		user = {
 			id: user.id,
+			username: user.username,
 			email: user.email,
 			role: user.role,
 		}
@@ -40,21 +41,22 @@ export default [
 	// create
 	requestValidator("post", '/api/users', (req, res, ctx) => {
 		if (req.cookies.token == null) return res(ctx.status(401))
-		const { email, role } = req.body;
+		const { username, email, role } = req.body;
 
 		// check params
-		if (email == null) return res(ctx.status(500))
+		if (username == null) return res(ctx.status(500))
 
 		// check univocity
-		const index = list.findIndex(user => user.email == email);
+		const index = list.findIndex(user => user.username == username);
 		if (index != -1) return res(
 			ctx.status(400),
-			ctx.json({ "errors": [{ "code": "unique", "field": "email" }] })
+			ctx.json({ "errors": [{ "code": "unique", "field": "username" }] })
 		)
 
 		// create and add
 		const user = {
 			id: Math.floor(Math.random()*9999),
+			username,
 			email, 
 			role 
 		}
@@ -70,7 +72,7 @@ export default [
 	// update
 	requestValidator("put", '/api/users/:id', (req, res, ctx) => {
 		if (req.cookies.token == null) return res(ctx.status(401))
-		const { email, role } = req.body
+		const { username, email, role } = req.body
 		const id = req.params.id
 
 		// find item
@@ -78,7 +80,7 @@ export default [
 		if (index == -1) return res(ctx.status(404))
 
 		// modify item
-		const user = { ...list[index], ...{ email, role } }
+		const user = { ...list[index], ...{ username, email, role } }
 		list[index] = user
 
 		return res(
