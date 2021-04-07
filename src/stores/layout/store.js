@@ -12,7 +12,7 @@ let resolveClose = null;
 export default {
 	state: {
 		busy: false,
-		title: "...",
+		title: "",
 		focus: "",
 		drawerIsOpen: true,
 		drawerRightIsOpen: false,
@@ -26,12 +26,22 @@ export default {
 
 		dialogIsOpen: false,
 		dialogOptions: null,
+
+		device: null,
+	},
+	init: (store) => {
+		window.addEventListener("resize", (e) => {
+			store.setDevice(
+				window.innerWidth < 767 ? "mobile" 
+				: window.innerWidth < 950 ? "pad"
+				: "desktop")
+		});
 	},
 	getters: {
-		getDrawerList: (state, payload, store) => {
+		getDrawerList: (state, _, store) => {
 			return state.menu
 		},
-		isDarkTheme: (state, payload, store) => state.theme == themeDark,
+		isDarkTheme: (state, _, store) => state.theme == themeDark,
 	},
 	actions: {
 		dialogOpen: (state, options, store) => {
@@ -65,14 +75,14 @@ export default {
 		},
 
 		setDialogOpen: (state, options) => {
-			options = { ...optionsDefault, ...options}
-			if ( options.type && options.modal ) {
+			options = { ...optionsDefault, ...options }
+			if (options.type && options.modal) {
 				const path = `dialog.${options.type}.default`
 				options = {
 					title: i18n.t(`${path}.title`),
 					text: i18n.t(`${path}.text`),
 					labelOk: i18n.t(`${path}.ok`),
-					... options
+					...options
 				}
 			}
 			return {
@@ -81,6 +91,8 @@ export default {
 			}
 		},
 		setDialogClose: (state, _) => ({ dialogIsOpen: false }),
+
+		setDevice: ( state, device ) => ({ device }),
 	},
 }
 

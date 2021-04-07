@@ -30,6 +30,7 @@ function DocList() {
 
 	useEffect(() => {
 		setCurrentPage("doc.list")
+		setTitle(t("pag.doc.list.title"))
 		setSelect(null)
 		fetchAll()
 	}, [])
@@ -96,7 +97,7 @@ function DocList() {
 				<TableBody>
 					{docs.map(doc => (
 
-						<TableRow hover key={doc.id} 
+						<TableRow hover key={doc.id}
 							className={classes.row}
 							onClick={e => handleClickRow(doc.id)}
 						>

@@ -1,5 +1,5 @@
 import { Box, Button, makeStyles, TextField } from "@material-ui/core";
-import { Add as AddIcon, Save } from "@material-ui/icons";
+import { Add as AddIcon } from "@material-ui/icons";
 import { rules, useValidator } from "@priolo/iistore";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -8,8 +8,9 @@ import Form from "../../components/form/Form";
 import FormParagraph from "../../components/form/FormParagraph";
 import FormRow from "../../components/form/FormRow";
 import UserWriterSelector from "../../components/selectors/UserWriterSelector";
-import { useConfirmationRouter } from "../../plugins/confirmationRouter";
+import { useConfirmationRouter } from "../../hooks/useConfirmationRouter";
 import { useDoc } from "../../stores/doc";
+import { useLayout } from "../../stores/layout";
 import { useRoute } from "../../stores/route";
 
 
@@ -24,14 +25,20 @@ function DocDetail() {
 
 	const { state: doc, fetchById, edit, setSelectProp, canSave, isSelectChanged, save } = useDoc()
 	const { setCurrentPage } = useRoute()
+	const { state:layout, setTitle } = useLayout()
 	const titleProp = useValidator(doc.select?.title, [rules.obligatory])
 	const linkProp = useValidator(doc.select?.link, [rules.url])
 
 	useEffect(() => {
 		setCurrentPage("doc.detail")
 		if (!id) return
-		if (id == "new") edit()
-		else fetchById(id).then((doc) => edit(doc))
+		if (id == "new") {
+			setTitle(t("pag.doc.detail.title_new"))
+			edit()
+		} else {
+			setTitle(t("pag.doc.detail.title_edit"))
+			fetchById(id).then((doc) => edit(doc))
+		}
 	}, [id])
 
 	useConfirmationRouter(isSelectChanged, [])

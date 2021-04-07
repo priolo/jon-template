@@ -1,26 +1,25 @@
-import React from "react"
-import { useStore } from "@priolo/iistore";
 import { makeStyles } from "@material-ui/core/styles"
+import { AppBar, Toolbar, Typography, IconButton, LinearProgress, Grid } from "@material-ui/core"
 import { Menu as MenuIcon } from "@material-ui/icons"
-import { AppBar, Toolbar, Typography, IconButton, LinearProgress, Grid, useTheme, useMediaQuery } from "@material-ui/core"
 import CentralSpace from "./CentralSpace";
 import Avatar from "../app/Avatar";
 import UserHeader from "../../pages/user/UserHeader";
 import DocHeader from "../../pages/doc/DocHeader";
+
 import { useRoute } from "../../stores/route";
+import { useLayout } from "../../stores/layout";
 
 
 
 function Header() {
 
 	const classes = useStyles()
-	const theme = useTheme();
-  	const matches = useMediaQuery(theme.breakpoints.up('md'));
-	const { state: layout, toggleDrawerIsOpen } = useStore("layout")
-	const { state: route, getTitleCurrentPage } = useRoute()
+	const { state: layout, toggleDrawerIsOpen } = useLayout()
+	const { state: route } = useRoute()
 
-	const cnAppBar = `${classes.appBar} ${layout.drawerIsOpen ? classes.appBarShift : ""}`
-	const title = getTitleCurrentPage()
+
+	const cnAppBar = `${classes.appBar} ${layout.drawerIsOpen && layout.device == "desktop" ? classes.appBarShift : ""}`
+
 
 	return (
 		<AppBar position="fixed" className={cnAppBar}>
@@ -37,8 +36,8 @@ function Header() {
 								className={classes.menuButton}
 							><MenuIcon /></IconButton>}
 
-							{matches && <Typography variant="h6" noWrap className={classes.title}>
-								{title}
+							{layout.device!="mobile" && <Typography variant="h6" noWrap className={classes.title}>
+								{layout.title}
 							</Typography>}
 							
 						</Grid>
@@ -77,6 +76,10 @@ const useStyles = makeStyles(theme => ({
 	appBarShift: {
 		marginLeft: theme.app.drawer.width,
 		width: `calc(100% - ${theme.app.drawer.width}px)`,
+		"&.mobile": {
+			marginLeft: "0px",
+			width: "100%",
+		},
 		transition: theme.transitions.create(['width', 'margin'], {
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.enteringScreen,

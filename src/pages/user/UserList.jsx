@@ -27,6 +27,7 @@ function UserPag() {
 
 	useEffect(() => {
 		setCurrentPage("user.list")
+		setTitle(t("pag.user.list.title"))
 		fetchAll()
 	}, [])
 

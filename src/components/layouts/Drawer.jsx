@@ -1,24 +1,28 @@
-import React from "react"
-
-import {makeStyles} from "@material-ui/core/styles"
-import {Divider, Drawer, IconButton, List } from "@material-ui/core"
-import {ChevronLeft as ChevronLeftIcon} from "@material-ui/icons"
+import { makeStyles } from "@material-ui/core/styles"
+import { Divider, Drawer, IconButton, List } from "@material-ui/core"
+import { ChevronLeft as ChevronLeftIcon } from "@material-ui/icons"
+import ItemMenu from "./ItemMenu";
 
 import { useLayout } from "../../stores/layout";
-import ItemMenu from "./ItemMenu";
+
 
 
 export default function () {
 
-	const {state: layout, toggleDrawerIsOpen, getDrawerList} = useLayout()
+	const { state: layout, toggleDrawerIsOpen, getDrawerList } = useLayout()
 	const classes = useStyles()
-	
+
+
+	const variant = layout.device == "desktop" ? "persistent" : null
+
+
 	return (
 		<Drawer
-			variant="persistent"
+			variant={variant}
 			className={classes.drawer}
 			open={layout.drawerIsOpen}
 			classes={{ paper: classes.drawerPaper }}
+			ModalProps={{ onBackdropClick: toggleDrawerIsOpen }}
 		>
 			<div className={classes.drawerHeader}>
 				<IconButton onClick={toggleDrawerIsOpen}>
@@ -27,8 +31,8 @@ export default function () {
 			</div>
 			<Divider />
 			<List>
-				{getDrawerList().map( item => (
-					<ItemMenu value={item} key={item.label}/>
+				{getDrawerList().map(item => (
+					<ItemMenu value={item} key={item.label} />
 				))}
 			</List>
 		</Drawer>

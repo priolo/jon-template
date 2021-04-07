@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AccountCircle as AccountIcon, ExitToApp as LogoutIcon, Face as ProfileIcon } from '@material-ui/icons';
 import { IconButton, Menu, MenuItem, Typography, Box, Divider, ListItemIcon, Switch } from '@material-ui/core';
+
 import { useTranslation } from 'react-i18next';
 import { useAuth } from "../../stores/auth"
 import { useHistory } from "react-router-dom";
@@ -57,7 +58,7 @@ export default function Avatar() {
 				{t("app.avatar.dark")}
 			</MenuItem>
 
-			<MenuItem onClick={handleProfile}>
+			<MenuItem onClick={handleProfile} disabled>
 				<ListItemIcon>
 					<ProfileIcon fontSize="small" />
 				</ListItemIcon>

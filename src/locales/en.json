@@ -14,15 +14,15 @@
 		},
 		"user": {
 			"list": {
-				"title": "Users list",
+				"title": "Users",
 				"username": "Name",
 				"role": "Role",
 				"actions": "Actions",
 				"btt_new": "New User"
 			},
 			"dlg": {
-				"title_new": "New user",
-				"title_edit": "Edit user",
+				"title_new": "New User",
+				"title_edit": "Edit User",
 				"username": "Name",
 				"email": "Email",
 				"role": "Role",
@@ -33,7 +33,7 @@
 		},
 		"doc": {
 			"list": {
-				"title": "Documents list",
+				"title": "Documents",
 				"title_doc": "Title",
 				"author": "Author",
 				"link": "Link",
@@ -41,7 +41,8 @@
 				"btt_new": "New Document"
 			},
 			"detail": {
-				"title": "Document",
+				"title_new": "New Document",
+				"title_edit": "Edit Document",
 				"title_form": "",
 				"title_field": "Title",
 				"desc": "Description",

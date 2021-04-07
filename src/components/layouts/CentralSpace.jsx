@@ -1,8 +1,8 @@
-import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core'
-import React from 'react'
+import { makeStyles } from '@material-ui/core'
+import { useLayout } from '../../stores/layout';
 
 
-export default function CentralSpace ({
+export default function CentralSpace({
 	renderLeft,
 	renderRight,
 	children,
@@ -11,20 +11,24 @@ export default function CentralSpace ({
 }) {
 
 	const classes = useStyles()
-	const cnContainer = `${classes.centralSpace} ${className??""} ${isCentered?"centered":""}`
+	const { state:layout } = useLayout();
+
+	const cnContainer = `${classes.container} ${className ?? ""} ${isCentered ? "centered" : ""}`
+	const cnLateral = `${classes.lateral} ${layout.device}`
+	const cnCentral = `${classes.central} ${layout.device}`
 
 	return (
 		<div className={cnContainer}>
 
-			<div className={classes.space}>
+			<div className={cnLateral}>
 				{renderLeft}
 			</div>
 
-			<div className={classes.body}>
+			<div className={cnCentral}>
 				{children}
 			</div>
 
-			<div className={classes.space}>
+			<div className={cnLateral}>
 				{renderRight}
 			</div>
 
@@ -32,22 +36,38 @@ export default function CentralSpace ({
 	)
 }
 
-const useStyles = makeStyles( theme => ({
+const useStyles = makeStyles(theme => ({
 
-    centralSpace: {
+	container: {
 		display: "flex",
-		width: "100%", 
+		width: "100%",
 		"&.centered": {
 			alignItems: "center"
 		}
 	},
-	space:  {
-		 display: "flex", flex: "1 1 0%",
+
+	// lateral space
+	lateral: {
+		display: "flex", flex: "1 1 0%",
+		"&.mobile": {
+			display: "flex", flex: "0 1 5px",
+		},
+		"&.pad": {
+			display: "flex", flex: "0 1 10%",
+		}
 	},
-	body: {
-		//display: "flex", 
+
+	// central space
+	central: {
 		flex: "3 1 0%",
-		minWidth: "400px", maxWidth: "700px",
+		minWidth: "300px", 
+		maxWidth: "700px",
+		"&.mobile": {
+			maxWidth: "unset",
+		},
+		"&.pad": {
+			maxWidth: "unset",
+		}
 	},
-	
+
 }))

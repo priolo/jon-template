@@ -1,18 +1,17 @@
-import React from "react"
-import { useStore } from "@priolo/iistore";
-
-import {makeStyles} from "@material-ui/core/styles"
+import { makeStyles } from "@material-ui/core/styles"
 import { useLayout } from "../../stores/layout";
 
 
-
-function Body ({
+function Body({
 	children
 }) {
 
 	const classes = useStyles()
-	const {state: layout} = useLayout()
-	const cnContent = `${classes.content} ${layout.drawerIsOpen ? classes.contentShift : ""}`
+	const { state: layout } = useLayout()
+
+
+	const cnContent = `${classes.content} ${layout.drawerIsOpen && layout.device == "desktop" ? classes.contentShift : ""}`
+
 
 	return (
 		<main className={cnContent}>
@@ -26,9 +25,8 @@ export default Body
 
 const useStyles = makeStyles((theme) => ({
 	content: {
-		display:"flex", flexDirection:"column",
+		display: "flex", flexDirection: "column",
 		height: "100%",
-		//padding: theme.spacing(3),
 		transition: theme.transitions.create("margin", {
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.leavingScreen

@@ -6,9 +6,6 @@ export default {
 		queryUrl: "",
 	},
 	getters: {
-		getTitleCurrentPage: (state, _, store) => {
-			return i18n.t(`pag.${state.currentPage}.title`)
-		},
 
 		getSearchUrl: (state, name, store) => {
 			const searchParams = new URLSearchParams(window.location.search)
@@ -34,7 +31,6 @@ export default {
 		}
 	},
 	actions: {
-
 	},
 	mutators: {
 		setSearchUrl: (state, { name, value }) => {

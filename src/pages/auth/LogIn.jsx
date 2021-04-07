@@ -20,12 +20,9 @@ export default function LogIn() {
 	const { state: auth, setUsername, setPassword, login } = useAuth()
 	const { state: layout } = useLayout()
 
-	const usernameProp = useValidator(auth.username, [rules.obligatory/*,rules.email*/])
+	const usernameProp = useValidator(auth.username, [rules.obligatory])
 	const pswProp = useValidator(auth.password, [rules.obligatory])
 
-	// useEffect(() => {
-	// 	if (layout.focus == "password") rUsername.current.focus()
-	// }, [layout.focus])
 
 	return (
 		<Container component="main" maxWidth="xs">
@@ -38,6 +35,11 @@ export default function LogIn() {
 				<Typography component="h1" variant="h5">
 					{t("pag.login.title")}
 				</Typography>
+
+				<Typography component="h1" variant="h5">
+					
+				</Typography>
+
 
 				<TextField fullWidth autoFocus
 					{...usernameProp}
