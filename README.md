@@ -2,7 +2,22 @@ Il template definitivo per REACT
 
 # INDEX
 
-[Tutorial](tutorial/root.md)
+[Why](#why)
+
+[Tecnology](#tecnology)
+
+[online version]()
+
+
+
+# WHY
+Questo template permette di derivare un progetto startup in maniera veloce e pulita.
+Inoltre si ha pieno controllo del codice trattandosi di una classica CRA.
+Nel template trovate risolte molte problematiche tipiche di un gestionale.
+
+
+
+
 
 # TECNOLOGY
 Template di uno stack tecnologico
