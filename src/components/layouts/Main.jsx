@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { useStore } from "@priolo/iistore";
+import { useStore } from "@priolo/jon";
 import { ThemeProvider, CssBaseline } from '@material-ui/core'
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom"
 

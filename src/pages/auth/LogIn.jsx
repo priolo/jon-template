@@ -7,7 +7,7 @@ import { LockOutlined as LockOutlinedIcon } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { useAuth } from '../../stores/auth';
-import { useValidator, rules } from '@priolo/iistore';
+import { useValidator, rules } from '@priolo/jon';
 import { useLayout } from '../../stores/layout';
 
 
@@ -36,10 +36,9 @@ export default function LogIn() {
 					{t("pag.login.title")}
 				</Typography>
 
-				<Typography component="h1" variant="h5">
-					
+				<Typography variant="caption">
+					Pssssh... try admin/secret
 				</Typography>
-
 
 				<TextField fullWidth autoFocus
 					{...usernameProp}

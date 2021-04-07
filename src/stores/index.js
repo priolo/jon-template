@@ -1,4 +1,4 @@
-import { setupStore, MultiStoreProvider } from "@priolo/iistore"
+import { setupStore, MultiStoreProvider } from "@priolo/jon"
 
 import auth from "./auth/store"
 import layout from "./layout/store"

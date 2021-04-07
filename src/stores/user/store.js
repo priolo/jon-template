@@ -1,6 +1,6 @@
 import { getStoreLayout } from "../layout"
 import ajax from "../../plugins/AjaxService"
-import { ref, validateAll, resetAll } from "@priolo/iistore"
+import { ref, validateAll, resetAll } from "@priolo/jon"
 import i18n from "i18next";
 import { DIALOG_TYPES } from "../layout/utils";
 import { USER_ROLES } from "./utils";

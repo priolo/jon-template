@@ -9,15 +9,16 @@ import { useLayout } from '../../stores/layout';
 
 export default function MsgBox() {
 
-	const { state, dialogClose } = useLayout()
-	const { dialogOptions: options } = state
+	const { state:layout, dialogClose } = useLayout()
+	const { dialogOptions: options } = layout
 	const classes = useStyles();
 
+	
 	if (!options) return null
 
 	return options.modal ? (
 		<Dialog
-			open={state.dialogIsOpen}
+			open={layout.dialogIsOpen}
 			onClose={() => dialogClose(false)}
 		>
 
@@ -26,20 +27,23 @@ export default function MsgBox() {
 			</DialogTitle>
 
 			<DialogContent>
-				<DialogContentText>
+				<DialogContentText className={classes.text}>
 					{options.text}
 				</DialogContentText>
 			</DialogContent>
 
-			<DialogActions>
+			<DialogActions className={classes.actions}>
 				{options.labelCancel && (
-					<Button color="secondary"
+					<Button 
+						color="secondary"
 						onClick={() => dialogClose(false)}
 					>
 						{options.labelCancel}
 					</Button>
 				)}
-				<Button color="primary" autoFocus
+				<Button 
+					color="primary" 
+					autoFocus
 					onClick={() => dialogClose(true)}
 				>
 					{options.labelOk}
@@ -49,12 +53,16 @@ export default function MsgBox() {
 		</Dialog>
 	) : (
 		<Snackbar ContentProps={{ className: classes[options.type] }}
-			open={options.modal == false && state.dialogIsOpen}
+			open={options.modal == false && layout.dialogIsOpen}
 			autoHideDuration={6000}
 			onClose={dialogClose}
 			message={options.text}
 			action={
-				<IconButton size="small" aria-label="close" color="inherit" onClick={dialogClose}>
+				<IconButton 
+					size="small" 
+					color="inherit" 
+					onClick={dialogClose}
+				>
 					<CloseIcon fontSize="small" />
 				</IconButton>
 			}
@@ -78,5 +86,14 @@ const useStyles = makeStyles((theme) => ({
 	success: {
 		backgroundColor: theme.palette.success.main,
 		color: theme.palette.success.contrastText,
+	},
+
+	text: {
+		padding: "20px 20px 10px 20px",
+		minWidth: "250px",
+		whiteSpace: "pre-wrap",
+	},
+	actions: {
+		margin: "10px 20px 20px 20px",
 	},
 }))

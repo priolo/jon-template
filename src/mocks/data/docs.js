@@ -2,58 +2,58 @@
 export const list = [
 	{
 		"id": "doc-1",
-		"title": "Il libro",
+		"title": "The book",
 		"desc": "",
-		"link": "secret",
+		"link": "www.test.com",
 		"author_id": "usr-3"
 	},
 	{
 		"id": "doc-2",
-		"title": "Il santo",
+		"title": "The Saint",
 		"desc": "",
-		"link": "secret",
+		"link": "www.test.com",
 		"author_id": "usr-3"
 	},
 	{
 		"id": "doc-3",
-		"title": "Il bello",
+		"title": "The beautiful",
 		"desc": "",
-		"link": "secret",
+		"link": "www.test.com",
 		"author_id": "usr-3"
 	},
 	{
 		"id": "doc-4",
-		"title": "Il cavolfiore",
+		"title": "The cauliflower",
 		"desc": "",
-		"link": "secret",
+		"link": "www.test.com",
 		"author_id": "usr-4"
 	},
 	{
 		"id": "doc-5",
-		"title": "Parco Bio",
+		"title": "Bio Park",
 		"desc": "",
-		"link": "secret",
+		"link": "www.test.com",
 		"author_id": "usr-4"
 	},
 	{
 		"id": "doc-6",
-		"title": "Polpette trifolate",
+		"title": "Sauteed meatballs",
 		"desc": "",
-		"link": "secret",
+		"link": "www.test.com",
 		"author_id": "usr-1"
 	},
 	{
 		"id": "doc-7",
-		"title": "Una storia struggente",
+		"title": "A poignant story",
 		"desc": "",
-		"link": "secret",
+		"link": "www.test.com",
 		"author_id": "usr-1"
 	},
 	{
 		"id": "doc-8",
-		"title": "Il segreto rosso",
+		"title": "The red secret",
 		"desc": "",
-		"link": "secret",
+		"link": "www.test.com",
 		"author_id": "usr-2"
 	},
 

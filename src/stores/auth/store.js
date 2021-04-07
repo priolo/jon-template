@@ -5,7 +5,7 @@ import Cookies from 'js-cookie'
 import i18n from "i18next";
 import { getStoreLayout } from "../layout"
 import { DIALOG_TYPES } from "../layout/utils";
-import { validateAll, resetAll } from "@priolo/iistore";
+import { validateAll, resetAll } from "@priolo/jon";
 
 
 let idPolling = null
@@ -15,9 +15,9 @@ export default {
 		user: null, //{ id:<???>, username:<string>, has_to_change_password:<bool>, role:<???> }
 		token: Cookies.get('token'),
 
-		username: "",
+		username: "admin",
 		oldpassword: "",
-		password: "",
+		password: "secret",
 		repassword: "",
 		isChangePasswordOpen: false,
 	},

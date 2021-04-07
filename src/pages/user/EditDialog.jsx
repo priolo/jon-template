@@ -5,7 +5,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, I
 import { useUser } from '../../stores/user';
 import { useTranslation } from 'react-i18next';
 import RolesSelector from '../../components/selectors/RolesSelector';
-import { useValidator, rules } from '@priolo/iistore';
+import { useValidator, rules } from '@priolo/jon';
 import { useHistory } from 'react-router';
 import { Link as LinkIcon } from '@material-ui/icons';
 import { USER_ROLES } from '../../stores/user/utils';

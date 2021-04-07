@@ -1,6 +1,6 @@
 import { Box, Button, makeStyles, TextField } from "@material-ui/core";
 import { Add as AddIcon } from "@material-ui/icons";
-import { rules, useValidator } from "@priolo/iistore";
+import { rules, useValidator } from "@priolo/jon";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router";
