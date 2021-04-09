@@ -29,12 +29,15 @@ Ve la propongo... forse per affetto o perché davvero utile!
 [Jon](https://github.com/priolo/jon)
 Dagli un occhio!
 
+---
 
 ## CRA
 
 Non c'e' molto da dire! Se volete fare un app in REACT conviene usare [CRA](https://create-react-app.dev/)  
 Semplicemente non vi dovrete preoccupare di `babel` e `webpack`:
 La vostra app avrà un setup prestabilito e riproducibile.
+
+---
 
 ## DIRECTORY
 La struttura nel file system del TEMPLATE:
@@ -89,11 +92,12 @@ Impossibile se hai un'albero di componenti che si passano funzioni e proprietà 
 Usando gli STOREs posso letteralmente copiare e incollare un componente in un altro punto dell'APP senza problemi.  
 Tendenzialmente i componenti **NON HANNO PROPS** (se non, eventualmente, i "children" o "className").  
 
-### Models and API
-In realta' nel TEMPLATE le API e gli STOREs sono "mischiati"!  
+### Models and API  
+In realtà nel TEMPLATE le API e gli STOREs sono "mischiati"!  
 Una soluzione *discutibile* ma data la semplicità delle API non ho voluto complicare la struttura.   
 Si potrebbe pensare ad una cartella "Models" per la gestione degli oggetti POCO  
 e "API" per le richieste HTTP.
+
 ---
 
 ## AJAX
@@ -137,6 +141,7 @@ function Header() {
 	)
 }
 ```
+
 ---
 
 ## I18N
@@ -173,7 +178,6 @@ La PATH fa riferimento al file json nella directory `locales`
 [doc](https://react.i18next.com/getting-started)
 
 ---
-
 
 ## MOCK
 
@@ -224,6 +228,7 @@ rest.get ('/api/docs/:id', (req, res, ctx) => {
 	)
 }),
 ```
+
 ---
 
 ## ROUTING
@@ -282,13 +287,114 @@ export default function DocDetail() {
 }
 ```
 
-> **ATTENZIONE :** Essendo il TEMPLATE un `SPA`:
+> **ATTENZIONE**   
+> Essendo il TEMPLATE un `SPA`:
 > - Su cambio URL non effettua nessuna richiesta HTTP al server ma aggiorna semplicemente il rendering  
 > - Naturalmente, i dati vengono recuperati tramite richieste AJAX
 > - Le uniche richieste "sulla struttura dell'APP" è il primo caricamento o reload della pagina.  
 > - Il SERVER va settato opportunamente per rispondere sempre con la stessa pagna
 
+> **P.S.:**  
+> Siete come me? Istallare un plugin è sempre un dubbio? Se questa libreria non fa quello che mi serve? Se diventa obsoleta il giorno dopo aver messo in produzione? Se l'autore fa voto a Dio di non toccare mai più un pc? Se mi accorgo che c'e' un BUG irrisolvibile nella libreria? E poi... vuoi mettere avere il pieno controllo del software??
+> Allora... questo plugin potrebbe essere sostituito gestendo l'url con gli STORE.  
+> Ma non tratterò l'argomento qui :D
 
+---
+
+## COMPONENTS-UI
+
+Naturalmente potreste fare i vostri componenti (non ci vuole poi molto)  
+ma [Material-UI](https://material-ui.com/) è molto usata e solida!  
+Non serve altro!  
+
+### BINDING
+Prima cosa: legare gli STORE alla VIEW  
+Basta avere in testa `useState` MA, invece di stare nel COMPONENT REACT, è nello STORE.  
+
+Definiamo uno STORE con un `value` in read/write
+```js
+export default {
+	state: {
+		value: "init value",
+	},
+	mutators: {
+		setValue: (state, value) => ({ value }),
+	},
+}
+```
+
+Importo lo STORE e   
+"binding" del suo `value` nel COMPONENT REACT
+```jsx
+import { useStore } from "@priolo/jon"
+
+export default function Form() {
+
+  const { state, setValue, getUppercase } = useStore("myStore")
+
+  return <TextField 
+		value={state.value}
+		onChange={e => setValue(e.target.value)}
+	/>
+}
+```
+
+Un [sandbox](https://codesandbox.io/s/example-1-5d2tt) che NON usa MATERIAL-UI  
+Per saperne di piu' date un occhio a [Jon](https://github.com/priolo/jon)  
+Comunque in questo TEMPLATE i BINDING li trovate un pò [ovunque](https://github.com/priolo/jon-template/blob/5593323c8a3ca30ed9023e6708124a191552b13e/src/pages/user/EditDialog.jsx#L54)
+
+### VALIDATOR
+La validazione delle form si lascia sempre per ultima!  
+Stiamo facendo un SPA, non siamo nel 1990, non abbiamo `<form />`! Tutto passa attraverso gli STORE.  
+In `Jon` è presente un semplice meccanismo per validazione dei componenti Material-UI.
+
+Basta collegare un valore ad una `rule` (con un HOOK)  
+e assegnare la `props` ottenuta al COMPONENT-UI
+```jsx
+import { rules, useValidator } from "@priolo/jon";
+
+function Form() {
+
+	const { state: user, setSelectName } = useAccount()
+	const customRule = (value) => value?.length >= 3 ? null : "Enter at least 3 letters."
+	const nameProps = useValidator(user.select?.name, [rules.obligatory, customRule])
+
+	return <TextField autoFocus fullWidth
+		{...nameProps}
+		value={user.select?.name}
+		onChange={e => setSelectName(e.target.value)}
+	/>
+}
+```
+
+E validare nello STORE prima di inviare i dati
+```js
+import { validateAll } from "@priolo/jon"
+
+const store = {
+	state: {
+		select: { name: "" },
+	},
+	actions: {
+		save: async (state, _, store) => {
+			const errs = validateAll()
+			if ( errs.length > 0 ) return false
+			// else ... save! 
+		},
+	},
+	mutators: {
+		setSelectName: (state, name) => ({ select: {...state.select, name} }),
+	},
+}
+```
+
+un esempio [qui](https://github.com/priolo/jon-template/blob/5593323c8a3ca30ed9023e6708124a191552b13e/src/stores/user/store.js#L73)
+
+### DYNAMIC THEME
+
+Una volta capito che si possono usare gli STORE
+
+---
 
 # TECNOLOGY
 Template di uno stack tecnologico
