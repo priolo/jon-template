@@ -1,6 +1,6 @@
 /* eslint eqeqeq: "off" */
 import { requestValidator } from '../utils'
-import { list } from "../../data/docs"
+import list from "../../data/docs"
 
 
 export default [

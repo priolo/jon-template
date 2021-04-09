@@ -38,21 +38,7 @@ La PATH fa riferimento al file json in `locales`
 
 ---
 
-#### AJAX
-Non è necessario importare liberire. 
-Possiamo utilizzare una SEMPLICISSIMA implementazione del `fetch` nativo.
-Dentro la quale c'e' la gestione:
-del token JWT,
-degli errori
-e la visualizzazione del loading
 
----
-
-#### Mock
-
-#### Test
-
-#### Routing
 
 #### Dynamic Theme
 

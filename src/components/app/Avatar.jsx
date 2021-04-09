@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom";
 import { useLayout } from '../../stores/layout';
 
 
-export default function Avatar() {
+function Avatar() {
 
 	const classes = useStyles()
 	const history = useHistory()
@@ -25,7 +25,7 @@ export default function Avatar() {
 		handleClose()
 		logout({ flash: true })
 	}
-	const handleProfile = e => {
+	const handleClickProfile = e => {
 		handleClose()
 		history.push("/profile")
 	}
@@ -58,7 +58,7 @@ export default function Avatar() {
 				{t("app.avatar.dark")}
 			</MenuItem>
 
-			<MenuItem onClick={handleProfile} disabled>
+			<MenuItem onClick={handleClickProfile} disabled>
 				<ListItemIcon>
 					<ProfileIcon fontSize="small" />
 				</ListItemIcon>
@@ -75,7 +75,7 @@ export default function Avatar() {
 	</>);
 }
 
-
+export default Avatar
 
 const useStyles = makeStyles((theme) => ({
 	box: {

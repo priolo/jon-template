@@ -1,5 +1,5 @@
 
-export const list = [
+export default [
 	{
 		"id": "doc-1",
 		"title": "The book",
