@@ -392,7 +392,130 @@ un esempio [qui](https://github.com/priolo/jon-template/blob/5593323c8a3ca30ed90
 
 ### DYNAMIC THEME
 
-Una volta capito che si possono usare gli STORE
+Una volta capito come funzionano gli STORE li usi per tutto  
+... anche, naturalmente, per gestire il THEME  
+
+Nello STORE `layout` ho messo tutto quello che caratterizza l'aspetto generale dell'APP  
+Compreso il THEME di MATERIAL-UI  
+e anche: il titolo sul AppBar, se l'APP è in attesa (loading...), se i DRAWER laterali sono aperti, il menu' principale, la "message box", dov'e' settato il focus etc etc  
+
+Cmunque le impostazione del THEME devono essere mantenute anche quando si ricarica la pagina  
+(in quel caso il browser fa una nuova richiesta al server e lo STORE è ricaricato da zero)  
+Quindi ho usato i coockies per memorizzare il nome del THEME selezionato  
+lo si vede [qui](https://github.com/priolo/jon-template/blob/336589e17b1fa05a198f1d24322b9c78bbeff0ca/src/stores/layout/store.js#L20) nello STATE che è l'impostazione iniziale dello STORE  
+e quando il THEME viene cambiato [qui](https://github.com/priolo/jon-template/blob/336589e17b1fa05a198f1d24322b9c78bbeff0ca/src/stores/layout/store.js#L70)
+Nel TEMPLATE uso un "toggle" perche' i THEMEs sono solo due.
+
+Quindi riassumendo:
+```js
+export default {
+	state: {
+		theme: Cookies.get('theme'),
+	},
+	mutators: {
+		setTheme: (state, theme) => {
+			Cookies.set("theme", theme)
+			return { theme }
+		},
+	}
+}
+```
+Anche se si usa il cookies per memeorizzare il nome del THEME  
+bisogna comunque modificare la variabile dello STORE (piu' correttamente "lo STATE dello store")  
+Altrimenti la VIEW non riceve l'evento!  
+In generale la VIEW si aggiorna SOLO SE l'oggetto `state` dello STORE cambia
+
+---
+
+## URL
+
+### SEARCH AND FILTER
+
+Se, in un APP WEB, copio l'URL e lo invio ad un amico  
+mi aspetto è che lui veda esattamente quello che vedo io (a parità di permessi naturalmente)  
+Quindi i TAB selezionati, i filtri e l'ordinamento sulle liste  
+vanno mantenuti nel `search` dell'url corrente.  
+
+In STORE [Route](https://github.com/priolo/jon-template/blob/336589e17b1fa05a198f1d24322b9c78bbeff0ca/src/stores/route/store.js) posso prelevare o settare una variabile del search dell'url e questo puo' essere collegato alla VIEW
+```js
+export default {
+	state: {
+		queryUrl: "",
+	},
+	getters: {
+		getSearchUrl: (state, name, store) => {
+			const searchParams = new URLSearchParams(window.location.search)
+			return (searchParams.get(name) ?? "")
+		},
+	},
+	mutators: {
+		setSearchUrl: (state, { name, value }) => {
+			const queryParams = new URLSearchParams(window.location.search)
+			if (value && value.toString().length > 0) {
+				queryParams.set(name, value)
+			} else {
+				queryParams.delete(name)
+			}
+			window.history.replaceState(null, null, "?" + queryParams.toString())
+			return { queryUrl: queryParams.toString() }
+		},
+	},
+}
+```
+
+poi lo uso nella [lista](https://github.com/priolo/jon-template/blob/336589e17b1fa05a198f1d24322b9c78bbeff0ca/src/pages/doc/DocList.jsx) per filtrare gli elementi 
+```js
+function DocList() {
+	const { state: route, getSearchUrl } = useRoute()
+	const { state: doc } = useDoc()
+
+	// it is executed only if the filter or the "docs" changes
+	const docs = useMemo (
+		// actually I do this in the STORE DOC
+		() => {
+			// I get the "search" value in the current url 
+			let txt = getSearchUrl("search").trim().toLowerCase()
+			// I filter all the "docs" and return them
+			return doc.all.filter(doc => !txt || doc.title.toLowerCase().indexOf(txt) != -1)
+		},
+		[doc.all, route.queryUrl]
+	)
+
+	// render of docs
+	return {docs.map(doc => (
+		...
+	))}
+}
+```
+
+intanto nell'[HEADER](https://github.com/priolo/jon-template/blob/336589e17b1fa05a198f1d24322b9c78bbeff0ca/src/pages/user/UserHeader.jsx) ho la text-box per inserire il filtro
+```js
+import { useRoute } from "../../stores/route"
+
+function Header() {
+	const { getSearchUrl, setSearchUrl } = useRoute()
+	return (
+		<SearchBox
+			value={getSearchUrl("search")}
+			onChange={value => setSearchUrl({ name: "search", value })}
+		/>
+	)
+}
+```
+
+tutto si coordina tramite il binding... cambiando la `SearchBox` cambio l'url
+e quindi avverto il componente `DocList` che è cambiato il filtro e deve aggiornarsi
+Se dovessi duplicare la pagina nel browser il filtro rimarrebbe intatto.
+
+---
+
+### CONFIRM ON CHANGE
+
+---
+
+## JWT
+
+
 
 ---
 
