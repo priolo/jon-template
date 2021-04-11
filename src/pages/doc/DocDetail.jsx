@@ -25,7 +25,7 @@ function DocDetail() {
 
 	const { state: doc, fetchById, edit, setSelectProp, canSave, isSelectChanged, save } = useDoc()
 	const { setCurrentPage } = useRoute()
-	const { state:layout, setTitle } = useLayout()
+	const { state:layout, setTitle, dialogOpen } = useLayout()
 	const titleProp = useValidator(doc.select?.title, [rules.obligatory])
 	const linkProp = useValidator(doc.select?.link, [rules.url])
 
@@ -41,7 +41,7 @@ function DocDetail() {
 		}
 	}, [id])
 
-	useConfirmationRouter(isSelectChanged, [])
+	useConfirmationRouter(isSelectChanged)
 
 
 

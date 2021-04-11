@@ -488,7 +488,7 @@ function DocList() {
 }
 ```
 
-intanto nell'[HEADER](https://github.com/priolo/jon-template/blob/336589e17b1fa05a198f1d24322b9c78bbeff0ca/src/pages/user/UserHeader.jsx) ho la text-box per inserire il filtro
+intanto nell'[HEADER](https://github.com/priolo/jon-template/blob/336589e17b1fa05a198f1d24322b9c78bbeff0ca/src/pages/user/UserHeader.jsx) ho la text-box per modificare il filtro
 ```js
 import { useRoute } from "../../stores/route"
 
@@ -503,19 +503,89 @@ function Header() {
 }
 ```
 
-tutto si coordina tramite il binding... cambiando la `SearchBox` cambio l'url
-e quindi avverto il componente `DocList` che è cambiato il filtro e deve aggiornarsi
+Con la `SearchBox` cambio l'url  
+legato (tramite lo store STORE `route`) alla VIEW `DocList` e quindi questa aggiorna la lista.  
 Se dovessi duplicare la pagina nel browser il filtro rimarrebbe intatto.
 
 ---
 
 ### CONFIRM ON CHANGE
 
+molto semplice... si trova anche sul sito di `react-router-dom` [qui](https://github.com/ReactTraining/history/blob/master/docs/blocking-transitions.md), lo riporto per completezza.  
+Ho creato un hook custom [useConfirmationRouter](https://github.com/priolo/jon-template/blob/be1ebdb0cacddd049d0a6c78bf88dc0c152e4b55/src/hooks/useConfirmationRouter.js)  
+che semplicemente blocca la navigazione e chiede conferma per proseguire.
+Lo uso nel dettaglio del DOC [qui](https://github.com/priolo/jon-template/blob/be1ebdb0cacddd049d0a6c78bf88dc0c152e4b55/src/pages/doc/DocDetail.jsx#L44)
+
 ---
 
-## JWT
+## AUTH
 
+L'AUTH non è completo (questione di tempo... lo finirò)!  
+E' gestito dallo STORE `auth` [qui](https://github.com/priolo/jon-template/blob/be1ebdb0cacddd049d0a6c78bf88dc0c152e4b55/src/stores/auth/store.js) 
 
+### JWT
+
+Come funziona?  
+Si tratta di un `token` (o "stringa identificativa") che il server da al client quando quest'ultimo effettua correttamente il login.  
+A questo punto il client ad ogni richiesta successiva non deve più autenticarsi.  
+Ma semplicemente mette il `token` nell HEADER della richiesta HTTP.  
+Il server vedendo il `token` corretto suppone che quella richiesta HTTP è stata fatta da qualcuno che ha gia' superato l'autentificazione.  
+Inoltre il server, con il `token` come chiave, riesce a recuperare i dati dell'utente.  
+Il `token` può essere revocato o avere una "scadenza" costringendo il client a ripetere l'autentificazione per generare un nuovo `token`.
+
+Infatti il plugin ajax include il `token` se disponibile [qui](https://github.com/priolo/jon-template/blob/be1ebdb0cacddd049d0a6c78bf88dc0c152e4b55/src/plugins/AjaxService.js#L52)  
+```js
+import { getStoreAuth } from "../stores/auth"
+...
+
+export class AjaxService {
+	...
+	async send(url, method, data, options = {}) {
+		const { state:auth } = getStoreAuth()
+		...
+
+		const response = await fetch(
+			`${this.options.baseUrl}${url}`,
+			{
+				method: method,
+				headers: {
+					"Content-Type": "application/json",
+					...auth.token && { "Authorization": auth.token }
+				},
+				body: data ? JSON.stringify(data) : undefined,
+			}
+		)
+
+		...
+	}
+	...
+}
+```
+
+Il token sta nello [STORE auth](https://github.com/priolo/jon-template/blob/be1ebdb0cacddd049d0a6c78bf88dc0c152e4b55/src/stores/auth/store.js). Potete memorizzarlo come volete.   
+Ho usato i cookies per non dover ripetere il login sul "reload" dell'APP (diverso comportamento nella versine `mock`)
+```js
+import Cookies from 'js-cookie'
+
+export default {
+	state: {
+		token: Cookies.get('token'),
+	},
+	getters: {
+		isLogged: state => state.token != null,
+	},
+	mutators: {
+		setToken: (state, token, store) => {
+			if (token == null) {
+				Cookies.remove('token')
+			} else {
+				Cookies.set('token', token)
+			}
+			return { token }
+		},
+	}
+}
+```
 
 ---
 

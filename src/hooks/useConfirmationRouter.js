@@ -4,8 +4,11 @@ import { useHistory } from "react-router-dom";
 import { useLayout } from "../stores/layout";
 import i18n from "i18next"
 
-
-export function useConfirmationRouter( callbackChanged, props) {
+/**
+ * Se c'e' una "modifica" chiede all'utente se davvero vuole cambiare pagina 
+ * @param {*} callbackChanged per capire se, nella pagina, è cambiato qualcosa
+*/
+export function useConfirmationRouter( callbackChanged) {
 
 	const history = useHistory()
 	const { dialogOpen } = useLayout()
@@ -23,7 +26,6 @@ export function useConfirmationRouter( callbackChanged, props) {
 						labelCancel: i18n.t("pag.default.dlg.router_confirm.labelCancel"),
 					})) {
 						unblock()
-						console.log(location)
 						history.push(location)
 					}
 				})()
@@ -33,6 +35,6 @@ export function useConfirmationRouter( callbackChanged, props) {
 			return true
 		});
 		return unblock
-	}, props)
+	}, [])
 	
 }

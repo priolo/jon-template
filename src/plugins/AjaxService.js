@@ -1,8 +1,8 @@
 /* eslint eqeqeq: "off" */
 import { getStoreLayout } from "../stores/layout"
-import Cookies from 'js-cookie'
 import i18n from "i18next"
 import { DIALOG_TYPES } from "../stores/layout/utils"
+import { getStoreAuth } from "../stores/auth"
 
 const optionsDefault = {
 	baseUrl: "/api/"
@@ -39,6 +39,7 @@ export class AjaxService {
 	 */
 	async send(url, method, data, options = {}) {
 		const { setBusy, dialogOpen, setFocus } = getStoreLayout()
+		const { state:auth } = getStoreAuth()
 
 		if (!options.noBusy) setBusy(true)
 
@@ -49,7 +50,7 @@ export class AjaxService {
 				method: method,
 				headers: {
 					"Content-Type": "application/json",
-					"Authorization": `Bearer ${Cookies.get("token")}`
+					...auth.token && { "Authorization": auth.token }
 				},
 				body: data ? JSON.stringify(data) : undefined,
 			}
