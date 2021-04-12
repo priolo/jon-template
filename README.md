@@ -1,6 +1,6 @@
 Il template definitivo per REACT
 
-# INDEX
+## INDEX
 
 [Why](#why)
 
@@ -9,116 +9,105 @@ Il template definitivo per REACT
 [online version]()
 
 
-# WHY
-Questo template permette di derivare un progetto startup in maniera veloce e pulita.
-Inoltre hai il pieno controllo del codice trattandosi di una classica CRA.
-Nel template sono risolte molte problematiche tipiche dei gestionali
-e puo' essere un buon mezzo per imparare.
+## WHY
+This TEMPLATE allows you to derive a project in a fast and clean way.  
+You have full control of the code as it is a classic CRA.  
+Many typical management problems are solved in the template  
+and it can be a good way to learn.  
 
-Vediamo i concetti risolti nel template:
+The concepts solved in the template are:  
 
 ## STORE
-Quando usi REACT per un progetto medio-grande la prima urgenza  è:   
-**Separare la VIEW dalla BUSINESS LOGIC**  
-Ci sono delle librerie per questo! La piu' famosa è [REDUX](https://redux.js.org/)  
-Ma, a mio parere, è troppo prolissa e ingombrante.  
-Ho iniziato ad usare semplici [REDUCER](https://it.reactjs.org/docs/hooks-reference.html#usereducer) all'interno di [PROVIDERS](https://it.reactjs.org/docs/hooks-reference.html#usecontext) nativi in REACT  
-e mi sono ritrovato con una libreria MOLTO MOLTO leggera ispirata a [VUEX](https://vuex.vuejs.org/)!  
-Sono anni che la uso nei miei progetti e non ne potrei più fare a meno.  
-Ve la propongo... forse per affetto o perché davvero utile!   
+When you use REACT for medium-large projects the first urgency is:   
+**Separate the VIEW from the BUSINESS LOGIC**  
+There are libraries for this! The most famous is [REDUX](https://redux.js.org/)  
+But, in my opinion, it is too long-winded and cumbersome.  
+So I started using the native REACT methods [REDUCER](https://it.reactjs.org/docs/hooks-reference.html#usereducer) and [PROVIDERS](https://it.reactjs.org/docs/hooks-reference.html#usecontext)  
+Eventually I ended up with a VERY VERY light bookcase inspired by [VUEX](https://vuex.vuejs.org/)!      
 [Jon](https://github.com/priolo/jon)
-Dagli un occhio!
+Check it out!
 
 ---
 
 ## CRA
 
-Non c'e' molto da dire! Se volete fare un app in REACT conviene usare [CRA](https://create-react-app.dev/)  
-Semplicemente non vi dovrete preoccupare di `babel` e `webpack`:
-La vostra app avrà un setup prestabilito e riproducibile.
+There isn't much to say! If you want to make an app in REACT it is better to use [CRA](https://create-react-app.dev/)  
+You just don't have to manage `babel` and` webpack`:
+The APP will have a pre-established and reproducible setup.
 
----
+### DIRECTORY
+The structure in the file system of the TEMPLATE:
 
-## DIRECTORY
-La struttura nel file system del TEMPLATE:
-
-### components
-contiene tutto cio' che non è una pagina o una dialog.
-In generale: componenti concettualmente "riutilizzabili".
-Dentro abbiamo:
-- 
+### components  
+it contains everything that is not a PAGE or DIALOG.
+In general: conceptually "reusable" components.
 
 ### hooks
-Gli hooks specifici dell'app. Molto semplice
+Specific `hooks` used in the APP.
 
 ### locales
-Ci sono i json di traduzioni per i18n
+The translation json for `i18n`
 
 ### mock
-- ajax/handlers
-	le funzioni per le risposte mock alle richieste HTTP
-- data
-    i dati mock da utilizzare al posto del DB
+- ajax/handlers  
+	the functions for mock responses to HTTP requests
+- data  
+    the mock data to be used instead of the DB
 
 ### pages
-I componenti REACT che renderizzando il "body" del layout
-Sono separate dai "components" per averle in base all'entità che rappresentano
-Intuitivamente parti dalla pagina, che è unica, 
-per poi andare al componente che (teoricamente) è usato in più punti.
+REACT components that rendering the "body" of the layout.
+You intuitively start from the page, which is unique,
+then go to the component that (theoretically) is used in several places.
 
 ### plugin
-Sono servizi accessibili in qualuque punto del programma  
-Sono generici, contengono la configurazione e istanziamento  
-Permettono di accedere ad un servizio esterno, tradurre, fare calcoli etc etc  
-Non contengono le API (le API sono specifiche del APP)
+They are services accessible at any point in the program. They allow you to access an external service, translate, make calculations etc etc 
 
 ### stores
-Sono i CONTROLLERs delle VIEWs.  
-Lo STORE non è la soluzione perfetta ma funziona bene nella maggior parte dei casi!   
+They are the CONTROLLERs of the VIEWs.
+The STORE is not the perfect solution but it works well in most cases! 
 
-E' interessante che gli STATE degli STOREs sono collegati in TWO-WAY BINDING con la VIEW  
-La BUSINESS LOGIC deve semplicemente modificare o leggere lo STORE  
-senza preoccuparsi di come è implementata la VIEW.  
+BUSINESS LOGIC simply has to modify or read the STORE
+without worrying about how VIEW is implemented.
 
-E' ESSENZIALE per progetti grossi perché permette di:  
-- distribuire il codice su più unità indipendenti migliorando la manutenibilità  
-- separare nettamente la VIEW dalla BUSINESS LOGIC  
-- poter modificare la VIEW o il CONTROLLER (mantenendo gli stessi BIND) indipendentemente  
- 
-L'effetto più desiderato è la semplificazione del codice!   
-Manutenere l'APP dopo anni oppure da diverse persone è una cosa da preventivare.  
-Impossibile se hai un'albero di componenti che si passano funzioni e proprietà rendendoli fortemente dipendenti dal contesto.  
+It is ESSENTIAL for large projects because it allows you to:
+- distribute the code on several units, improving maintainability
+- clearly separates the VIEW from the BUSINESS LOGIC
+- you can modify the VIEW or the CONTROLLER (keeping the same BINDs) independently
+  
+Maintaining the APP after years or by several people is something to be expected.
+Impossible if you have a tree of components that pass functions and properties to you making them highly context dependent.
 
-Usando gli STOREs posso letteralmente copiare e incollare un componente in un altro punto dell'APP senza problemi.  
-Tendenzialmente i componenti **NON HANNO PROPS** (se non, eventualmente, i "children" o "className").  
+Using the STOREs I can copy and paste a component to another point of the APP without problems.
+The components tend to **NOT HAVE PROPS** (if not, possibly, the "children" or "className").
 
 ### Models and API  
-In realtà nel TEMPLATE le API e gli STOREs sono "mischiati"!  
-Una soluzione *discutibile* ma data la semplicità delle API non ho voluto complicare la struttura.   
-Si potrebbe pensare ad una cartella "Models" per la gestione degli oggetti POCO  
-e "API" per le richieste HTTP.
+In reality in this TEMPLATE the APIs and the STOREs are "mixed"!
+A *questionable* solution but given the simplicity of the API I didn't want to complicate the structure.
+One could think of a "Models" folder for managing POCO objects
+and "API" for HTTP requests.
 
 ---
 
 ## AJAX
 
-Ho costruito una classe semplicissima [qui](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/plugins/AjaxService.js#L11).  
-Volevo un SERVICE di default SINGLETON che potesse mantenere delle proprietà per esempio `baseUrl`  
-Ma, se necessario, si possono creare diverse istanze di questo SERVICE.  
+Being a SPA, all data arrives via AJAX.  
+I built a very simple class [here](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/plugins/AjaxService.js#L11).   
+I wanted a default SINGLETON SERVICE that could keep some properties (for example `baseUrl`)  
+But if necessary, since it is a `class`, several instances can be created.  
 
-Gli STORE possono essere usati anche fuori dai REACT COMPONENTs (e quindi nei SERVICEs)  
-Per esempio qui setto lo STATE `busy` dello STORE `layout` quando il SERVICE è occupato:  
-[nel SERVICE (fuori da REACT)](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/plugins/AjaxService.js#L43)
+I can use sli STORE even outside REACT (and therefore in SERVICE AJAX)  
+For example, here I set the STATE `busy` of the STORE` layout` when the SERVICE is busy:  
+[in SERVICE (outside REACT)](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/plugins/AjaxService.js#L43)
 ```js
-// prelevo lo store "layout"
+// I download the "layout" store
 const { setBusy } = getStoreLayout()
-// se necessario setto "busy" == true
+// if necessary set "busy" == true
 setBusy(true)
 ```
 
-Definisco la prop `busy` in readable/writable  
-[nello STORE layout](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/stores/layout/store.js#L14)
+While in the [STORE layout](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/stores/layout/store.js#L14)  
 ```js
+// I define the `busy` prop in readable / writable
 export default {
 	state: {
 		busy: false,
@@ -128,15 +117,18 @@ export default {
 	}
 }
 ```
-
-Posso intercettare questo evento dalla VIEW  
-[nella VIEW (REACT COMPONENT)](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/components/layouts/AppBar.jsx#L60)
+ 
+[In VIEW](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/components/layouts/AppBar.jsx#L60)
+I can catch this event  
 ```jsx
 function Header() {
 	const { state: layout } = useLayout()
 	return (
 		<AppBar>
-			{layout.busy && <LinearProgress />}
+			{
+				// In this case the "progress" is displayed if the SERVICE AYAX is busy
+				layout.busy && <LinearProgress />
+			}
 		</AppBar>
 	)
 }
@@ -146,34 +138,33 @@ function Header() {
 
 ## I18N
 
-Prima o poi lo dovrai usare.... quindi meglio pensarci prima!  
-Non serve solo a "tradurre" l'app  
-Ti permette di non avere direttamente il contenuto nella VIEW... è più bello!!!  
-E' utile per i test in Cypress: puoi usare la PATH di traduzione per individuare dei componenti  
-invece del testo (che potrebbe cambiare).
+Sooner or later you will have to use it .... so better think about it first!  
+It's not just for "translating" the app  
+It allows you not to have the content directly in the VIEW ... which is more beautiful !!!  
+It is useful for testing in Cypress: you can use the translation PATH to locate components  
+instead of the text (which may change).  
 
-Usa l'HOOK per importare la funzione di traduzione `t`   
-[all'interno di un REACT COMPONENT]
+Inside a REACT COMPONENT  
+use the HOOK to import the `t` translation function
 ```js
 import { useTranslation } from 'react-i18next'
 ...
 const {t} = useTranslation()
 ```
 
-Traduci tramite PATH
+Translate via PATH
 ```jsx
 <TableCell>{t("pag.user.tbl.username")}</TableCell>
 ```
 
-Oppure usa il [PLUGIN `i18n`](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/plugins/i18n.js)  
-[fuori da un COMPONENT]
+Or, outside of a COMPONENT, use the [PLUGIN `i18n`](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/plugins/i18n.js)  
 ```js
 import i18n from "i18next"
 ...
 const title = i18n.t("pag.default.dlg.router_confirm.title")
 ```
 
-La PATH fa riferimento al file json nella directory `locales`
+The translations are inside JSON files in the `src\locales` directory
 
 [doc](https://react.i18next.com/getting-started)
 
@@ -181,35 +172,36 @@ La PATH fa riferimento al file json nella directory `locales`
 
 ## MOCK
 
-**L'APP deve funzionare offline!** Naturalmente con dei dati `mock`  
-Questo permette di dividere i compiti di chi fa il FE e chi fa il BE:  
-E' sufficiente condividere una buona documentazione sulle API (che va comunque fatta)  
-Non hai bisogno di tutto l'ambiente per sviluppare.  
-Inoltre è immediatamente "testabile" (per esempio da Cypress).  
-Infine l'APP in mock può essere presentata come demo al CLIENTE senza "comportamenti inattesi" (= "panico")  
-Troppi vantaggi!  
+**The APP must work offline**! Of course with `mock` data  
+This allows to divide the tasks of those who do the FE and those who do the BE:  
+It is enough to share good documentation on the API (which must be done anyway)  
+You don't need the whole environment to develop.  
+It is also immediately "testable" (for example by Cypress).  
+Finally, the APP in mock can be presented as a demo to the CUSTOMER without "unexpected behavior" (= "panic")  
+Too many benefits!
 
-Ho configurato e avviato [MSW](https://mswjs.io/) in [/plugins/msw.js](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/plugins/msw.js)   
-Viene chiamato [qui](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/index.js#L8) avviando un [Service Worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)   
+I have configured and started [MSW](https://mswjs.io/) in [/plugins/msw.js](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/plugins/msw.js)   
+It is called [here](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/index.js#L8) starting a [Service Worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)   
 
-> Un `Service Worker` si comporta da proxy tra l'APP e il WEB: "simulando" la rete a basso livello.  
-> Questo è figo perché è completamente trasparente all'APP: in pratica `fetch` funziona comunque!  
+>A `Service Worker` acts as a proxy between the APP and the WEB:" simulating "the low-level network.  
+> This is cool because it is completely transparent to the APP:  
+> basically when you use `fetch` it still works ... even offline! The `mock` data is given to you by the` Service Worker`  
 
-In [mocks/ajax/handlers](https://github.com/priolo/jon-template/tree/7f8c02cbd72371c1018f7a689ed625577f22f206/src/mocks/ajax/handlers) ci sono i "CONTROLLERs" simulati  
-In [mocks/data](https://github.com/priolo/jon-template/tree/7f8c02cbd72371c1018f7a689ed625577f22f206/src/mocks/data) ci sono ... i dati! Usati per emulare il DB
+In [mocks/ajax/handlers](https://github.com/priolo/jon-template/tree/7f8c02cbd72371c1018f7a689ed625577f22f206/src/mocks/ajax/handlers) there are simulated "CONTROLLERs"  
+In [mocks/data](https://github.com/priolo/jon-template/tree/7f8c02cbd72371c1018f7a689ed625577f22f206/src/mocks/data) there are ... the data! Used to emulate the DB
 
-L'APP avvia il `Service Worker` se è in `development` oppure la variabile di ambiente `REACT_APP_MOCK` è "true" (stringa!)  
+The APP starts the `Service Worker` if it is in` development` or the `REACT_APP_MOCK` environment variable is" true "(string!)
 
-> Le variabili di ambiente in CRA sono documentate [qui](https://create-react-app.dev/docs/adding-custom-environment-variables/)  
-> Comunque CRA (in fase di compilazione) pesca da `.env` (o parenti) tutte le variabili che iniziano con `REACT_APP`  
-> e le mette a disposizione nel browser  
+> Environment variables in CRA are documented [here](https://create-react-app.dev/docs/adding-custom-environment-variables/)  
+> However CRA (at compile time) takes from `.env` all variables starting with` REACT_APP`  
+> and makes them available in the browser
 
-Esempio per "simulare" la risposta alla richiesta di un oggetto `doc` tramite il suo `id`
+Example: To "simulate" the response to the request of a `doc` object by its` id`
 
-richiesta HTTP:  
+HTTP request:  
 `GET /api/docs/33`
 
-estratto da: [src/mocks/ajax/handlers/docs.js](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/mocks/ajax/handlers/docs.js#L18)
+taken from: [src/mocks/ajax/handlers/docs.js](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/mocks/ajax/handlers/docs.js#L18)
 ```js
 import { rest } from "msw"
 import list from "../../data/docs"
@@ -233,11 +225,10 @@ rest.get ('/api/docs/:id', (req, res, ctx) => {
 
 ## ROUTING
 
-Anche in questo caso c'e' poco sa pensare: [reactrouter](https://reactrouter.com/web/guides/quick-start)  
+Also in this case it is easy to choose: [reactrouter](https://reactrouter.com/web/guides/quick-start)  
 
-E' molto semplice:  
-RENDER CONDIZIONALE in base al corrente url del browser? 
-Usa `Switch` specificando una `path` 
+### CONDITIONAL RENDER based on the current browser URL? 
+Use `Switch` by specifying one or more `paths`
 ```jsx
 /* ATTENTION: the order is important */
 <Switch>
@@ -253,7 +244,8 @@ Usa `Switch` specificando una `path`
 </Switch>
 ```
 
-"Cambiare pagina" dentro a REACT? Usa l'HOOK `useHistory`:  
+### CHANGE THE PAGE in REACT? 
+Use the `useHistory` HOOK:   
 [src\components\app\Avatar.jsx](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/components/app/Avatar.jsx)
 ```jsx
 import { useHistory } from "react-router-dom";
@@ -265,12 +257,14 @@ export default function Avatar() {
 }
 ```
 
-"Cambiare pagina" fuori da REACT? Usa `history` nativa
+### CHANGE PAGE outside REACT?   
+Use the browser's native `history` 
 ```js
 window.history.push("/docs/33")
 ```
 
-Accedere ai parametri dell'url? Usa l'HOOK `useParams`.  
+### Access the URL PARAMETERS?
+Use the `useParams` HOOK.  
 [src\pages\doc\DocDetail.jsx](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/pages/doc/DocDetail.jsx)
 
 ```jsx
@@ -287,31 +281,40 @@ export default function DocDetail() {
 }
 ```
 
-> **ATTENZIONE**   
-> Essendo il TEMPLATE un `SPA`:
-> - Su cambio URL non effettua nessuna richiesta HTTP al server ma aggiorna semplicemente il rendering  
-> - Naturalmente, i dati vengono recuperati tramite richieste AJAX
-> - Le uniche richieste "sulla struttura dell'APP" è il primo caricamento o reload della pagina.  
-> - Il SERVER va settato opportunamente per rispondere sempre con la stessa pagna
+### Confirm ON CHANGE
+
+An example can also be found on the `react-router-dom` website [here](https://github.com/ReactTraining/history/blob/master/docs/blocking-transitions.md), I report it for completeness.    
+Ho creato un hook custom [useConfirmationRouter](https://github.com/priolo/jon-template/blob/be1ebdb0cacddd049d0a6c78bf88dc0c152e4b55/src/hooks/useConfirmationRouter.js)  
+that simply blocks navigation and asks for confirmation to continue.  
+I use it in the detail of the DOC [here](https://github.com/priolo/jon-template/blob/be1ebdb0cacddd049d0a6c78bf88dc0c152e4b55/src/pages/doc/DocDetail.jsx#L44)
+
+---
+
+> **WARNING**   
+> Being the TEMPLATE a `SPA`:
+> - On URL change it does not make any HTTP requests to the server but simply updates the rendering
+> - Of course, the data is always retrieved via AJAX requests
+> - The only requests "about the APP structure" is the first loading or reload of the page.
+> - The SERVER must be set appropriately to always reply with the same page
 
 > **P.S.:**  
-> Siete come me? Istallare un plugin è sempre un dubbio? Se questa libreria non fa quello che mi serve? Se diventa obsoleta il giorno dopo aver messo in produzione? Se l'autore fa voto a Dio di non toccare mai più un pc? Se mi accorgo che c'e' un BUG irrisolvibile nella libreria? E poi... vuoi mettere avere il pieno controllo del software??
-> Allora... questo plugin potrebbe essere sostituito gestendo l'url con gli STORE.  
-> Ma non tratterò l'argomento qui :D
+> Are you like me? Is installing a plugin always a doubt? What if this library doesn't do what I need? What if it becomes obsolete the day after putting it into production? What if the author vows to God never to touch a pc again? What if I notice that there is an unsolvable BUG in the library? And then ... do you want to have full control of the software ??
+> So ... this plugin could be replaced by managing the url with the STORE.
+> But I will not cover the subject here: D
 
 ---
 
 ## COMPONENTS-UI
 
-Naturalmente potreste fare i vostri componenti (non ci vuole poi molto)  
-ma [Material-UI](https://material-ui.com/) è molto usata e solida!  
-Non serve altro!  
+Of course you can make your own components (it doesn't take much)  
+but [Material-UI](https://material-ui.com/) is very used and solid!  
+Nothing else is needed!  
 
 ### BINDING
-Prima cosa: legare gli STORE alla VIEW  
-Basta avere in testa `useState` MA, invece di stare nel COMPONENT REACT, è nello STORE.  
+First thing: link the STORE to the VIEW  
+Just have `useState` in your head BUT, instead of being in the COMPONENT REACT, it's in the STORE.
 
-Definiamo uno STORE con un `value` in read/write
+We define a STORE with a `value` in read / write
 ```js
 export default {
 	state: {
@@ -323,8 +326,8 @@ export default {
 }
 ```
 
-Importo lo STORE e   
-"binding" del suo `value` nel COMPONENT REACT
+I import the STORE e
+"binding" of its `value` in the COMPONENT REACT
 ```jsx
 import { useStore } from "@priolo/jon"
 
@@ -339,27 +342,30 @@ export default function Form() {
 }
 ```
 
-Un [sandbox](https://codesandbox.io/s/example-1-5d2tt) che NON usa MATERIAL-UI  
-Per saperne di piu' date un occhio a [Jon](https://github.com/priolo/jon)  
-Comunque in questo TEMPLATE i BINDING li trovate un pò [ovunque](https://github.com/priolo/jon-template/blob/5593323c8a3ca30ed9023e6708124a191552b13e/src/pages/user/EditDialog.jsx#L54)
+A [sandbox](https://codesandbox.io/s/example-1-5d2tt) that does NOT use MATERIAL-UI
+To find out more, check out [Jon](https://github.com/priolo/jon)  
+However, in this TEMPLATE you can find the BINDINGS [everywhere](https://github.com/priolo/jon-template/blob/5593323c8a3ca30ed9023e6708124a191552b13e/src/pages/user/EditDialog.jsx#L54)  
 
 ### VALIDATOR
-La validazione delle form si lascia sempre per ultima!  
-Stiamo facendo un SPA, non siamo nel 1990, non abbiamo `<form />`! Tutto passa attraverso gli STORE.  
-In `Jon` è presente un semplice meccanismo per validazione dei componenti Material-UI.
+Form validation is always left for last: smile:  
+There is a simple mechanism for validating Material-UI components in `Jon`.
 
-Basta collegare un valore ad una `rule` (con un HOOK)  
-e assegnare la `props` ottenuta al COMPONENT-UI
+Just connect a value to a `rule` (with a HOOK)  
+and assign the obtained `props` to the MATERIAL-UI component
 ```jsx
 import { rules, useValidator } from "@priolo/jon";
-
+ 
 function Form() {
 
 	const { state: user, setSelectName } = useAccount()
+	// I create a custom "rule". If there is a violation I return a string with the error
 	const customRule = (value) => value?.length >= 3 ? null : "Enter at least 3 letters."
+	// I link two "rules" with the STORE ACCOUNT property "user.select?.name"
 	const nameProps = useValidator(user.select?.name, [rules.obligatory, customRule])
+	// ... and I get "nameProps"
 
 	return <TextField autoFocus fullWidth
+		// report an error if the value does not meet one of the rules
 		{...nameProps}
 		value={user.select?.name}
 		onChange={e => setSelectName(e.target.value)}
@@ -367,7 +373,7 @@ function Form() {
 }
 ```
 
-E validare nello STORE prima di inviare i dati
+And validate in the STORE before sending the data
 ```js
 import { validateAll } from "@priolo/jon"
 
@@ -377,7 +383,9 @@ const store = {
 	},
 	actions: {
 		save: async (state, _, store) => {
+			// check if there is an error in the displayed "rules"
 			const errs = validateAll()
+			// if there are errors I can view them ... or ignore them :)
 			if ( errs.length > 0 ) return false
 			// else ... save! 
 		},
@@ -388,25 +396,24 @@ const store = {
 }
 ```
 
-un esempio [qui](https://github.com/priolo/jon-template/blob/5593323c8a3ca30ed9023e6708124a191552b13e/src/stores/user/store.js#L73)
+an example [here](https://github.com/priolo/jon-template/blob/5593323c8a3ca30ed9023e6708124a191552b13e/src/stores/user/store.js#L73)
 
 ### DYNAMIC THEME
 
-Una volta capito come funzionano gli STORE li usi per tutto  
-... anche, naturalmente, per gestire il THEME  
+Once you understand how the STORES work, you use them for everything
+... of course also to manage the THEME  
 
-Nello STORE `layout` ho messo tutto quello che caratterizza l'aspetto generale dell'APP  
-Compreso il THEME di MATERIAL-UI  
-e anche: il titolo sul AppBar, se l'APP è in attesa (loading...), se i DRAWER laterali sono aperti, il menu' principale, la "message box", dov'e' settato il focus etc etc  
+In the [STORE `layout`](https://github.com/priolo/jon-template/blob/177dca2bafb4e1cf2fa22dfc2a45a703a89c6c04/src/stores/layout/store.js) I put everything that characterizes the general appearance of the APP  
+The THEME of MATERIAL-UI  
+but also the title on the AppBar, if the APP is waiting (loading ...), if the side DRAWERS are open, the main menu, the "message box", where the focus is set etc etc  
 
-Cmunque le impostazione del THEME devono essere mantenute anche quando si ricarica la pagina  
-(in quel caso il browser fa una nuova richiesta al server e lo STORE è ricaricato da zero)  
-Quindi ho usato i coockies per memorizzare il nome del THEME selezionato  
-lo si vede [qui](https://github.com/priolo/jon-template/blob/336589e17b1fa05a198f1d24322b9c78bbeff0ca/src/stores/layout/store.js#L20) nello STATE che è l'impostazione iniziale dello STORE  
-e quando il THEME viene cambiato [qui](https://github.com/priolo/jon-template/blob/336589e17b1fa05a198f1d24322b9c78bbeff0ca/src/stores/layout/store.js#L70)
-Nel TEMPLATE uso un "toggle" perche' i THEMEs sono solo due.
+However the THEME settings must be kept even when **reload the page**   
+The problem is that in this case the browser makes a new request to the server and the **STORE is reloaded from scratch**!   
+So I used the `coockies` to store the name of the selected THEME  
+you can see it [here](https://github.com/priolo/jon-template/blob/336589e17b1fa05a198f1d24322b9c78bbeff0ca/src/stores/layout/store.js#L20)  
 
-Quindi riassumendo:
+The store theme is initially set with the cookie  
+and when the THEME is changed [here](https://github.com/priolo/jon-template/blob/336589e17b1fa05a198f1d24322b9c78bbeff0ca/src/stores/layout/store.js#L70)  
 ```js
 export default {
 	state: {
@@ -420,10 +427,10 @@ export default {
 	}
 }
 ```
-Anche se si usa il cookies per memeorizzare il nome del THEME  
-bisogna comunque modificare la variabile dello STORE (piu' correttamente "lo STATE dello store")  
-Altrimenti la VIEW non riceve l'evento!  
-In generale la VIEW si aggiorna SOLO SE l'oggetto `state` dello STORE cambia
+Even if you use the cookies to memorize the name of the THEME  
+however, it is necessary to modify the STORE variable (more correctly "the STATE of the store")  
+Otherwise the VIEW does not receive the event!  
+In general the VIEW updates ONLY IF the `state` object of the STORE changes
 
 ---
 
@@ -431,12 +438,16 @@ In generale la VIEW si aggiorna SOLO SE l'oggetto `state` dello STORE cambia
 
 ### SEARCH AND FILTER
 
-Se, in un APP WEB, copio l'URL e lo invio ad un amico  
-mi aspetto è che lui veda esattamente quello che vedo io (a parità di permessi naturalmente)  
-Quindi i TAB selezionati, i filtri e l'ordinamento sulle liste  
-vanno mantenuti nel `search` dell'url corrente.  
+If I use a WEB APP and I copy the URL and send it to a friend  
+I expect him to see exactly what I see (with the same permissions of course)  
+Then the selected TABs, the filters and the sorting on the lists  
+they must be kept in the [`search` of the current url](https://developer.mozilla.org/en-US/docs/Web/API/URL/search) also called *query string*  
+... in short, what is after the "?" in the url  
 
-In STORE [Route](https://github.com/priolo/jon-template/blob/336589e17b1fa05a198f1d24322b9c78bbeff0ca/src/stores/route/store.js) posso prelevare o settare una variabile del search dell'url e questo puo' essere collegato alla VIEW
+In STORE [Route](https://github.com/priolo/jon-template/blob/336589e17b1fa05a198f1d24322b9c78bbeff0ca/src/stores/route/store.js) I can get or set a variable in the `query string`  
+which can be used in VIEW  
+
+An excerpt from the STORE:
 ```js
 export default {
 	state: {
@@ -463,7 +474,7 @@ export default {
 }
 ```
 
-poi lo uso nella [lista](https://github.com/priolo/jon-template/blob/336589e17b1fa05a198f1d24322b9c78bbeff0ca/src/pages/doc/DocList.jsx) per filtrare gli elementi 
+then I use it in the [list](https://github.com/priolo/jon-template/blob/336589e17b1fa05a198f1d24322b9c78bbeff0ca/src/pages/doc/DocList.jsx) to filter the elements
 ```js
 function DocList() {
 	const { state: route, getSearchUrl } = useRoute()
@@ -488,7 +499,7 @@ function DocList() {
 }
 ```
 
-intanto nell'[HEADER](https://github.com/priolo/jon-template/blob/336589e17b1fa05a198f1d24322b9c78bbeff0ca/src/pages/user/UserHeader.jsx) ho la text-box per modificare il filtro
+meanwhile in the [HEADER](https://github.com/priolo/jon-template/blob/336589e17b1fa05a198f1d24322b9c78bbeff0ca/src/pages/user/UserHeader.jsx) I have the text-box to modify the filter
 ```js
 import { useRoute } from "../../stores/route"
 
@@ -503,37 +514,29 @@ function Header() {
 }
 ```
 
-Con la `SearchBox` cambio l'url  
-legato (tramite lo store STORE `route`) alla VIEW `DocList` e quindi questa aggiorna la lista.  
-Se dovessi duplicare la pagina nel browser il filtro rimarrebbe intatto.
-
----
-
-### CONFIRM ON CHANGE
-
-molto semplice... si trova anche sul sito di `react-router-dom` [qui](https://github.com/ReactTraining/history/blob/master/docs/blocking-transitions.md), lo riporto per completezza.  
-Ho creato un hook custom [useConfirmationRouter](https://github.com/priolo/jon-template/blob/be1ebdb0cacddd049d0a6c78bf88dc0c152e4b55/src/hooks/useConfirmationRouter.js)  
-che semplicemente blocca la navigazione e chiede conferma per proseguire.
-Lo uso nel dettaglio del DOC [qui](https://github.com/priolo/jon-template/blob/be1ebdb0cacddd049d0a6c78bf88dc0c152e4b55/src/pages/doc/DocDetail.jsx#L44)
+To recap: With the `SearchBox` I change the url  
+linked (via the store STORE `route`) to the VIEW` DocList`  
+and then this updates the list.  
+If I were to duplicate the page in the browser the filter would remain intact.  
 
 ---
 
 ## AUTH
 
-L'AUTH non è completo (questione di tempo... lo finirò)!  
-E' gestito dallo STORE `auth` [qui](https://github.com/priolo/jon-template/blob/be1ebdb0cacddd049d0a6c78bf88dc0c152e4b55/src/stores/auth/store.js) 
+The AUTH is not complete (a matter of time ... I'll finish it)!  
+It is managed by the STORE `auth` [here](https://github.com/priolo/jon-template/blob/be1ebdb0cacddd049d0a6c78bf88dc0c152e4b55/src/stores/auth/store.js)
 
 ### JWT
 
-Come funziona?  
-Si tratta di un `token` (o "stringa identificativa") che il server da al client quando quest'ultimo effettua correttamente il login.  
-A questo punto il client ad ogni richiesta successiva non deve più autenticarsi.  
-Ma semplicemente mette il `token` nell HEADER della richiesta HTTP.  
-Il server vedendo il `token` corretto suppone che quella richiesta HTTP è stata fatta da qualcuno che ha gia' superato l'autentificazione.  
-Inoltre il server, con il `token` come chiave, riesce a recuperare i dati dell'utente.  
-Il `token` può essere revocato o avere una "scadenza" costringendo il client a ripetere l'autentificazione per generare un nuovo `token`.
+How does it work?  
+This is a `token` (ie an" identifier string ") that the server gives to the client when the client logs in successfully.  
+At this point the client at each subsequent request no longer has to authenticate.  
+But it just puts the `token` in the HEADER of the HTTP request.  
+The server seeing the correct `token` assumes that that HTTP request was made by someone who has already passed authentication.
+Furthermore, the server, with the `token` as a key, is able to retrieve the user's data.  
+The `token` can be revoked or have an" expiration "forcing the client to re-authenticate to generate a new` token`.  
 
-Infatti il plugin ajax include il `token` se disponibile [qui](https://github.com/priolo/jon-template/blob/be1ebdb0cacddd049d0a6c78bf88dc0c152e4b55/src/plugins/AjaxService.js#L52)  
+The ajax plugin includes the `token` if available [here](https://github.com/priolo/jon-template/blob/be1ebdb0cacdd049d0a6c78bf88dc0c152e4b55/src/plugins/AjaxService.js#L52)
 ```js
 import { getStoreAuth } from "../stores/auth"
 ...
@@ -562,8 +565,8 @@ export class AjaxService {
 }
 ```
 
-Il token sta nello [STORE auth](https://github.com/priolo/jon-template/blob/be1ebdb0cacddd049d0a6c78bf88dc0c152e4b55/src/stores/auth/store.js). Potete memorizzarlo come volete.   
-Ho usato i cookies per non dover ripetere il login sul "reload" dell'APP (diverso comportamento nella versine `mock`)
+The token is accessible in the [STORE auth](https://github.com/priolo/jon-template/blob/be1ebdb0cacddd049d0a6c78bf88dc0c152e4b55/src/stores/auth/store.js). You can memorize it as you like.  
+I used cookies to avoid having to log in again on the "reload"  
 ```js
 import Cookies from 'js-cookie'
 
