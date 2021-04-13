@@ -1,21 +1,34 @@
-Il template definitivo per REACT
+The definitive template for REACT (2021)
 
 ## INDEX
-
-[Why](#why)
-
-[Tecnology](#tecnology)
-
+[Startup](#why)  
+[Store](#store)  
+[CRA](#cra)  
+[AJAX](#ajax)  
+[I18N](#i18n)  
+[MOCK](#mock)  
+[ROUTING](#routing)  
+[UI COMPONENTS](#ui-components)  
+[URL](#url)  
+[AUTH](#auth)
+[TECNOLOGY](#tecnology)  
 [online version]()
 
+---
 
-## WHY
+## STARTUP
 This TEMPLATE allows you to derive a project in a fast and clean way.  
 You have full control of the code as it is a classic CRA.  
 Many typical management problems are solved in the template  
 and it can be a good way to learn.  
 
+clone with:
+
+
+
+
 The concepts solved in the template are:  
+
 
 ## STORE
 When you use REACT for medium-large projects the first urgency is:   
@@ -95,7 +108,7 @@ I built a very simple class [here](https://github.com/priolo/jon-template/blob/7
 I wanted a default SINGLETON SERVICE that could keep some properties (for example `baseUrl`)  
 But if necessary, since it is a `class`, several instances can be created.  
 
-I can use sli STORE even outside REACT (and therefore in SERVICE AJAX)  
+I can use STORE even outside REACT (and therefore in SERVICE AJAX)  
 For example, here I set the STATE `busy` of the STORE` layout` when the SERVICE is busy:  
 [in SERVICE (outside REACT)](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/plugins/AjaxService.js#L43)
 ```js
@@ -183,9 +196,9 @@ Too many benefits!
 I have configured and started [MSW](https://mswjs.io/) in [/plugins/msw.js](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/plugins/msw.js)   
 It is called [here](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/index.js#L8) starting a [Service Worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)   
 
->A `Service Worker` acts as a proxy between the APP and the WEB:" simulating "the low-level network.  
+> A `Service Worker` acts as a proxy between the APP and the WEB: "simulating" low-level network.  
 > This is cool because it is completely transparent to the APP:  
-> basically when you use `fetch` it still works ... even offline! The `mock` data is given to you by the` Service Worker`  
+> basically when you use `fetch` it still works ... even offline! The data is given to you by the `Service Worker`  
 
 In [mocks/ajax/handlers](https://github.com/priolo/jon-template/tree/7f8c02cbd72371c1018f7a689ed625577f22f206/src/mocks/ajax/handlers) there are simulated "CONTROLLERs"  
 In [mocks/data](https://github.com/priolo/jon-template/tree/7f8c02cbd72371c1018f7a689ed625577f22f206/src/mocks/data) there are ... the data! Used to emulate the DB
@@ -304,15 +317,15 @@ I use it in the detail of the DOC [here](https://github.com/priolo/jon-template/
 
 ---
 
-## COMPONENTS-UI
+## UI COMPONENTS
 
 Of course you can make your own components (it doesn't take much)  
 but [Material-UI](https://material-ui.com/) is very used and solid!  
 Nothing else is needed!  
 
 ### BINDING
-First thing: link the STORE to the VIEW  
-Just have `useState` in your head BUT, instead of being in the COMPONENT REACT, it's in the STORE.
+First thing: link the STORE to the VIEW.  
+Remember `useState` BUT, instead of being in the COMPONENT REACT, it's in the STORE.
 
 We define a STORE with a `value` in read / write
 ```js
@@ -342,13 +355,13 @@ export default function Form() {
 }
 ```
 
-A [sandbox](https://codesandbox.io/s/example-1-5d2tt) that does NOT use MATERIAL-UI
+A [sandbox](https://codesandbox.io/s/example-1-5d2tt) (that does NOT use MATERIAL-UI)
 To find out more, check out [Jon](https://github.com/priolo/jon)  
 However, in this TEMPLATE you can find the BINDINGS [everywhere](https://github.com/priolo/jon-template/blob/5593323c8a3ca30ed9023e6708124a191552b13e/src/pages/user/EditDialog.jsx#L54)  
 
 ### VALIDATOR
-Form validation is always left for last: smile:  
-There is a simple mechanism for validating Material-UI components in `Jon`.
+Form validation is always left for last :smile:  
+There is a simple mechanism for validating Material-UI components.
 
 Just connect a value to a `rule` (with a HOOK)  
 and assign the obtained `props` to the MATERIAL-UI component
@@ -440,11 +453,11 @@ In general the VIEW updates ONLY IF the `state` object of the STORE changes
 
 If I use a WEB APP and I copy the URL and send it to a friend  
 I expect him to see exactly what I see (with the same permissions of course)  
-Then the selected TABs, the filters and the sorting on the lists  
-they must be kept in the [`search` of the current url](https://developer.mozilla.org/en-US/docs/Web/API/URL/search) also called *query string*  
-... in short, what is after the "?" in the url  
+Then the selected TABs, filters and sorting on the lists.  
+they must be kept in the [`search` of the current URL](https://developer.mozilla.org/en-US/docs/Web/API/URL/search) also called *query string*  
+... in short, what is after the "?" in the URL  
 
-In STORE [Route](https://github.com/priolo/jon-template/blob/336589e17b1fa05a198f1d24322b9c78bbeff0ca/src/stores/route/store.js) I can get or set a variable in the `query string`  
+In STORE [Route](https://github.com/priolo/jon-template/blob/336589e17b1fa05a198f1d24322b9c78bbeff0ca/src/stores/route/store.js) I can get or set a variable of `query string`  
 which can be used in VIEW  
 
 An excerpt from the STORE:
@@ -528,15 +541,15 @@ It is managed by the STORE `auth` [here](https://github.com/priolo/jon-template/
 
 ### JWT
 
-How does it work?  
+How does it work?   
 This is a `token` (ie an" identifier string ") that the server gives to the client when the client logs in successfully.  
-At this point the client at each subsequent request no longer has to authenticate.  
-But it just puts the `token` in the HEADER of the HTTP request.  
-The server seeing the correct `token` assumes that that HTTP request was made by someone who has already passed authentication.
+At this point the client at each subsequent request no longer has to authenticate.   
+But it just puts the `token` in the HEADER of the HTTP request.   
+The server seeing the correct `token` and assumes that that HTTP request was made by someone who has already passed authentication.  
 Furthermore, the server, with the `token` as a key, is able to retrieve the user's data.  
 The `token` can be revoked or have an" expiration "forcing the client to re-authenticate to generate a new` token`.  
 
-The ajax plugin includes the `token` if available [here](https://github.com/priolo/jon-template/blob/be1ebdb0cacdd049d0a6c78bf88dc0c152e4b55/src/plugins/AjaxService.js#L52)
+The ajax plugin includes the `token` if available [here](https://github.com/priolo/jon-template/blob/be1ebdb0cacdd049d0a6c78bf88dc0c152e4b55/src/plugins/AjaxService.js#L52)  
 ```js
 import { getStoreAuth } from "../stores/auth"
 ...
