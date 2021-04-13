@@ -11,7 +11,8 @@ The definitive template for REACT (2021)
 [UI COMPONENTS](#ui-components)  
 [URL](#url)  
 [AUTH](#auth)
-[TECNOLOGY](#tecnology)  
+[TECNOLOGY](#tecnology) 
+
 [online version]()
 
 ---
@@ -22,13 +23,18 @@ You have full control of the code as it is a classic CRA.
 Many typical management problems are solved in the template  
 and it can be a good way to learn.  
 
-clone with:
+clone:  
+`git clone https://github.com/priolo/jon-template.git`  
+enter:  
+`cd jon-template`  
+install:  
+`npm install`
+run:  
+`npm run start`  
 
-
-
+---
 
 The concepts solved in the template are:  
-
 
 ## STORE
 When you use REACT for medium-large projects the first urgency is:   
@@ -539,16 +545,23 @@ If I were to duplicate the page in the browser the filter would remain intact.
 The AUTH is not complete (a matter of time ... I'll finish it)!  
 It is managed by the STORE `auth` [here](https://github.com/priolo/jon-template/blob/be1ebdb0cacddd049d0a6c78bf88dc0c152e4b55/src/stores/auth/store.js)
 
-### JWT
+### JWT (JSON Web Token)
 
-How does it work?   
-This is a `token` (ie an" identifier string ") that the server gives to the client when the client logs in successfully.  
-At this point the client at each subsequent request no longer has to authenticate.   
-But it just puts the `token` in the HEADER of the HTTP request.   
+#### How does it work?   
+This is a `token` (ie an "identifier string") that the server gives to the client when the client logs in successfully.  
+
+At this point the client at each subsequent request no longer has to authenticate,  
+but it just puts the `token` in the **HEADER** of the HTTPS request.   
+
+Or the server puts the `token` in an **HttpOnly COOKIE**, and will find it on every request.  
+In this case javascript will not be able to access the `token` *(more secure)*
+
 The server seeing the correct `token` and assumes that that HTTP request was made by someone who has already passed authentication.  
 Furthermore, the server, with the `token` as a key, is able to retrieve the user's data.  
-The `token` can be revoked or have an" expiration "forcing the client to re-authenticate to generate a new` token`.  
+The `token` have an "expiration" forcing the client to re-authenticate to generate a new `token`.  
+Of course you have to use an HTTPS connection to be safe.
 
+Assuming you want to implement the token in the HEADER:
 The ajax plugin includes the `token` if available [here](https://github.com/priolo/jon-template/blob/be1ebdb0cacdd049d0a6c78bf88dc0c152e4b55/src/plugins/AjaxService.js#L52)  
 ```js
 import { getStoreAuth } from "../stores/auth"
@@ -578,8 +591,8 @@ export class AjaxService {
 }
 ```
 
-The token is accessible in the [STORE auth](https://github.com/priolo/jon-template/blob/be1ebdb0cacddd049d0a6c78bf88dc0c152e4b55/src/stores/auth/store.js). You can memorize it as you like.  
-I used cookies to avoid having to log in again on the "reload"  
+The token is accessible in the [STORE auth](https://github.com/priolo/jon-template/blob/be1ebdb0cacddd049d0a6c78bf88dc0c152e4b55/src/stores/auth/store.js).  
+I used cookies to avoid having to login again on "reload"  
 ```js
 import Cookies from 'js-cookie'
 

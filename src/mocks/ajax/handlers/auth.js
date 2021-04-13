@@ -16,7 +16,11 @@ export default [
 			ctx.json({ "errors": [{ "code": "password_match", "field": "password" }] })
 		)
 		
-		user.token = `TKN-${Math.floor(Math.random()*9999)}`
+		// generate fake token
+		const header = window.btoa(`{ "alg": "HS256", "typ": "JWT" }`)
+		const payload = window.btoa(`{ "sub": "${user.id}", "name": "${user.username}", "role": "${user.role}", "exp": "xxx" }`)
+		const signature = Math.floor(Math.random()*9999)
+		user.token = `${header}.${payload}.${signature}`
 
 		return res(
 			ctx.delay(500),

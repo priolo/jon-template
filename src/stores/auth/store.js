@@ -26,6 +26,7 @@ export default {
 		isRepassword: state => {
 			return state.user != null && state.user.has_to_change_password == true
 		},
+		getToken: state => Cookies.get("token")
 	},
 	actions: {
 		login: async (state, payload, store) => {

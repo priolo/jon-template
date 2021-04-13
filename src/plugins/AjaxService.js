@@ -39,9 +39,10 @@ export class AjaxService {
 	 */
 	async send(url, method, data, options = {}) {
 		const { setBusy, dialogOpen, setFocus } = getStoreLayout()
-		const { state:auth } = getStoreAuth()
+		const { state:auth, getToken } = getStoreAuth()
 
 		if (!options.noBusy) setBusy(true)
+		const token = getToken()
 
 		// send request
 		const response = await fetch(
@@ -50,7 +51,7 @@ export class AjaxService {
 				method: method,
 				headers: {
 					"Content-Type": "application/json",
-					...auth.token && { "Authorization": auth.token }
+					...token && { "Authorization": `Bearer ${token}` }
 				},
 				body: data ? JSON.stringify(data) : undefined,
 			}

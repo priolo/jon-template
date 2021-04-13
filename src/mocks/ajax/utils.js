@@ -5,7 +5,13 @@ import users from "../data/users"
 const TXT_BEARER = "Bearer"
 const TXT_AUTH = "Authorization"
 
-
+/**
+verify that the user has this token Actually I should decrypt it but ... it's a mock!
+ * @param {*} method 
+ * @param {*} url 
+ * @param {*} callback 
+ * @returns 
+ */
 export function requestValidator(method, url, callback) {
 	return rest[method](url, (req, res, ctx) => {
 		const auth = req.headers.get(TXT_AUTH)
@@ -17,3 +23,4 @@ export function requestValidator(method, url, callback) {
 		return callback(req, res, ctx)
 	})
 }
+
