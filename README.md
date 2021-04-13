@@ -1,7 +1,7 @@
 The definitive template for REACT (2021)
 
 ## INDEX
-[Startup](#why)  
+[Startup](#startup)  
 [Store](#store)  
 [CRA](#cra)  
 [AJAX](#ajax)  
@@ -10,8 +10,8 @@ The definitive template for REACT (2021)
 [ROUTING](#routing)  
 [UI COMPONENTS](#ui-components)  
 [URL](#url)  
-[AUTH](#auth)
-[TECNOLOGY](#tecnology) 
+[AUTH](#auth)  
+[TECNOLOGY](#tecnology)  
 
 [online version]()
 
@@ -27,8 +27,10 @@ clone:
 `git clone https://github.com/priolo/jon-template.git`  
 enter:  
 `cd jon-template`  
-install:  
-`npm install`
+install npm modules:  
+`npm install`  
+install MSW  
+`npx msw init public/ --save`  
 run:  
 `npm run start`  
 
@@ -592,7 +594,7 @@ export class AjaxService {
 ```
 
 The token is accessible in the [STORE auth](https://github.com/priolo/jon-template/blob/be1ebdb0cacddd049d0a6c78bf88dc0c152e4b55/src/stores/auth/store.js).  
-I used cookies to avoid having to login again on "reload"  
+I used cookies to avoid having to login again on "reload" *(it does not work with MSW)*  
 ```js
 import Cookies from 'js-cookie'
 

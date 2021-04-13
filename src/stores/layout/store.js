@@ -30,12 +30,14 @@ export default {
 		device: null,
 	},
 	init: (store) => {
-		window.addEventListener("resize", (e) => {
-			store.setDevice(
-				window.innerWidth < 767 ? "mobile" 
+		const checkDevice = ()=> {
+			const deviceName = window.innerWidth < 767 ? "mobile" 
 				: window.innerWidth < 950 ? "pad"
-				: "desktop")
-		});
+				: "desktop"
+			store.setDevice(deviceName)
+		}
+		window.addEventListener("resize", (e) => checkDevice());
+		checkDevice()
 	},
 	getters: {
 		getDrawerList: (state, _, store) => {
