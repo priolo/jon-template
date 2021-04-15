@@ -103,7 +103,8 @@ Maintaining the APP after years or by several people is something to be expected
 Impossible if you have a tree of components that pass functions and properties to you making them highly context dependent.
 
 Using the STOREs I can copy and paste a component to another point of the APP without problems.
-The components tend to **NOT HAVE PROPS** (if not, possibly, the "children" or "className").
+components **SHOULD HAVE NO PROPS** 
+The components **NOT HAVE PROPS** (with the exception, of course, of "children" or "className").
 
 ### Models and API  
 In reality in this TEMPLATE the APIs and the STOREs are "mixed"!
@@ -218,10 +219,10 @@ In [mocks/data](https://github.com/priolo/jon-template/tree/7f8c02cbd72371c1018f
 The APP starts the `Service Worker` if it is in` development` or the `REACT_APP_MOCK` environment variable is" true "(string!)
 
 > Environment variables in CRA are documented [here](https://create-react-app.dev/docs/adding-custom-environment-variables/)  
-> However CRA (at compile time) takes from `.env` all variables starting with` REACT_APP`  
+> However CRA (at compile time) takes from `.env` all variables that starting with `REACT_APP`  
 > and makes them available in the browser
 
-Example: To "simulate" the response to the request of a `doc` object by its` id`
+Example: To "simulate" the response to the request of a `doc` object by its `id`
 
 HTTP request:  
 `GET /api/docs/33`
@@ -325,7 +326,7 @@ I use it in the detail of the DOC [here](https://github.com/priolo/jon-template/
 > **P.S.:**  
 > Are you like me? Is installing a plugin always a doubt? What if this library doesn't do what I need? What if it becomes obsolete the day after putting it into production? What if the author vows to God never to touch a pc again? What if I notice that there is an unsolvable BUG in the library? And then ... do you want to have full control of the software ??
 > So ... this plugin could be replaced by managing the url with the STORE.
-> But I will not cover the subject here: D
+> But I will not cover the subject here :D
 
 ---
 
