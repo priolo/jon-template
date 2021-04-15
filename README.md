@@ -2,11 +2,12 @@ The definitive template for REACT (2021)
 
 ## INDEX
 [Startup](#startup)  
+
 [Store](#store)  
 [CRA](#cra)  
 [AJAX](#ajax)  
 [I18N](#i18n)  
-[MOCK](#mock)  
+[MOCK](#mock-msw)  
 [ROUTING](#routing)  
 [UI COMPONENTS](#ui-components)  
 [URL](#url)  
@@ -36,7 +37,10 @@ run:
 
 ---
 
-The concepts solved in the template are:  
+
+The template is based on a library for managing the STORE in REACT:   
+[Jon](https://github.com/priolo/jon)   
+and the concepts solved are:
 
 ## STORE
 When you use REACT for medium-large projects the first urgency is:   
@@ -191,7 +195,7 @@ The translations are inside JSON files in the `src\locales` directory
 
 ---
 
-## MOCK
+## MOCK (MSW)
 
 **The APP must work offline**! Of course with `mock` data  
 This allows to divide the tasks of those who do the FE and those who do the BE:  
@@ -559,7 +563,7 @@ Or the server puts the `token` in an **HttpOnly COOKIE**, and will find it on ev
 In this case javascript will not be able to access the `token` *(more secure)*
 
 The server seeing the correct `token` and assumes that that HTTP request was made by someone who has already passed authentication.  
-Furthermore, the server, with the `token` as a key, is able to retrieve the user's data.  
+User data is directly in the `token` (including permissions): there is no need to query the db
 The `token` have an "expiration" forcing the client to re-authenticate to generate a new `token`.  
 Of course you have to use an HTTPS connection to be safe.
 
@@ -571,19 +575,19 @@ import { getStoreAuth } from "../stores/auth"
 
 export class AjaxService {
 	...
-	async send(url, method, data, options = {}) {
+	async send(url, method, data) {
 		const { state:auth } = getStoreAuth()
 		...
-
+		
 		const response = await fetch(
-			`${this.options.baseUrl}${url}`,
+			url,
 			{
 				method: method,
 				headers: {
 					"Content-Type": "application/json",
 					...auth.token && { "Authorization": auth.token }
 				},
-				body: data ? JSON.stringify(data) : undefined,
+				body: data,
 			}
 		)
 
@@ -595,6 +599,7 @@ export class AjaxService {
 
 The token is accessible in the [STORE auth](https://github.com/priolo/jon-template/blob/be1ebdb0cacddd049d0a6c78bf88dc0c152e4b55/src/stores/auth/store.js).  
 I used cookies to avoid having to login again on "reload" *(it does not work with MSW)*  
+> Cookies should only be used with HTTPS
 ```js
 import Cookies from 'js-cookie'
 

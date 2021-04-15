@@ -19,7 +19,7 @@ function EditDialog() {
 	const { t } = useTranslation();
 	const classes = useStyles()
 	const history = useHistory()
-	const uniqueUserRole = (value) => value != user.selectOrigin.username && user.all.some(user => user.username == value) ? "not.univoque" : null
+	const uniqueUserRole = (value) => value != user.selectOrigin?.username && user.all.some(user => user.username == value) ? "not.univoque" : null
 	const usernameProps = useValidator(user.select?.username, [rules.obligatory, uniqueUserRole])
 	const emailProps = useValidator(user.select?.email, [rules.email])
 	const showLinkBook = user.select && user.select.id && user.select.role != USER_ROLES.CUSTOMER

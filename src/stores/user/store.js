@@ -73,17 +73,20 @@ const store = {
 			const errs = validateAll()
 			if ( errs.length > 0 ) return false
 
+			// ajax
 			if (!user.id) {
 				await ajax.post(`users`, user);
 			} else {
 				await ajax.put(`users/${user.id}`, user);
 			}
 
+			// feedback
 			store.setDialogEditIsOpen(false)
 			store.setSelect(null)
 			dialogOpen({ type: DIALOG_TYPES.SUCCESS, text: i18n.t("dialog.feedback.create"), modal: false })
-			//window.history.back()
-			return true
+
+			// update users list
+			store.fetchAll()
 		},
 
 		destroy: async (state, user, store) => {
