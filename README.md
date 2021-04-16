@@ -14,8 +14,8 @@ The definitive template for REACT (2021)
 [AUTH](#auth)  
 [TECNOLOGY](#tecnology)  
 
-[online version]()
-
+[codesandbox](https://codesandbox.io/s/great-smoke-csgq8?file=/src/index.js)
+> in some cases MSW in sandbox does not work
 ---
 
 ## STARTUP
@@ -330,10 +330,10 @@ I use it in the detail of the DOC [here](https://github.com/priolo/jon-template/
 
 ### LAZY IMPORT
 
-It is very very simple! If we have to create a portal with many pages
-Even if we `render` only one page at a time
-with the classic `import` we load ALL COMPONENTs! Even the ones the user will never see!
-To load COMPONENTs only if necessary you need to use a native REACT function: `React.lazy`
+It is very very simple! If we have to create a portal with many pages  
+Even if we `render` only one page at a time  
+with the classic `import` we load ALL COMPONENTs! Even the ones the user will never see!  
+To load COMPONENTs only if necessary you need to use a [native REACT function](https://it.reactjs.org/docs/code-splitting.html#reactlazy): `React.lazy`  
 
 I do it in the `Main` [here] (https://github.com/priolo/jon-template/blob/41acdaad5bd4e11954da9960f5a9cee0324c426b/src/components/layouts/Main.jsx#L20)
 ```jsx
