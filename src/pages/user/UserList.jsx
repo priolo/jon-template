@@ -1,18 +1,17 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react'
 
-import { useUser } from '../../stores/user';
-import { useLayout } from '../../stores/layout';
-
+import { useUser } from '../../stores/user'
+import { useLayout } from '../../stores/layout'
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton, Button, Paper } from '@material-ui/core';
-import { Delete as DeleteIcon, Add as AddIcon } from '@material-ui/icons';
-import { useRoute } from '../../stores/route';
-import Form from '../../components/form/Form';
-import { useTranslation } from 'react-i18next';
-import EditDialog from './EditDialog';
-import TableSortProp from '../../components/TableSortProp';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton, Button, Paper } from '@material-ui/core'
+import { Delete as DeleteIcon, Add as AddIcon } from '@material-ui/icons'
+import { useRoute } from '../../stores/route'
+import Form from '../../components/form/Form'
+import { useTranslation } from 'react-i18next'
+import EditDialog from './EditDialog'
+import TableSortProp from '../../components/TableSortProp'
 
 
 
@@ -20,9 +19,9 @@ function UserPag() {
 
 	//HOOKs
 	const { t } = useTranslation()
-	const { state: user, fetchAll, edit, destroy, getList } = useUser();
+	const { state: user, fetchAll, edit, destroy, getList } = useUser()
 	const { setTitle } = useLayout()
-	const classes = useStyles();
+	const classes = useStyles()
 	const { state:route, setCurrentPage } = useRoute()
 
 	useEffect(() => {

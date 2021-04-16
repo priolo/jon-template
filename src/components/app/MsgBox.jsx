@@ -41,7 +41,7 @@ export default function MsgBox() {
 						{options.labelCancel}
 					</Button>
 				)}
-				<Button 
+				<Button variant="contained"
 					color="primary" 
 					autoFocus
 					onClick={() => dialogClose(true)}

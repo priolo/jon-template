@@ -458,6 +458,53 @@ however, it is necessary to modify the STORE variable (more correctly "the STATE
 Otherwise the VIEW does not receive the event!  
 In general the VIEW updates ONLY IF the `state` object of the STORE changes
 
+### Responsive Design
+
+There are tools in MATERIAL-UI for this [here](https://material-ui.com/guides/responsive-ui/)
+But what if we don't use MATERIAL-UI?
+
+We can use the STORE! I initialize the STORE by hooking it to the window resize event
+```js
+const store =  {
+	state: {
+		device: null,
+	},
+	// chiamato UNA SOLA VOLTA per inizializzare lo store
+	init: (store) => {
+		const checkDevice = ()=> {
+			const deviceName = window.innerWidth < 767 ? "mobile" 
+				: window.innerWidth < 950 ? "pad"
+				: "desktop"
+			store.setDevice(deviceName)
+		}
+		window.addEventListener("resize", (e) => checkDevice());
+		checkDevice()
+	},
+	mutators: {
+		setDevice: ( state, device ) => ({ device }),
+	},
+}
+```
+
+And I use it to modify the VIEW based on the device
+```js
+function MainDrawer () {
+	const { state: layout } = useLayout()
+	const variant = layout.device == "desktop" ? "persistent" : null
+
+	return (
+		<Drawer
+			variant={variant}
+			...
+		>
+			...
+		</Drawer>
+	)
+}
+```
+
+Of course you can also use it for: classes and style css or conditional render
+
 ---
 
 ## URL

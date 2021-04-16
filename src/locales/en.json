@@ -172,15 +172,15 @@
 		},
 		"feedback": {
 			"delete": {
-				"success": "l'elemento è stato eliminato con successo",
+				"success": "the item was successfully deleted",
 				"confirm": {
-					"title": "ATTENTO TU!!!",
-					"text": "davvero vuoi fare cio'?",
-					"yes": "Certo!",
+					"title": "WARNING! Irreversible operation",
+					"text": "Do you really want to delete this element?",
+					"yes": "Of course",
 					"no": "NO!"
 				}
 			},
-			"create": "l'elemento è stato creato con successo"
+			"create": "the item was created successfully"
 		}
 	},
 	"app":{
