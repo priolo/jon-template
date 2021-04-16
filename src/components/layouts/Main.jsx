@@ -44,19 +44,19 @@ export default function Main() {
 						<Switch>
 
 							<Route path={["/docs/:id"]}>
-								<Suspense fallback={<h1>Loading....</h1>}>
+								<Suspense fallback={null}>
 									<DocDetail />
 								</Suspense>
 							</Route>
 
 							<Route path={["/docs"]}>
-								<Suspense fallback={<h1>Loading....</h1>}>
+								<Suspense fallback={null}>
 									<DocList />
 								</Suspense>
 							</Route>
 
 							<Route path={["/", "/users"]}>
-								<Suspense fallback={<h1>Loading....</h1>}>
+								<Suspense fallback={null}>
 									<UserList />
 								</Suspense>
 							</Route>
