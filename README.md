@@ -14,8 +14,8 @@ The definitive template for REACT (2021)
 [AUTH](#auth)  
 [TECNOLOGY](#tecnology)  
 
-[codesandbox](https://codesandbox.io/s/great-smoke-csgq8?file=/src/index.js)
-> in some cases MSW in sandbox does not work
+[codesandbox](https://codesandbox.io/s/great-smoke-csgq8?file=/src/index.js) *(in some cases MSW in sandbox does not work)*
+
 ---
 
 ## STARTUP
