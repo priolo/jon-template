@@ -1,3 +1,4 @@
+/* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 import { Drawer, Grid, IconButton, makeStyles, Typography } from "@material-ui/core"
 import { Close as CloseIcon } from '@material-ui/icons'
 import { useLayout } from "../../stores/layout"

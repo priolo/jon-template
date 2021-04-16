@@ -1,11 +1,9 @@
 /* eslint eqeqeq: "off" */
 import { requestValidator } from '../utils'
 import list from "../../data/users"
-import { USER_ROLES } from '../../../stores/user/utils'
 
-//const list = [...users]
 
-export default [
+const users = [
 
 	// index
 	requestValidator("get", '/api/users', (req, res, ctx) => {
@@ -100,7 +98,7 @@ export default [
 		if (index == -1) return res(ctx.status(404))
 
 		// delete user
-		const item = list.splice(index, 1)
+		list.splice(index, 1)
 
 		// send success
 		return res(
@@ -133,3 +131,5 @@ export default [
 	}),
 
 ]
+
+export default users

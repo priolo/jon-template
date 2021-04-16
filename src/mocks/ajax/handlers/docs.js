@@ -3,7 +3,7 @@ import { requestValidator } from '../utils'
 import list from "../../data/docs"
 
 
-export default [
+const docs = [
 
 	// index
 	requestValidator("get", '/api/docs', (req, res, ctx) => {
@@ -79,7 +79,7 @@ export default [
 		if (index == -1) return res(ctx.status(404))
 
 		// delete
-		const item = list.splice(index, 1)
+		list.splice(index, 1)
 
 		// send success
 		return res(
@@ -88,3 +88,5 @@ export default [
 		)
 	}),
 ]
+
+export default docs

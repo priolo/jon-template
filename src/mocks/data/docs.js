@@ -1,5 +1,5 @@
 
-export default [
+const docs = [
 	{
 		"id": "doc-1",
 		"title": "The book",
@@ -58,3 +58,5 @@ export default [
 	},
 
 ]
+
+export default docs

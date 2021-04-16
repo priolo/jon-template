@@ -3,7 +3,7 @@ import { rest } from 'msw'
 import users from "../../data/users"
 
 
-export default [
+const auth = [
 
 	// login
 	rest.post('/api/auth/login', (req, res, ctx) => {
@@ -55,3 +55,5 @@ export default [
 	}),
 
 ]
+
+export default auth

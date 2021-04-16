@@ -10,7 +10,7 @@ function TableSortProp ({
 	name,
 }) {
 
-	const { state:route, getSearchUrl, setSort } = useRoute()
+	const { getSearchUrl, setSort } = useRoute()
 	const active = getSearchUrl("sortName") == name
 	const direction = getSearchUrl("isAsc")== "true" ? "asc" : "desc"
 

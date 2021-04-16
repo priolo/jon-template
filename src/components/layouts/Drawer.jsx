@@ -1,13 +1,13 @@
+/* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 import { makeStyles } from "@material-ui/core/styles"
 import { Divider, Drawer, IconButton, List } from "@material-ui/core"
 import { ChevronLeft as ChevronLeftIcon } from "@material-ui/icons"
-import ItemMenu from "./ItemMenu";
+import ItemMenu from "./ItemMenu"
 
-import { useLayout } from "../../stores/layout";
+import { useLayout } from "../../stores/layout"
 
 
-
-export default function () {
+function MainDrawer () {
 
 	const { state: layout, toggleDrawerIsOpen, getDrawerList } = useLayout()
 	const classes = useStyles()
@@ -38,6 +38,8 @@ export default function () {
 		</Drawer>
 	)
 }
+
+export default MainDrawer
 
 const useStyles = makeStyles((theme) => ({
 	drawer: {

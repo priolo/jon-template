@@ -1,5 +1,5 @@
-import React, { useEffect } from "react"
-import { useStore } from "@priolo/jon";
+/* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
+import React, { lazy, Suspense, useEffect } from "react"
 import { ThemeProvider, CssBaseline } from '@material-ui/core'
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom"
 
@@ -7,21 +7,26 @@ import AppBar from "./AppBar"
 import Drawer from "./Drawer"
 import Body from "./Body"
 
-import UserList from "../../pages/user/UserList"
-import DocList from "../../pages/doc/DocList";
-import DocDetail from "../../pages/doc/DocDetail";
+//import UserList from "../../pages/user/UserList"
+//import DocList from "../../pages/doc/DocList";
+//import DocDetail from "../../pages/doc/DocDetail";
+
 import { useLayout } from "../../stores/layout";
 import { useAuth } from "../../stores/auth";
 import MsgBox from "../app/MsgBox";
 import LogIn from "../../pages/auth/LogIn";
 import RightDrawer from "./RightDrawer";
 
+const DocDetail = lazy(() => import('../../pages/doc/DocDetail'))
+const DocList = lazy(() => import('../../pages/doc/DocList'))
+const UserList = lazy(() => import('../../pages/user/UserList'))
+
 
 
 export default function Main() {
 
 	const { state: layout } = useLayout()
-	const { isLogged, isRepassword, refresh } = useAuth()
+	const { isLogged, refresh } = useAuth()
 
 	useEffect(() => { refresh() }, [])
 
@@ -35,17 +40,25 @@ export default function Main() {
 					<Drawer />
 					<RightDrawer />
 					<Body>
-						{/* ATTENZIONE: l'ordine è importante */}
+						{/* ATTENTION: the order is important */}
 						<Switch>
+
 							<Route path={["/docs/:id"]}>
-								<DocDetail />
+								<Suspense fallback={<h1>Loading....</h1>}>
+									<DocDetail />
+								</Suspense>
 							</Route>
+
 							<Route path={["/docs"]}>
-								<DocList />
+								<Suspense fallback={<h1>Loading....</h1>}>
+									<DocList />
+								</Suspense>
 							</Route>
 
 							<Route path={["/", "/users"]}>
-								<UserList />
+								<Suspense fallback={<h1>Loading....</h1>}>
+									<UserList />
+								</Suspense>
 							</Route>
 
 						</Switch>

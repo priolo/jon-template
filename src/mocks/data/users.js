@@ -1,6 +1,6 @@
 import { USER_ROLES } from "../../stores/user/utils";
 
-export default [
+const users = [
 	{
 		"id": "usr-1",
 		"username": "admin",
@@ -59,3 +59,5 @@ export default [
 	},
 
 ]
+
+export default users

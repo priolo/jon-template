@@ -1,6 +1,7 @@
-import i18n from "i18next";
+/* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 
-export default {
+
+const store = {
 	state: {
 		currentPage: "",
 		queryUrl: "",
@@ -53,6 +54,8 @@ export default {
 		},
 	},
 }
+
+export default store
 
 export const URL_PARAMS_COMMON = {
 	SORT_NAME: "sortName",

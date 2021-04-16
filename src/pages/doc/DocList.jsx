@@ -1,10 +1,10 @@
-/* eslint eqeqeq: "off" */
+/* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 import React, { useEffect } from 'react';
 
 import { useLayout } from '../../stores/layout';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton, Button, Paper, Typography } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton, Button, Paper } from '@material-ui/core';
 import { Delete as DeleteIcon, Add as AddIcon } from '@material-ui/icons';
 import Form from '../../components/form/Form';
 import { useTranslation } from 'react-i18next';
@@ -23,7 +23,7 @@ function DocList() {
 	const { t } = useTranslation()
 	const history = useHistory()
 	const { state: doc, fetchAll, getList, destroy, setSelect } = useDoc();
-	const { state: user, getById: getUserById } = useUser()
+	const { getById: getUserById } = useUser()
 	const { state: route, setCurrentPage } = useRoute()
 	const { setTitle } = useLayout()
 	const classes = useStyles()

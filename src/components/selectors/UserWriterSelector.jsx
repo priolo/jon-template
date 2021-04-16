@@ -1,7 +1,6 @@
-import { FormControl, Grid, IconButton, InputAdornment, InputLabel, makeStyles, MenuItem, Select } from '@material-ui/core';
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
+import { FormControl, Grid, IconButton, InputAdornment, InputLabel, makeStyles, MenuItem, Select } from '@material-ui/core';
 import React, { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useUser } from '../../stores/user';
 import { USER_ROLES } from "../../stores/user/utils"
 import { Close as CloseIcon } from '@material-ui/icons'

@@ -1,4 +1,4 @@
-
+/* eslint eqeqeq: "off" */
 import ajax from "../../plugins/AjaxService"
 import { getStoreRoute } from "../route"
 import { ref, validateAll } from "@priolo/jon"

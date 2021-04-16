@@ -1,3 +1,4 @@
+/* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 import { makeStyles } from "@material-ui/core/styles"
 import { AppBar, Toolbar, Typography, IconButton, LinearProgress, Grid } from "@material-ui/core"
 import { Menu as MenuIcon } from "@material-ui/icons"

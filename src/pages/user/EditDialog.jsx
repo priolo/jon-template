@@ -1,7 +1,7 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
-import React, { useEffect } from 'react';
+import React  from 'react';
 
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, IconButton, Tooltip, Grid, Box, makeStyles, Divider, Typography } from '@material-ui/core';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Grid, Box, makeStyles, Divider } from '@material-ui/core';
 import { useUser } from '../../stores/user';
 import { useTranslation } from 'react-i18next';
 import RolesSelector from '../../components/selectors/RolesSelector';

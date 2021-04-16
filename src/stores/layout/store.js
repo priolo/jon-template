@@ -1,3 +1,4 @@
+/* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 import { themeLight, themeDark } from "../../theme"
 import { People, Description } from '@material-ui/icons';
 import Cookies from "js-cookie";
@@ -9,7 +10,7 @@ import i18n from "i18next";
 // used when dialog closed
 let resolveClose = null;
 
-export default {
+const store =  {
 	state: {
 		busy: false,
 		title: "",
@@ -29,16 +30,16 @@ export default {
 
 		device: null,
 	},
-	init: (store) => {
-		const checkDevice = ()=> {
-			const deviceName = window.innerWidth < 767 ? "mobile" 
-				: window.innerWidth < 950 ? "pad"
-				: "desktop"
-			store.setDevice(deviceName)
-		}
-		window.addEventListener("resize", (e) => checkDevice());
-		checkDevice()
-	},
+	// init: (store) => {
+	// 	const checkDevice = ()=> {
+	// 		const deviceName = window.innerWidth < 767 ? "mobile" 
+	// 			: window.innerWidth < 950 ? "pad"
+	// 			: "desktop"
+	// 		store.setDevice(deviceName)
+	// 	}
+	// 	window.addEventListener("resize", (e) => checkDevice());
+	// 	checkDevice()
+	// },
 	getters: {
 		getDrawerList: (state, _, store) => {
 			return state.menu
@@ -98,6 +99,7 @@ export default {
 	},
 }
 
+export default store
 
 const optionsDefault = {
 	modal: true,

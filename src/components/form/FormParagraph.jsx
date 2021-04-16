@@ -16,7 +16,7 @@ export default function FormParagraph({
 	const classes = useStyles();
 
 	return (
-		<Card className={classes.root} id={id} full>
+		<Card className={classes.root} id={id}>
 			<CardHeader title={title} />
 			
 			<CardContent className={haveExpand ? classes.content : null}>

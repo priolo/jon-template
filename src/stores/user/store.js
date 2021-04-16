@@ -1,3 +1,4 @@
+/* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 import { getStoreLayout } from "../layout"
 import ajax from "../../plugins/AjaxService"
 import { ref, validateAll, resetAll } from "@priolo/jon"

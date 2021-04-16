@@ -10,7 +10,7 @@ import { validateAll, resetAll } from "@priolo/jon";
 
 let idPolling = null
 
-export default {
+const store = {
 	state: {
 		user: null, //{ id:<???>, username:<string>, has_to_change_password:<bool>, role:<???> }
 		token: Cookies.get('token'),
@@ -141,3 +141,5 @@ export default {
 		},
 	},
 }
+
+export default store

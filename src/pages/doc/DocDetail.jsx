@@ -1,4 +1,5 @@
-import { Box, Button, makeStyles, TextField } from "@material-ui/core";
+/* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
+import { Box, Button, TextField } from "@material-ui/core";
 import { Add as AddIcon } from "@material-ui/icons";
 import { rules, useValidator } from "@priolo/jon";
 import { useEffect } from "react";
@@ -21,11 +22,10 @@ function DocDetail() {
 	const { id } = useParams()
 	const { t } = useTranslation()
 	const history = useHistory()
-	const classes = useStyles()
-
+	
 	const { state: doc, fetchById, edit, setSelectProp, canSave, isSelectChanged, save } = useDoc()
 	const { setCurrentPage } = useRoute()
-	const { state:layout, setTitle, dialogOpen } = useLayout()
+	const { setTitle } = useLayout()
 	const titleProp = useValidator(doc.select?.title, [rules.obligatory])
 	const linkProp = useValidator(doc.select?.link, [rules.url])
 
@@ -114,7 +114,3 @@ function DocDetail() {
 }
 
 export default DocDetail
-
-const useStyles = makeStyles(theme => ({
-
-}))
