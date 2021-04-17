@@ -1,4 +1,4 @@
-The definitive template for REACT (2021)
+Complete template for REACT SPA (2021)
 
 ## INDEX
 [Startup](#startup)  
@@ -14,6 +14,7 @@ The definitive template for REACT (2021)
 [AUTH](#auth)  
 [TECNOLOGY](#tecnology)  
 
+[github](https://github.com/priolo/jon-template)
 [codesandbox](https://codesandbox.io/s/great-smoke-csgq8?file=/src/index.js) *(in some cases MSW in sandbox does not work)*
 
 ---
@@ -64,8 +65,8 @@ The APP will have a pre-established and reproducible setup.
 The structure in the file system of the TEMPLATE:
 
 ### components  
-it contains everything that is not a PAGE or DIALOG.
-In general: conceptually "reusable" components.
+it contains everything that is not a PAGE or DIALOG.  
+In general: conceptually "reusable" components.  
 
 ### hooks
 Specific `hooks` used in the APP.
@@ -310,7 +311,7 @@ export default function DocDetail() {
 ### Confirm ON CHANGE
 
 An example can also be found on the `react-router-dom` website [here](https://github.com/ReactTraining/history/blob/master/docs/blocking-transitions.md), I report it for completeness.    
-Ho creato un hook custom [useConfirmationRouter](https://github.com/priolo/jon-template/blob/be1ebdb0cacddd049d0a6c78bf88dc0c152e4b55/src/hooks/useConfirmationRouter.js)  
+I created a custom hook [useConfirmationRouter](https://github.com/priolo/jon-template/blob/be1ebdb0cacddd049d0a6c78bf88dc0c152e4b55/src/hooks/useConfirmationRouter.js)  
 that simply blocks navigation and asks for confirmation to continue.  
 I use it in the detail of the DOC [here](https://github.com/priolo/jon-template/blob/be1ebdb0cacddd049d0a6c78bf88dc0c152e4b55/src/pages/doc/DocDetail.jsx#L44)
 

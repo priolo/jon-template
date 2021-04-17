@@ -15,6 +15,7 @@ import { useLayout } from '../../stores/layout';
 
 export default function LogIn() {
 
+	// HOOKS
 	const classes = useStyles()
 	const { t } = useTranslation()
 	const { state: auth, setUsername, setPassword, login } = useAuth()
@@ -23,7 +24,7 @@ export default function LogIn() {
 	const usernameProp = useValidator(auth.username, [rules.obligatory])
 	const pswProp = useValidator(auth.password, [rules.obligatory])
 
-
+	// RENDER
 	return (
 		<Container component="main" maxWidth="xs">
 			<div className={classes.paper}>
