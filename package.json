@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": false,
   "//dependencies": {
-    "@priolo/iistore#local": "file:C://Users//iorio//Documents//Jon",
-    "@priolo/iistore": "^0.2.2"
+    "@priolo/jon#local": "file:C://Users//iorio//Documents//Jon",
+    "@priolo/jon": "^0.2.2"
   },
   "dependencies": {
     "react": "^17.0.1",

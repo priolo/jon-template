@@ -49,9 +49,23 @@ When you use REACT for medium-large projects the first urgency is:
 There are libraries for this! The most famous is [REDUX](https://redux.js.org/)  
 But, in my opinion, it is too long-winded and cumbersome.  
 So I started using the native REACT methods [REDUCER](https://it.reactjs.org/docs/hooks-reference.html#usereducer) and [PROVIDERS](https://it.reactjs.org/docs/hooks-reference.html#usecontext)  
-Eventually I ended up with a VERY VERY light bookcase inspired by [VUEX](https://vuex.vuejs.org/)!      
+Eventually I ended up with a light lib inspired by [VUEX](https://vuex.vuejs.org/)!      
 [Jon](https://github.com/priolo/jon)
 Check it out!
+
+### MIX STORE
+Per spezzare il codice su più files puoi usare `mixStore`
+L'ho usato per la gestione della dialog all'interno dello STORE `layout`
+```js
+import { mixStores } from "@priolo/jon";
+import dialogStore from "./dialog"
+
+const store =  {
+	...
+}
+
+export default mixStores ( store, dialogStore )
+```
 
 ---
 
