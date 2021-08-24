@@ -24,16 +24,16 @@ const store =  {
 
 		device: null,
 	},
-	init: (store) => {
-		const checkDevice = ()=> {
-			const deviceName = window.innerWidth < 767 ? "mobile" 
-				: window.innerWidth < 950 ? "pad"
-				: "desktop"
-			store.setDevice(deviceName)
-		}
-		window.addEventListener("resize", (e) => checkDevice());
-		checkDevice()
-	},
+	// init: (store) => {
+	// 	const checkDevice = ()=> {
+	// 		const deviceName = window.innerWidth < 767 ? "mobile" 
+	// 			: window.innerWidth < 950 ? "pad"
+	// 			: "desktop"
+	// 		store.setDevice(deviceName)
+	// 	}
+	// 	window.addEventListener("resize", (e) => checkDevice());
+	// 	checkDevice()
+	// },
 	getters: {
 		getDrawerList: (state, _, store) => {
 			return state.menu
