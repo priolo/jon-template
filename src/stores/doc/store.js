@@ -1,7 +1,8 @@
 /* eslint eqeqeq: "off" */
 import ajax from "../../plugins/AjaxService"
 import { getStoreRoute } from "../route"
-import { ref, validateAll } from "@priolo/jon"
+import { validateAll } from "@priolo/jon"
+import utils from "@priolo/jon-utils"
 import { getStoreLayout } from "../layout"
 import { DIALOG_TYPES } from "../layout/utils"
 import i18n from "i18next";
@@ -33,11 +34,11 @@ const store = {
 		},
 		canSave: (state, _, store) => {
 			const { select: doc, selectOrigin: original } = state
-			return doc && !ref.isEqualDeep(doc, original)
+			return doc && !utils.isEqualDeep(doc, original)
 		},
 		isSelectChanged: (state, _, store) => {
 			const { select: doc, selectOrigin: original } = state
-			return doc && !ref.isEqualDeep(doc, original)
+			return doc && !utils.isEqualDeep(doc, original)
 		},
 	},
 	actions: {

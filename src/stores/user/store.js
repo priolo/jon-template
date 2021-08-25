@@ -1,7 +1,8 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 import { getStoreLayout } from "../layout"
 import ajax from "../../plugins/AjaxService"
-import { ref, validateAll, resetAll } from "@priolo/jon"
+import { validateAll, resetAll } from "@priolo/jon"
+import utils from "@priolo/jon-utils"
 import i18n from "i18next";
 import { DIALOG_TYPES } from "../layout/utils";
 import { USER_ROLES } from "./utils";
@@ -30,20 +31,20 @@ const store = {
 
 			let txt = getSearchUrl("search").trim().toLowerCase()
 			if (txt.length > 0) {
-				users = users.filter(user => 
+				users = users.filter(user =>
 					user.username.toLowerCase().indexOf(txt) != -1
 					|| user.email.toLowerCase().indexOf(txt) != -1
 				)
 			}
-			users = getSorted({items: users})
+			users = getSorted({ items: users })
 			return users
 		},
 		canSave: (state, _, store) => {
 			const { select: user, selectOrigin: original } = state
-			return user && !ref.isEqualDeep(user, original)
+			return user && !utils.isEqualDeep(user, original)
 		},
 		getById: (state, id, store) => {
-			return state.all.find( user => user.id == id )
+			return state.all.find(user => user.id == id)
 		}
 	},
 	actions: {
@@ -72,7 +73,7 @@ const store = {
 
 			// validation
 			const errs = validateAll()
-			if ( errs.length > 0 ) return false
+			if (errs.length > 0) return false
 
 			// ajax
 			if (!user.id) {

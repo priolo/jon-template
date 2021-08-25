@@ -13,7 +13,7 @@ import './plugins/i18n';
 // APPLICATION
 const rootElement = document.getElementById("root")
 ReactDOM.render(
-	<MultiStoreProvider setups={{setups}}>
+	<MultiStoreProvider setups={setups}>
 		<Main />
 	</MultiStoreProvider>,
 	rootElement
