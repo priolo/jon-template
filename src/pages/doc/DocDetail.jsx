@@ -5,14 +5,16 @@ import { rules, useValidator } from "@priolo/jon";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router";
-import Form from "../../components/form/Form";
-import FormParagraph from "../../components/form/FormParagraph";
-import FormRow from "../../components/form/FormRow";
-import UserWriterSelector from "../../components/selectors/UserWriterSelector";
-import { useConfirmationRouter } from "../../hooks/useConfirmationRouter";
-import { useDoc } from "../../stores/doc";
-import { useLayout } from "../../stores/layout";
-import { useRoute } from "../../stores/route";
+
+import Form from "components/form/Form";
+import FormParagraph from "components/form/FormParagraph";
+import FormRow from "components/form/FormRow";
+import UserWriterSelector from "components/selectors/UserWriterSelector";
+
+import { useConfirmationRouter } from "hooks/useConfirmationRouter";
+import { useDoc } from "stores/doc";
+import { useLayout } from "stores/layout";
+import { useRoute } from "stores/route";
 
 
 

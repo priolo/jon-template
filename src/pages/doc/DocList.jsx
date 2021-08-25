@@ -1,19 +1,20 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
-import React, { useEffect } from 'react';
-
-import { useLayout } from '../../stores/layout';
+import { useEffect, useMemo } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton, Button, Paper } from '@material-ui/core';
 import { Delete as DeleteIcon, Add as AddIcon } from '@material-ui/icons';
-import Form from '../../components/form/Form';
+
+import Form from 'components/form/Form';
+import TableSortProp from 'components/TableSortProp';
+
 import { useTranslation } from 'react-i18next';
-import { useDoc } from '../../stores/doc';
 import { useHistory } from 'react-router';
-import { useUser } from '../../stores/user';
-import { useRoute } from '../../stores/route';
-import { useMemo } from 'react';
-import TableSortProp from '../../components/TableSortProp';
+
+import { useDoc } from 'stores/doc';
+import { useUser } from 'stores/user';
+import { useRoute } from 'stores/route';
+import { useLayout } from 'stores/layout';
 
 
 

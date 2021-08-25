@@ -4,4 +4,6 @@ import route from "./route/store"
 import user from "./user/store"
 import doc from "./doc/store"
 
-export default { auth, layout, route, user, doc }
+const stores = { auth, layout, route, user, doc }
+
+export default stores

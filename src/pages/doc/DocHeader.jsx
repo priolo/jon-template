@@ -1,8 +1,9 @@
 import { Badge, Grid, IconButton } from "@material-ui/core"
-import SearchBox from "../../components/SearchBox"
 import { FilterList as FiltersIcon } from '@material-ui/icons'
-import { useLayout } from "../../stores/layout"
-import { useRoute } from "../../stores/route"
+
+import SearchBox from "components/SearchBox"
+import { useLayout } from "stores/layout"
+import { useRoute } from "stores/route"
 
 
 function DocHeader() {

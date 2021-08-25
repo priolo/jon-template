@@ -1,18 +1,18 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
-import React, { useEffect, useMemo } from 'react'
-
-import { useUser } from '../../stores/user'
-import { useLayout } from '../../stores/layout'
+import { useEffect, useMemo } from 'react'
 
 import { makeStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next'
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton, Button, Paper } from '@material-ui/core'
 import { Delete as DeleteIcon, Add as AddIcon } from '@material-ui/icons'
-import { useRoute } from '../../stores/route'
-import Form from '../../components/form/Form'
-import { useTranslation } from 'react-i18next'
-import EditDialog from './EditDialog'
-import TableSortProp from '../../components/TableSortProp'
 
+import EditDialog from './EditDialog'
+import TableSortProp from 'components/TableSortProp'
+import Form from 'components/form/Form'
+
+import { useRoute } from 'stores/route'
+import { useUser } from 'stores/user'
+import { useLayout } from 'stores/layout'
 
 
 function UserPag() {

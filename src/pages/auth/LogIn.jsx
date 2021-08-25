@@ -1,14 +1,13 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
-import React from 'react';
+import { useValidator, rules } from '@priolo/jon';
 import { useTranslation } from 'react-i18next';
 
 import { Avatar, Button, TextField, Typography, Container, CircularProgress } from '@material-ui/core';
 import { LockOutlined as LockOutlinedIcon } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { useAuth } from '../../stores/auth';
-import { useValidator, rules } from '@priolo/jon';
-import { useLayout } from '../../stores/layout';
+import { useAuth } from 'stores/auth';
+import { useLayout } from 'stores/layout';
 
 
 

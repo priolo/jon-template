@@ -1,5 +1,5 @@
 /* eslint eqeqeq: "off" */
-import ajax from "../../plugins/AjaxService";
+import ajax from "plugins/AjaxService";
 
 import Cookies from 'js-cookie'
 import i18n from "i18next";

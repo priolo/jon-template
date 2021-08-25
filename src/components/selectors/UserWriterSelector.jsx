@@ -1,9 +1,10 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
+import { useEffect } from 'react';
 import { FormControl, Grid, IconButton, InputAdornment, InputLabel, makeStyles, MenuItem, Select } from '@material-ui/core';
-import React, { useEffect } from 'react';
-import { useUser } from '../../stores/user';
-import { USER_ROLES } from "../../stores/user/utils"
 import { Close as CloseIcon } from '@material-ui/icons'
+
+import { useUser } from 'stores/user';
+import { USER_ROLES } from "stores/user/utils"
 
 
 function UserWriterSelector({

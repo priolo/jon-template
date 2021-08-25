@@ -1,5 +1,5 @@
-import SearchBox from "../../components/SearchBox"
-import { useRoute } from "../../stores/route"
+import SearchBox from "components/SearchBox"
+import { useRoute } from "stores/route"
 
 
 function UserHeader() {

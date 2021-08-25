@@ -1,5 +1,6 @@
 import { makeStyles } from '@material-ui/core'
-import { useLayout } from '../../stores/layout';
+
+import { useLayout } from 'stores/layout';
 
 
 export default function CentralSpace({

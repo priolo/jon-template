@@ -1,15 +1,15 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
-import React  from 'react';
-
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Grid, Box, makeStyles, Divider } from '@material-ui/core';
-import { useUser } from '../../stores/user';
-import { useTranslation } from 'react-i18next';
-import RolesSelector from '../../components/selectors/RolesSelector';
 import { useValidator, rules } from '@priolo/jon';
-import { useHistory } from 'react-router';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Grid, Box, makeStyles, Divider } from '@material-ui/core';
 import { Link as LinkIcon } from '@material-ui/icons';
-import { USER_ROLES } from '../../stores/user/utils';
 
+import { useHistory } from 'react-router';
+import { useTranslation } from 'react-i18next';
+
+import RolesSelector from 'components/selectors/RolesSelector';
+
+import { useUser } from 'stores/user';
+import { USER_ROLES } from 'stores/user/utils';
 
 
 function EditDialog() {

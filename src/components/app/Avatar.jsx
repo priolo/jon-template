@@ -5,9 +5,9 @@ import { AccountCircle as AccountIcon, ExitToApp as LogoutIcon, Face as ProfileI
 import { IconButton, Menu, MenuItem, Typography, Box, Divider, ListItemIcon, Switch } from '@material-ui/core';
 
 import { useTranslation } from 'react-i18next';
-import { useAuth } from "../../stores/auth"
+import { useAuth } from "stores/auth"
 import { useHistory } from "react-router-dom";
-import { useLayout } from '../../stores/layout';
+import { useLayout } from 'stores/layout';
 
 
 function Avatar() {

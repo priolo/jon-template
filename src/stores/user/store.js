@@ -1,12 +1,12 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
-import { getStoreLayout } from "../layout"
-import ajax from "../../plugins/AjaxService"
 import { validateAll, resetAll } from "@priolo/jon"
 import utils from "@priolo/jon-utils"
 import i18n from "i18next";
+import ajax from "plugins/AjaxService"
+
 import { DIALOG_TYPES } from "../layout/utils";
 import { USER_ROLES } from "./utils";
-
+import { getStoreLayout } from "../layout"
 import { getStoreRoute } from "../route";
 
 

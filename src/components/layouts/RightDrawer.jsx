@@ -1,11 +1,13 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
-import { Drawer, Grid, IconButton, makeStyles, Typography } from "@material-ui/core"
-import { Close as CloseIcon } from '@material-ui/icons'
-import { useLayout } from "../../stores/layout"
-import DocFilters from "../../pages/doc/DocFilters";
-import { useRoute } from "../../stores/route";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { Drawer, Grid, IconButton, makeStyles, Typography } from "@material-ui/core"
+import { Close as CloseIcon } from '@material-ui/icons'
+
+import DocFilters from "pages/doc/DocFilters";
+
+import { useLayout } from "stores/layout"
+import { useRoute } from "stores/route";
 
 
 function RightDrawer() {

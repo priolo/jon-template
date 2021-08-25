@@ -1,8 +1,9 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
-import { themeLight, themeDark } from "../../theme"
+import { themeLight, themeDark } from "theme"
 import { People, Description } from '@material-ui/icons';
 import Cookies from "js-cookie";
 import { mixStores } from "@priolo/jon";
+
 import dialogStore from "./dialog"
 
 

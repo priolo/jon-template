@@ -1,11 +1,12 @@
 /* eslint eqeqeq: "off" */
-import ajax from "../../plugins/AjaxService"
-import { getStoreRoute } from "../route"
+import ajax from "plugins/AjaxService"
 import { validateAll } from "@priolo/jon"
 import utils from "@priolo/jon-utils"
+import i18n from "i18next";
+
+import { getStoreRoute } from "../route"
 import { getStoreLayout } from "../layout"
 import { DIALOG_TYPES } from "../layout/utils"
-import i18n from "i18next";
 
 
 const store = {

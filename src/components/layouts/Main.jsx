@@ -11,10 +11,11 @@ import Body from "./Body"
 //import DocList from "../../pages/doc/DocList";
 //import DocDetail from "../../pages/doc/DocDetail";
 
-import { useLayout } from "../../stores/layout";
-import { useAuth } from "../../stores/auth";
+import { useLayout } from "stores/layout";
+import { useAuth } from "stores/auth";
+
 import MsgBox from "../app/MsgBox";
-import LogIn from "../../pages/auth/LogIn";
+import LogIn from "pages/auth/LogIn";
 import RightDrawer from "./RightDrawer";
 
 const DocDetail = lazy(() => import('../../pages/doc/DocDetail'))

@@ -1,5 +1,5 @@
-import UserWriterSelector from "../../components/selectors/UserWriterSelector"
-import { useRoute } from "../../stores/route"
+import UserWriterSelector from "components/selectors/UserWriterSelector"
+import { useRoute } from "stores/route"
 
 
 function DocFilters() {

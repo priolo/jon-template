@@ -1,6 +1,7 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 import { makeStyles } from "@material-ui/core/styles"
-import { useLayout } from "../../stores/layout";
+
+import { useLayout } from "stores/layout";
 
 
 function Body({

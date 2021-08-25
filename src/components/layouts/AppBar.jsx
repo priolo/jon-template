@@ -2,13 +2,14 @@
 import { makeStyles } from "@material-ui/core/styles"
 import { AppBar, Toolbar, Typography, IconButton, LinearProgress, Grid } from "@material-ui/core"
 import { Menu as MenuIcon } from "@material-ui/icons"
+
 import CentralSpace from "./CentralSpace";
 import Avatar from "../app/Avatar";
-import UserHeader from "../../pages/user/UserHeader";
-import DocHeader from "../../pages/doc/DocHeader";
+import UserHeader from "pages/user/UserHeader";
+import DocHeader from "pages/doc/DocHeader";
 
-import { useRoute } from "../../stores/route";
-import { useLayout } from "../../stores/layout";
+import { useRoute } from "stores/route";
+import { useLayout } from "stores/layout";
 
 
 

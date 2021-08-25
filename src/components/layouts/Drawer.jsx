@@ -2,9 +2,10 @@
 import { makeStyles } from "@material-ui/core/styles"
 import { Divider, Drawer, IconButton, List } from "@material-ui/core"
 import { ChevronLeft as ChevronLeftIcon } from "@material-ui/icons"
+
 import ItemMenu from "./ItemMenu"
 
-import { useLayout } from "../../stores/layout"
+import { useLayout } from "stores/layout"
 
 
 function MainDrawer () {

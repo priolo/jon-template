@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { makeStyles } from '@material-ui/core/styles';
 import { Search as SearchIcon, Clear as ClearIcon } from '@material-ui/icons';
 import { InputBase, fade, IconButton, Box } from '@material-ui/core';

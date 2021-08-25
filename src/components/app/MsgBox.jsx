@@ -4,7 +4,7 @@ import React from 'react';
 import { makeStyles, Snackbar, IconButton, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import { Close as CloseIcon } from '@material-ui/icons';
 
-import { useLayout } from '../../stores/layout';
+import { useLayout } from 'stores/layout';
 
 
 export default function MsgBox() {
