@@ -135,7 +135,7 @@ and "API" for HTTP requests.
 ## AJAX
 
 Being a SPA, all data arrives via AJAX.  
-I built a very simple class [here](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/plugins/AjaxService.js#L11).   
+I built a very simple class [here](https://github.com/priolo/jon-template/blob/02a83923403b88c442281e43960a1fe67e6f8bf8/src/plugins/AjaxService.js#L26).   
 I wanted a default SINGLETON SERVICE that could keep some properties (for example `baseUrl`)  
 But if necessary, since it is a `class`, several instances can be created.  
 
@@ -184,7 +184,7 @@ function Header() {
 In this template I store the `token` in cookies.  
 It is not the "best" but for most cases it can be enough.  
 So if I have the token, I send it on every AJAX request to the server.  
-[token](...)s
+[token]([II])s
 
 ---
 
