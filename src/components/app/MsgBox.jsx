@@ -1,21 +1,33 @@
 /* eslint eqeqeq: "off" */
 import React from 'react';
 
-import { makeStyles, Snackbar, IconButton, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
-import { Close as CloseIcon } from '@material-ui/icons';
+import {
+	Snackbar,
+	IconButton,
+	Button,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogContentText,
+	DialogTitle,
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import { Close as CloseIcon } from '@mui/icons-material';
 
 import { useLayout } from 'stores/layout';
 
 
 export default function MsgBox() {
 
-	const { state:layout, dialogClose } = useLayout()
+	// HOOKs
+	const { state: layout, dialogClose } = useLayout()
 	const { dialogOptions: options } = layout
 	const classes = useStyles();
 
-	
-	if (!options) return null
 
+	// RENDER
+	if (!options) return null
+	
 	return options.modal ? (
 		<Dialog
 			open={layout.dialogIsOpen}
@@ -34,7 +46,7 @@ export default function MsgBox() {
 
 			<DialogActions className={classes.actions}>
 				{options.labelCancel && (
-					<Button 
+					<Button
 						color="secondary"
 						onClick={() => dialogClose(false)}
 					>
@@ -42,7 +54,7 @@ export default function MsgBox() {
 					</Button>
 				)}
 				<Button variant="contained"
-					color="primary" 
+					color="primary"
 					autoFocus
 					onClick={() => dialogClose(true)}
 				>
@@ -58,9 +70,9 @@ export default function MsgBox() {
 			onClose={dialogClose}
 			message={options.text}
 			action={
-				<IconButton 
-					size="small" 
-					color="inherit" 
+				<IconButton
+					size="small"
+					color="inherit"
 					onClick={dialogClose}
 				>
 					<CloseIcon fontSize="small" />

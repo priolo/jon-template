@@ -1,7 +1,18 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 import { useValidator, rules } from '@priolo/jon';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Grid, Box, makeStyles, Divider } from '@material-ui/core';
-import { Link as LinkIcon } from '@material-ui/icons';
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    TextField,
+    Grid,
+    Box,
+    Divider,
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import { Link as LinkIcon } from '@mui/icons-material';
 
 import { useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';

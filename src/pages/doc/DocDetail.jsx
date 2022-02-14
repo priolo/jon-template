@@ -1,6 +1,6 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
-import { Box, Button, TextField } from "@material-ui/core";
-import { Add as AddIcon } from "@material-ui/icons";
+import { Box, Button, TextField } from "@mui/material";
+import { Add as AddIcon } from "@mui/icons-material";
 import { rules, useValidator } from "@priolo/jon";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -35,10 +35,10 @@ function DocDetail() {
 		setCurrentPage("doc.detail")
 		if (!id) return
 		if (id == "new") {
-			setTitle(t("pag.doc.detail.title_new"))
+			setTitle("pag.doc.detail.title_new")
 			edit()
 		} else {
-			setTitle(t("pag.doc.detail.title_edit"))
+			setTitle("pag.doc.detail.title_edit")
 			fetchById(id).then((doc) => edit(doc))
 		}
 	}, [id])

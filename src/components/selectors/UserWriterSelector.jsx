@@ -1,7 +1,16 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 import { useEffect } from 'react';
-import { FormControl, Grid, IconButton, InputAdornment, InputLabel, makeStyles, MenuItem, Select } from '@material-ui/core';
-import { Close as CloseIcon } from '@material-ui/icons'
+import {
+    FormControl,
+    Grid,
+    IconButton,
+    InputAdornment,
+    InputLabel,
+    MenuItem,
+    Select,
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import { Close as CloseIcon } from '@mui/icons-material'
 
 import { useUser } from 'stores/user';
 import { USER_ROLES } from "stores/user/utils"
@@ -14,6 +23,7 @@ function UserWriterSelector({
 	disabled,
 }) {
 
+	// HOOKs
 	const classes = useStyles()
 	const { state: user, fetchAll } = useUser()
 
@@ -21,10 +31,13 @@ function UserWriterSelector({
 		if ( user.all.length == 0 ) fetchAll()
 	}, [])
 
+
+	// HANDLEs
 	const handleClickClear = e => onChange("")
 	const handleChange = e => onChange(e.target.value)
 
-
+	
+	// RENDER
 	return (
 		<Grid container alignItems="center">
 			<Grid item xs>

@@ -1,9 +1,9 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 import { useEffect, useMemo } from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton, Button, Paper } from '@material-ui/core';
-import { Delete as DeleteIcon, Add as AddIcon } from '@material-ui/icons';
+import makeStyles from '@mui/styles/makeStyles';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton, Button, Paper } from '@mui/material';
+import { Delete as DeleteIcon, Add as AddIcon } from '@mui/icons-material';
 
 import Form from 'components/form/Form';
 import TableSortProp from 'components/TableSortProp';
@@ -31,7 +31,7 @@ function DocList() {
 
 	useEffect(() => {
 		setCurrentPage("doc.list")
-		setTitle(t("pag.doc.list.title"))
+		setTitle("pag.doc.list.title")
 		setSelect(null)
 		fetchAll()
 	}, [])
@@ -57,71 +57,71 @@ function DocList() {
 
 	if (!doc.all || doc.all.length == 0) return null
 
-	return (<Form
-		renderFooter={
-			<Button
-				variant="contained"
-				color="primary"
-				startIcon={<AddIcon />}
-				onClick={handleClickNew}
-			>
-				{t("pag.doc.list.btt_new")}
-			</Button>
-		}
-	>
-		<TableContainer component={Paper}>
+	return (
+        <Form
+            renderFooter={
+                <Button
+                    variant="contained"
+                    color="primary"
+                    startIcon={<AddIcon />}
+                    onClick={handleClickNew}
+                >
+                    {t("pag.doc.list.btt_new")}
+                </Button>
+            }
+        >
+            <TableContainer component={Paper}>
 
-			<Table className={classes.table}>
-				<TableHead>
-					<TableRow>
-						<TableCell>
-							<TableSortProp name="title">
-								{t("pag.doc.list.title_doc")}
-							</TableSortProp>
-						</TableCell>
-						<TableCell>
-							<TableSortProp name="author">
-								{t("pag.doc.list.author")}
-							</TableSortProp>
-						</TableCell>
-						<TableCell>
-							<TableSortProp name="link">
-								{t("pag.doc.list.link")}
-							</TableSortProp>
-						</TableCell>
-						<TableCell align="center" className={classes.actionsCell}>
-							{t("pag.user.list.actions")}
-						</TableCell>
-					</TableRow>
-				</TableHead>
+                <Table className={classes.table}>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>
+                                <TableSortProp name="title">
+                                    {t("pag.doc.list.title_doc")}
+                                </TableSortProp>
+                            </TableCell>
+                            <TableCell>
+                                <TableSortProp name="author">
+                                    {t("pag.doc.list.author")}
+                                </TableSortProp>
+                            </TableCell>
+                            <TableCell>
+                                <TableSortProp name="link">
+                                    {t("pag.doc.list.link")}
+                                </TableSortProp>
+                            </TableCell>
+                            <TableCell align="center" className={classes.actionsCell}>
+                                {t("pag.user.list.actions")}
+                            </TableCell>
+                        </TableRow>
+                    </TableHead>
 
-				<TableBody>
-					{docs.map(doc => (
+                    <TableBody>
+                        {docs.map(doc => (
 
-						<TableRow hover key={doc.id}
-							className={classes.row}
-							onClick={e => handleClickRow(doc.id)}
-						>
-							<TableCell >{doc.title}</TableCell>
-							<TableCell >{getUserById(doc.author_id)?.username}</TableCell>
-							<TableCell >{doc.link}</TableCell>
-							<TableCell align="center" className={classes.actionsCell}>
-								<IconButton id="btt-delete"
-									onClick={(e) => handleClickDelete(doc, e)}
-								><DeleteIcon /></IconButton>
-							</TableCell>
-						</TableRow>
+                            <TableRow hover key={doc.id}
+                                className={classes.row}
+                                onClick={e => handleClickRow(doc.id)}
+                            >
+                                <TableCell >{doc.title}</TableCell>
+                                <TableCell >{getUserById(doc.author_id)?.username}</TableCell>
+                                <TableCell >{doc.link}</TableCell>
+                                <TableCell align="center" className={classes.actionsCell}>
+                                    <IconButton id="btt-delete" onClick={(e) => handleClickDelete(doc, e)} size="large"><DeleteIcon /></IconButton>
+                                </TableCell>
+                            </TableRow>
 
-					))}
-				</TableBody>
+                        ))}
+                    </TableBody>
 
-			</Table>
+                </Table>
 
-		</TableContainer>
+            </TableContainer>
 
-		{/* <EditDialog /> */}
+            {/* <EditDialog /> */}
 
-	</Form>)
+        </Form>
+    );
 }
 
 export default DocList

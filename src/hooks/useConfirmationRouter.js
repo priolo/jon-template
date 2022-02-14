@@ -5,20 +5,25 @@ import { useLayout } from "../stores/layout";
 import i18n from "i18next"
 
 /**
- * Se c'e' una "modifica" chiede all'utente se davvero vuole cambiare pagina 
- * @param {*} callbackChanged per capire se, nella pagina, è cambiato qualcosa
+ * If there is a "change" it asks the user if he really wants to change the page
+ * @param {()=>boolean} callbackChanged call to understand if anything has changed on the page
 */
-export function useConfirmationRouter( callbackChanged) {
+export function useConfirmationRouter(callbackChanged) {
 
 	const history = useHistory()
 	const { dialogOpen } = useLayout()
 
 	useEffect(() => {
-		let unblock = history.block((location)=>{
-			if ( location.hash?.length>0 ) return true
-			if ( callbackChanged() ) {
-				(async ()=>{
-					if ( await dialogOpen({
+		/**
+		 * @see https://github.com/remix-run/history/blob/main/docs/blocking-transitions.md
+		 */
+		let unblock = history.block((location) => {
+			if (location.hash?.length > 0) return true
+
+			// if something has changed on the page then ask for confirmation
+			if (callbackChanged()) {
+				(async () => {
+					if (await dialogOpen({
 						type: "warning",
 						title: i18n.t("pag.default.dlg.router_confirm.title"),
 						text: i18n.t("pag.default.dlg.router_confirm.text"),
@@ -33,8 +38,10 @@ export function useConfirmationRouter( callbackChanged) {
 			}
 			unblock()
 			return true
-		});
+		})
+		
+		// called when the component of this hook is unmounted
 		return unblock
 	}, [])
-	
+
 }

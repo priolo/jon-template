@@ -1,6 +1,7 @@
 import React from 'react';
-import { CardHeader, Card, CardContent, CardActions, makeStyles, CircularProgress, Divider } from '@material-ui/core';
-import { Skeleton } from '@material-ui/lab';
+import { CardHeader, Card, CardContent, CardActions, CircularProgress, Divider } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import { Skeleton } from '@mui/material';
 
 
 export default function FormParagraph({
@@ -13,15 +14,18 @@ export default function FormParagraph({
 	haveExpand,
 }) {
 
+	// HOOKs
 	const classes = useStyles();
 
+
+	// RENDER
 	return (
 		<Card className={classes.root} id={id}>
 			<CardHeader title={title} />
-			
+
 			<CardContent className={haveExpand ? classes.content : null}>
 				{bodyBusy
-					? <Skeleton animation="wave" variant="rect" height={200} />
+					? <Skeleton animation="wave" variant="rectangular" height={200} />
 					: children
 				}
 			</CardContent>
@@ -35,7 +39,7 @@ export default function FormParagraph({
 				</CardActions>
 			</>)}
 		</Card>
-	)
+	);
 }
 
 

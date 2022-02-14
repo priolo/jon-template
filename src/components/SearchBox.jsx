@@ -1,6 +1,6 @@
-import { makeStyles } from '@material-ui/core/styles';
-import { Search as SearchIcon, Clear as ClearIcon } from '@material-ui/icons';
-import { InputBase, fade, IconButton, Box } from '@material-ui/core';
+import makeStyles from '@mui/styles/makeStyles';
+import { Search as SearchIcon, Clear as ClearIcon } from '@mui/icons-material';
+import { InputBase, alpha, IconButton, Box } from '@mui/material';
 
 
 function SearchBox({
@@ -8,13 +8,19 @@ function SearchBox({
 	onChange,
 }) {
 
+	// HOOKs
 	const classes = useStyles()
+	
 
-	const haveAdorner = value != null && value.length > 0
+	// HANDLEs
 	const handleChange = e => onChange(e?.target.value ?? "")
 
+
+	// RENDER
+	const haveAdorner = value != null && value.length > 0
+	
 	return (
-		<div className={classes.searchBox}>
+        <div className={classes.searchBox}>
 
 			<SearchIcon className={classes.searchIcon} />
 
@@ -26,15 +32,12 @@ function SearchBox({
 				value={value}
 				onChange={handleChange}
 				endAdornment={haveAdorner && (
-					<IconButton 
-						className={classes.clearIcon} 
-						onClick={e => handleChange()}
-					><ClearIcon /></IconButton>
+					<IconButton className={classes.clearIcon} onClick={e => handleChange()} size="large"><ClearIcon /></IconButton>
 				)}
 			/>
 
 		</div>
-	)
+    );
 }
 
 export default SearchBox
@@ -48,9 +51,9 @@ const useStyles = makeStyles((theme) => ({
 		minHeight: "48px",
 		padding: "0px 10px",
 		borderRadius: theme.shape.borderRadius,
-		backgroundColor: fade(theme.palette.common.white, 0.15),
+		backgroundColor: alpha(theme.palette.common.white, 0.15),
 		'&:hover': {
-			backgroundColor: fade(theme.palette.common.white, 0.25),
+			backgroundColor: alpha(theme.palette.common.white, 0.25),
 		},
 	},
 

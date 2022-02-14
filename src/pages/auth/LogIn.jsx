@@ -2,9 +2,9 @@
 import { useValidator, rules } from '@priolo/jon';
 import { useTranslation } from 'react-i18next';
 
-import { Avatar, Button, TextField, Typography, Container, CircularProgress } from '@material-ui/core';
-import { LockOutlined as LockOutlinedIcon } from '@material-ui/icons';
-import { makeStyles } from '@material-ui/core/styles';
+import { Avatar, Button, TextField, Typography, Container, CircularProgress } from '@mui/material';
+import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { useAuth } from 'stores/auth';
 import { useLayout } from 'stores/layout';

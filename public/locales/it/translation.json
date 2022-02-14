@@ -1,0 +1,207 @@
+{
+	"pag": {
+		"default": {
+			"btt_save": "Applica",
+			"btt_cancel": "Annulla",
+			"dlg": {
+				"router_confirm": {
+					"title": "Attenzione! Dati non salvati",
+					"text": "Se continui perderai i dati\nperchè non è stato salvato.\nVuoi continuare?",
+					"labelOk": "Si, cambia pagina",
+					"labelCancel": "No! Stai qui"
+				}
+			}
+		},
+		"user": {
+			"list": {
+				"title": "Utenti",
+				"username": "Nome",
+				"role": "Ruolo",
+				"actions": "Azioni",
+				"btt_new": "Nuovo Utente"
+			},
+			"dlg": {
+				"title_new": "Nuovo Utente",
+				"title_edit": "Modifica Utente",
+				"username": "Nome",
+				"email": "Email",
+				"role": "Ruolo",
+				"save": "Salva",
+				"cancel": "Annulla",
+				"btt_books": "Libri"
+			}
+		},
+		"doc": {
+			"list": {
+				"title": "Documenti",
+				"title_doc": "Titolo",
+				"author": "Autore",
+				"link": "Link",
+				"actions": "Azioni",
+				"btt_new": "Nuovo Documento"
+			},
+			"detail": {
+				"title_new": "Nuovo Documento",
+				"title_edit": "Modifica Documento",
+				"title_form": "",
+				"title_field": "Titolo",
+				"desc": "Descrizione",
+				"link": "Link",
+				"author": "Autore",
+				"save": "Salva",
+				"cancel": "Annulla"
+			}
+		},
+		"profile": {
+			"title": "Profilo",
+			"par_general": "Generale",
+			"prp_email": "Nome",
+			"prp_role": "Ruolo",
+			"btn_change_password": "Cambia Password",
+			"dlg":{
+				"title": "Cambio Password",
+				"save": "Cambia!",
+				"cancel": "Annulla"
+			}
+		},
+		"login": {
+			"title": "Sign in",
+			"username": "Nome",
+			"password": "Password",
+			"signin": "Sign in"
+		},
+		"password": {
+			"title": "Cambio password",
+			"oldpassword": "Vecchia password",
+			"password": "Nuova password",
+			"repassword": "Riscrivi la password",
+			"btt_change": "Cambia",
+			"btt_logout": "Sign out",
+			"msg_success": "La password è stata cambiata correttamente"
+		}
+	},
+	"drawer":{
+		"rigth": {
+			"title": "Filtri"
+		}
+	},
+	"validation": {
+		"obligatory": "Questo campo è obbligatorio",
+		"same_password": "Deve essere la stessa password",
+		"not_the_same": "I due valori devono essere differenti"
+	},
+	"dialog": {
+		"info": {
+			"default": {
+				"title": "Informazione",
+				"text": "...",
+				"ok": "Ok"
+			}
+		},
+		"success": {
+			"default": {
+				"title": "Successo",
+				"text": "...",
+				"ok": "Ok"
+			}
+		},
+		"warning": {
+			"default": {
+				"title": "Attenzione",
+				"text": "...",
+				"ok": "Ok"
+			}
+		},
+		"error":{
+			"default": {
+				"title": "Errorore",
+				"text": "Qualcosa non ha funzionato!",
+				"ok": "Ok"
+			},
+			"500": {
+				"default": {
+					"text": "Qualcosa non ha funzionato! Per cortesia riprova o contatta l'amministrazione",
+					"ok": "Certamente"
+				}
+			},
+			"400": {
+				"default": {
+					"title": "Richiesta sbagliata",
+					"text": "Qualcosa non è andato bene. Riprova.",
+					"ok": "Ok"
+				},
+				"password_match": {
+					"title": "Wrong username or password",
+					"text": "We couldn't find your account.\nPlease try again or contact the administrator",
+					"ok": "Ok, I will!"
+				}
+			},
+			"401": {
+				"default": {
+					"title": "Accesso non consentito",
+					"text": "Strano, non dovresti essere qui.",
+					"ok": "Riprova"
+				}
+			},
+			"users": {
+				"unique": {
+					"title": "Ooops...",
+					"text": "Il nome esiste già. Prova a cambiarlo"
+				},
+				"old_password_match": {
+					"title": "Mmmm...",
+					"text": "La vacchia password non corrisponde. Riprova"
+				}
+			}
+		},
+		"delete": {
+			"title": "ATTENZIONE!!!",
+			"text": "Sei sicuro di volerlo cancellare?",
+			"ok": "Si!",
+			"cancel": "No"
+		},
+		"render_error": {
+			"title": "Errore non gestito!",
+			"body": "Se il problema persiste contatta l'amministratore",
+			"reload": "Ricarica"
+		},
+		"login": {
+			"form": {
+				"text": "Compila bene la form!"
+			}
+		},
+		"feedback": {
+			"delete": {
+				"success": "Il record è stato cancellato",
+				"confirm": {
+					"title": "ATTENZIONE! Operazione irreversibile",
+					"text": "Veramente vuoi eliminare questo elemento?",
+					"yes": "Certamente",
+					"no": "NO!"
+				}
+			},
+			"create": "Il record è stato creato con successo"
+		}
+	},
+	"app":{
+		"avatar": {
+			"profile": "Il mio profilo",
+			"logout": "Sign out",
+			"dark": "Dark"
+		},
+		"roles": {
+			"admin": "admin",
+			"writer": "writer",
+			"customer": "customer"
+		},
+		"auth": {
+			"failed": "Non riesco a trovare il tuo account, riprova.",
+			"succeeded": "Sei entrato nell'app!",
+			"logout": "Sei uscito dall'app"
+		},
+		"lang": {
+			"en": "English",
+			"it": "Italian"
+		}
+	}
+}

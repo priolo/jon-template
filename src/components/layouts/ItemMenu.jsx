@@ -1,6 +1,7 @@
 import React from 'react';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
-import {ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
+import {ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import { useHistory, useRouteMatch } from "react-router-dom";
 
 
@@ -9,16 +10,20 @@ function ItemMenu({
 	value,
 }) {
 
+	// HOOKs
 	const classes = useStyles()
 	const history = useHistory()
 	const match = useRouteMatch(value.route)
 	
+
+	// HANDLEs
 	const handleClick = item => history.push(item.route)
 
+
+	// RENDER
 	const cnItem = match ? classes.selected : ""
 	const cnIcon = match ? classes.selectedIcon : ""
-
-
+	
 	return (
 		<ListItem button
 			onClick={() => handleClick(value)} 

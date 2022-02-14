@@ -1,6 +1,6 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 import React, { lazy, Suspense, useEffect } from "react"
-import { ThemeProvider, CssBaseline } from '@material-ui/core'
+import { ThemeProvider, StyledEngineProvider, CssBaseline } from '@mui/material';
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom"
 
 import AppBar from "./AppBar"
@@ -26,48 +26,58 @@ const UserList = lazy(() => import('../../pages/user/UserList'))
 
 export default function Main() {
 
+	// HOOKs
 	const { state: layout } = useLayout()
 	const { isLogged, refresh } = useAuth()
-
 	useEffect(() => { refresh() }, [])
 
+	
+	// RENDER
 	return (
-		<ThemeProvider theme={layout.theme}>
-			<CssBaseline />
-			<MsgBox />
-			{ isLogged() ? (
-				<Router>
-					<AppBar />
-					<Drawer />
-					<RightDrawer />
-					<Body>
-						{/* ATTENTION: the order is important */}
-						<Switch>
+        <StyledEngineProvider injectFirst>
+            <ThemeProvider theme={layout.theme}>
+                <CssBaseline />
+                <MsgBox />
+                { isLogged() ? (
+                    <Router>
+                        <AppBar />
+                        <Drawer />
+                        <RightDrawer />
+                        <Body>
+                            {/* ATTENTION: the order is important */}
+                            <Switch>
 
-							<Route path={["/docs/:id"]}>
-								<Suspense fallback={null}>
-									<DocDetail />
-								</Suspense>
-							</Route>
+                                <Route path={["/docs/:id"]} 
+                                //component={DocDetail}
+                                >
+                                    <Suspense fallback={null}>
+                                        <DocDetail />
+                                    </Suspense>
+                                </Route>
 
-							<Route path={["/docs"]}>
-								<Suspense fallback={null}>
-									<DocList />
-								</Suspense>
-							</Route>
+                                <Route path={["/docs"]} 
+                                //component={DocList}
+                                >
+                                    <Suspense fallback={null}>
+                                        <DocList />
+                                    </Suspense>
+                                </Route>
 
-							<Route path={["/", "/users"]}>
-								<Suspense fallback={null}>
-									<UserList />
-								</Suspense>
-							</Route>
+                                <Route path={["/", "/users"]} 
+                                //component={UserList}
+                                >
+                                    <Suspense fallback={null}>
+                                        <UserList />
+                                    </Suspense>
+                                </Route>
 
-						</Switch>
-					</Body>
-				</Router>
-			) : (
-				<LogIn />
-			)}
-		</ThemeProvider>
-	)
+                            </Switch>
+                        </Body>
+                    </Router>
+                ) : (
+                    <LogIn />
+                )}
+            </ThemeProvider>
+        </StyledEngineProvider>
+    );
 }

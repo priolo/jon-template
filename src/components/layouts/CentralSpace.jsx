@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core'
+import makeStyles from '@mui/styles/makeStyles';
 
 import { useLayout } from 'stores/layout';
 
@@ -11,13 +11,16 @@ export default function CentralSpace({
 	isCentered = false,
 }) {
 
+	// HOOKs
 	const classes = useStyles()
 	const { state:layout } = useLayout();
 
+
+	// RENDER
 	const cnContainer = `${classes.container} ${className ?? ""} ${isCentered ? "centered" : ""}`
 	const cnLateral = `${classes.lateral} ${layout.device}`
 	const cnCentral = `${classes.central} ${layout.device}`
-
+	
 	return (
 		<div className={cnContainer}>
 

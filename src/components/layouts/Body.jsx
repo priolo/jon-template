@@ -1,5 +1,5 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
-import { makeStyles } from "@material-ui/core/styles"
+import makeStyles from '@mui/styles/makeStyles';
 
 import { useLayout } from "stores/layout";
 
@@ -8,13 +8,14 @@ function Body({
 	children
 }) {
 
+	// HOOKs
 	const classes = useStyles()
 	const { state: layout } = useLayout()
 
 
+	// RENDER
 	const cnContent = `${classes.content} ${layout.drawerIsOpen && layout.device == "desktop" ? classes.contentShift : ""}`
-
-
+	
 	return (
 		<main className={cnContent}>
 			<div className={classes.drawerHeader} />

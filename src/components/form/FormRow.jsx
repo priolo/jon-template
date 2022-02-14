@@ -1,7 +1,8 @@
 /* eslint eqeqeq: "off" */
 import React from 'react';
-import { Grid, Typography, makeStyles } from "@material-ui/core"
-import { EditOutlined } from '@material-ui/icons';
+import { Grid, Typography } from "@mui/material";
+import makeStyles from '@mui/styles/makeStyles';
+import { EditOutlined } from '@mui/icons-material';
 
 
 export default function FormRow({
@@ -14,11 +15,20 @@ export default function FormRow({
 	isDense,
 }) {
 
+	// HOOKs
 	const classes = useStyles();
 
+
+	// RENDER
 	return (
 		<Grid container alignItems="center" className={classes.root}>
-			<Grid item sm={isDense?2:3} onClick={onClickLabel} className={onClickLabel && classes.labelClickable}>
+
+			<Grid item
+				sm={isDense ? 2 : 3}
+				onClick={onClickLabel}
+				className={onClickLabel && classes.labelClickable}
+			>
+
 				<div className={classes.containerLabels}>
 					<div className={classes.label}>
 						{isChanged && <EditOutlined color="secondary" className={classes.icon} />}
@@ -26,10 +36,17 @@ export default function FormRow({
 					</div>
 					{sublabel && <Typography variant="caption" className={classes.sublabel}>{sublabel}</Typography>}
 				</div>
+
 			</Grid>
-			<Grid item container sm={isDense?10:9} alignItems="center" wrap={wrap?"wrap":"nowrap"}> 
+
+			<Grid item container
+				sm={isDense ? 10 : 9}
+				alignItems="center"
+				wrap={wrap ? "wrap" : "nowrap"}
+			>
 				{children}
 			</Grid>
+
 		</Grid>
 	)
 }

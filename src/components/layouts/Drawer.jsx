@@ -1,7 +1,7 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
-import { makeStyles } from "@material-ui/core/styles"
-import { Divider, Drawer, IconButton, List } from "@material-ui/core"
-import { ChevronLeft as ChevronLeftIcon } from "@material-ui/icons"
+import makeStyles from '@mui/styles/makeStyles';
+import { Divider, Drawer, IconButton, List } from "@mui/material"
+import { ChevronLeft as ChevronLeftIcon } from "@mui/icons-material"
 
 import ItemMenu from "./ItemMenu"
 
@@ -10,15 +10,16 @@ import { useLayout } from "stores/layout"
 
 function MainDrawer () {
 
+	// HOOKs
 	const { state: layout, toggleDrawerIsOpen, getDrawerList } = useLayout()
 	const classes = useStyles()
 
 
+	// RENDER
 	const variant = layout.device == "desktop" ? "persistent" : null
-
-
+	
 	return (
-		<Drawer
+        <Drawer
 			variant={variant}
 			className={classes.drawer}
 			open={layout.drawerIsOpen}
@@ -26,7 +27,7 @@ function MainDrawer () {
 			ModalProps={{ onBackdropClick: toggleDrawerIsOpen }}
 		>
 			<div className={classes.drawerHeader}>
-				<IconButton onClick={toggleDrawerIsOpen}>
+				<IconButton onClick={toggleDrawerIsOpen} size="large">
 					<ChevronLeftIcon />
 				</IconButton>
 			</div>
@@ -37,7 +38,7 @@ function MainDrawer () {
 				))}
 			</List>
 		</Drawer>
-	)
+    );
 }
 
 export default MainDrawer

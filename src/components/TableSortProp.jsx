@@ -1,5 +1,5 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
-import { TableSortLabel } from '@material-ui/core';
+import { TableSortLabel } from '@mui/material';
 import React from 'react';
 import { useRoute } from '../stores/route';
 
@@ -10,12 +10,17 @@ function TableSortProp ({
 	name,
 }) {
 
+	// HOOKs
 	const { getSearchUrl, setSort } = useRoute()
 	const active = getSearchUrl("sortName") == name
 	const direction = getSearchUrl("isAsc")== "true" ? "asc" : "desc"
 
+	
+	// HANDLEs
 	const handleClickSort = e => setSort(name)
 
+
+	// RENDER
 	return (
 		<TableSortLabel
 			active={active}

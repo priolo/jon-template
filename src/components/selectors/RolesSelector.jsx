@@ -1,5 +1,5 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
-import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { USER_ROLES } from "stores/user/utils"
 
@@ -15,10 +15,9 @@ function RolesSelector({
 	
 	return (
 		<FormControl>
-			<InputLabel id="demo-simple-select-label">{label}</InputLabel>
+			<InputLabel>{label}</InputLabel>
 			<Select autoWidth
-				labelId="demo-simple-select-label"
-				id="demo-simple-select"
+				label={label}
 				value={value}
 				onChange={onChange}
 				disabled={disabled}

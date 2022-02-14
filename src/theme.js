@@ -1,6 +1,5 @@
-import { red, yellow, green, blue, cyan } from '@material-ui/core/colors';
-import { createTheme } from '@material-ui/core/styles';
-//import { useState } from 'react';
+import { red, yellow, green, blue, cyan } from '@mui/material/colors';
+import { createTheme } from '@mui/material/styles';
 
 const themeCommon = {
 	app: {
@@ -20,7 +19,7 @@ const themeCommon = {
 export const themeLight = createTheme({
 	...themeCommon,
 	palette: {
-		type: "light",
+		mode: "light",
 		primary: {
 			main: blue[800],
 		},
@@ -42,7 +41,7 @@ export const themeLight = createTheme({
 export const themeDark = createTheme({
 	...themeCommon,
 	palette: {
-		type: "dark",
+		mode: "dark",
 		primary: {
 			main: blue[600],
 		},

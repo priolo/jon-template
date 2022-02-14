@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
-import { AccountCircle as AccountIcon, ExitToApp as LogoutIcon, Face as ProfileIcon } from '@material-ui/icons';
-import { IconButton, Menu, MenuItem, Typography, Box, Divider, ListItemIcon, Switch } from '@material-ui/core';
+import makeStyles from '@mui/styles/makeStyles';
+import { AccountCircle as AccountIcon, ExitToApp as LogoutIcon, Face as ProfileIcon } from '@mui/icons-material';
+import { IconButton, Menu, MenuItem, Typography, Box, Divider, ListItemIcon, Switch } from '@mui/material';
 
 import { useTranslation } from 'react-i18next';
 import { useAuth } from "stores/auth"
@@ -12,6 +12,7 @@ import { useLayout } from 'stores/layout';
 
 function Avatar() {
 
+	// HOOKs
 	const classes = useStyles()
 	const history = useHistory()
 	const [anchorEl, setAnchorEl] = useState(null)
@@ -19,6 +20,8 @@ function Avatar() {
 	const { state: auth, logout } = useAuth()
 	const { toggleTheme, isDarkTheme } = useLayout()
 
+
+	// HANDLEs
 	const handleClose = () => setAnchorEl(null)
 	const handleOpen = e => setAnchorEl(e.currentTarget)
 	const handleLogout = e => {
@@ -31,9 +34,10 @@ function Avatar() {
 	}
 
 
-	return (<>
+	// RENDER
+	return <>
 
-		<IconButton color="inherit" onClick={handleOpen}>
+		<IconButton color="inherit" onClick={handleOpen} size="large">
 			<AccountIcon aria-label="account icon" />
 		</IconButton>
 
@@ -72,7 +76,7 @@ function Avatar() {
 				{t("app.avatar.logout")}
 			</MenuItem>
 		</Menu>
-	</>);
+	</>;
 }
 
 export default Avatar

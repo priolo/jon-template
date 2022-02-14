@@ -8,10 +8,18 @@ Complete template for REACT SPA (2021)
 [AJAX](#ajax)  
 [I18N](#i18n)  
 [MOCK](#mock-msw)  
+[ENV](#env)
 [ROUTING](#routing)  
-[UI COMPONENTS](#ui-components)  
+[UI COMPONENTS](#ui-components) 
+[COMPONENT ERROR]() 
 [URL](#url)  
-[AUTH](#auth)  
+[AUTH](#auth) 
+
+[Tests](#tests)
+[CI](#ci)
+[CD](#cd)
+[JSDoc](#jsdoc)
+
 [TECNOLOGY](#tecnology)  
 
 [github](https://github.com/priolo/jon-template)
@@ -31,7 +39,7 @@ enter:
 `cd jon-template`  
 install npm modules:  
 `npm install`  
-install MSW  
+install MSW (for mock) 
 `npx msw init public/ --save`  
 run:  
 `npm run start`  
@@ -53,56 +61,51 @@ Eventually I ended up with a light lib inspired by [VUEX](https://vuex.vuejs.org
 [Jon](https://github.com/priolo/jon)
 Check it out!
 
-### MIX STORE
-Per spezzare il codice su più files puoi usare `mixStore`
-L'ho usato per la gestione della dialog all'interno dello STORE `layout`
-```js
-import { mixStores } from "@priolo/jon";
-import dialogStore from "./dialog"
+briefly:  
+- In the "/stores" folder you will find all the STOREs.  
+- Each store has a STATE that can be used globally.  
+- The STATE can be controlled with GETTERS and MUTATORS.  
+- The ACTIONS allow you to move the logic in the STORE.  
 
-const store =  {
-	...
-}
-
-export default mixStores ( store, dialogStore )
-```
 
 ---
 
 ## CRA
 
 There isn't much to say! If you want to make an app in REACT it is better to use [CRA](https://create-react-app.dev/)  
-You just don't have to manage `babel` and` webpack`:
+You just don't have to manage `babel` and `webpack`:  
 The APP will have a pre-established and reproducible setup.
 
-### DIRECTORY
+### BUILD WATCH
+I don't understand why CRA doesn't provide a "watch" build.  
+Maybe now they have implemented it ... otherwise you have to use
+[cra-build-watch](https://github.com/Nargonath/cra-build-watch)
+
+### DIRECTORIES
 The structure in the file system of the TEMPLATE:
 
-### components  
+- components  
 it contains everything that is not a PAGE or DIALOG.  
 In general: conceptually "reusable" components.  
 
-### hooks
+- hooks
 Specific `hooks` used in the APP.
 
-### locales
-The translation json for `i18n`
+- mock
+	- ajax/handlers  
+		the functions for mock responses to HTTP requests
+	- data  
+		the mock data to be used instead of the DB
 
-### mock
-- ajax/handlers  
-	the functions for mock responses to HTTP requests
-- data  
-    the mock data to be used instead of the DB
-
-### pages
+- pages
 REACT components that rendering the "body" of the layout.
 You intuitively start from the page, which is unique,
 then go to the component that (theoretically) is used in several places.
 
-### plugin
+- plugin
 They are services accessible at any point in the program. They allow you to access an external service, translate, make calculations etc etc 
 
-### stores
+- stores
 They are the CONTROLLERs of the VIEWs.
 The STORE is not the perfect solution but it works well in most cases! 
 
@@ -121,7 +124,7 @@ Using the STOREs I can copy and paste a component to another point of the APP wi
 components **SHOULD HAVE NO PROPS** 
 The components **NOT HAVE PROPS** (with the exception, of course, of "children" or "className").
 
-### Models and API  
+### MODELS AND API  
 In reality in this TEMPLATE the APIs and the STOREs are "mixed"!
 A *questionable* solution but given the simplicity of the API I didn't want to complicate the structure.
 One could think of a "Models" folder for managing POCO objects
@@ -136,6 +139,8 @@ I built a very simple class [here](https://github.com/priolo/jon-template/blob/7
 I wanted a default SINGLETON SERVICE that could keep some properties (for example `baseUrl`)  
 But if necessary, since it is a `class`, several instances can be created.  
 
+### BUSY
+
 I can use STORE even outside REACT (and therefore in SERVICE AJAX)  
 For example, here I set the STATE `busy` of the STORE` layout` when the SERVICE is busy:  
 [in SERVICE (outside REACT)](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/plugins/AjaxService.js#L43)
@@ -148,7 +153,7 @@ setBusy(true)
 
 While in the [STORE layout](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/stores/layout/store.js#L14)  
 ```js
-// I define the `busy` prop in readable / writable
+// I define the `busy` prop in readable/writable
 export default {
 	state: {
 		busy: false,
@@ -159,8 +164,7 @@ export default {
 }
 ```
  
-[In VIEW](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/components/layouts/AppBar.jsx#L60)
-I can catch this event  
+[In VIEW](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/components/layouts/AppBar.jsx#L60) I can catch this event  
 ```jsx
 function Header() {
 	const { state: layout } = useLayout()
@@ -175,38 +179,67 @@ function Header() {
 }
 ```
 
+### TOKEN
+
+In this template I store the `token` in cookies.  
+It is not the "best" but for most cases it can be enough.  
+So if I have the token, I send it on every AJAX request to the server.  
+[token](...)s
+
 ---
 
 ## I18N
 
 Sooner or later you will have to use it .... so better think about it first!  
-It's not just for "translating" the app  
-It allows you not to have the content directly in the VIEW ... which is more beautiful !!!  
-It is useful for testing in Cypress: you can use the translation PATH to locate components  
+- It trivially allows multi-language
+- It allows you not to have the content directly in the VIEW ... which is more beautiful !!!  
+- It is useful for testing in Cypress: you can use the translation PATH to locate components  
 instead of the text (which may change).  
+  
+Libraries need to be imported:  
+`npm install react-i18next i18next --save`  
+If you'd like to detect user language and load translation:  
+`npm install i18next-http-backend i18next-browser-languagedetector --save`   
+The i18n configuration is [here]([II])!
 
-Inside a REACT COMPONENT  
+
+### Inside a REACT COMPONENT  
 use the HOOK to import the `t` translation function
 ```js
 import { useTranslation } from 'react-i18next'
 ...
-const {t} = useTranslation()
+const {t, i18n} = useTranslation()
 ```
 
-Translate via PATH
+### Translate via PATH
 ```jsx
 <TableCell>{t("pag.user.tbl.username")}</TableCell>
 ```
 
-Or, outside of a COMPONENT, use the [PLUGIN `i18n`](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/plugins/i18n.js)  
+
+### Outside of a COMPONENT
+
+use the [PLUGIN `i18n`](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/plugins/i18n.js)  
 ```js
 import i18n from "i18next"
 ...
 const title = i18n.t("pag.default.dlg.router_confirm.title")
 ```
 
-The translations are inside JSON files in the `src\locales` directory
 
+### Translation files
+
+The translations are inside JSON files in the directory  
+[`\public\locales\{language}\translation.json`]()  
+
+
+### Dynamic change of language
+
+Simply call the `changeLanguage` function on the i18n instance  
+Find it in the [LangSelector]([II])  
+
+
+### Documentations
 [doc](https://react.i18next.com/getting-started)
 
 ---
@@ -376,7 +409,22 @@ Allows you to view an alternate render while the component is loading.
 
 Of course you can make your own components (it doesn't take much)  
 but [Material-UI](https://material-ui.com/) is very used and solid!  
-Nothing else is needed!  
+Nothing else is needed! 
+
+Remember to install:  
+`npm install @mui/material @emotion/react @emotion/styled` 
+
+and insert font... in public/index.html  
+```html
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+/>
+```
+
+and icons  
+`npm install @mui/icons-material` 
+
 
 ### BINDING
 First thing: link the STORE to the VIEW.  
