@@ -16,10 +16,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
-        with:
-            build: npm run build
-            start: npx serve -s build -l 3000
-            wait-on: 'http://localhost:3000'
+      - name: test
+        
+      - run: npm run start
+
+      # - name: Cypress run
+      #   uses: cypress-io/github-action@v2
+      #   with:
+      #       build: npm run build
+      #       start: npx serve -s build -l 3000
+      #       wait-on: 'http://localhost:3000'
             
