@@ -24,6 +24,9 @@ jobs:
       - name: nodejs - install dependency
         run: npm install
 
+      # - name: initializa mock
+      #   run: npx msw init ./public --save
+
       - name: nodejs - start server
         run: npm start
 
