@@ -13,11 +13,20 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: repository - checkout out
         uses: actions/checkout@v2
 
-      - name: start
-        run: npm run start
+      - name: nodejs - set up v14
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: nodejs - install dependency
+        run: npm install
+
+      - name: nodejs - start server
+        run: npm start
+
 
       # - name: Cypress run
       #   uses: cypress-io/github-action@v2
