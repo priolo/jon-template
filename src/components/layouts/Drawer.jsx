@@ -4,22 +4,23 @@ import { Divider, Drawer, IconButton, List } from "@mui/material"
 import { ChevronLeft as ChevronLeftIcon } from "@mui/icons-material"
 
 import ItemMenu from "./ItemMenu"
+import { useStore17 } from "@priolo/jon"
+import layoutStore from "stores/layout"
 
-import { useLayout } from "stores/layout"
 
-
-function MainDrawer () {
+function MainDrawer() {
 
 	// HOOKs
-	const { state: layout, toggleDrawerIsOpen, getDrawerList } = useLayout()
+	const layout = useStore17(layoutStore)
+	const { toggleDrawerIsOpen, getDrawerList } = layoutStore
 	const classes = useStyles()
 
 
 	// RENDER
 	const variant = layout.device == "desktop" ? "persistent" : null
-	
+
 	return (
-        <Drawer
+		<Drawer
 			variant={variant}
 			className={classes.drawer}
 			open={layout.drawerIsOpen}
@@ -38,7 +39,7 @@ function MainDrawer () {
 				))}
 			</List>
 		</Drawer>
-    );
+	);
 }
 
 export default MainDrawer

@@ -14,14 +14,17 @@ import {
 import makeStyles from '@mui/styles/makeStyles';
 import { Close as CloseIcon } from '@mui/icons-material';
 
-import { useLayout } from 'stores/layout';
+import layoutStore from "stores/layout";
+import { useStore17 } from "@priolo/jon";
 
 
 export default function MsgBox() {
 
 	// HOOKs
-	const { state: layout, dialogClose } = useLayout()
+	const layout = useStore17(layoutStore)
 	const { dialogOptions: options } = layout
+	const {dialogClose} = layoutStore
+	
 	const classes = useStyles();
 
 

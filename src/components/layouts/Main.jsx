@@ -11,12 +11,13 @@ import Body from "./Body"
 //import DocList from "../../pages/doc/DocList";
 //import DocDetail from "../../pages/doc/DocDetail";
 
-import { useLayout } from "stores/layout";
-import { useAuth } from "stores/auth";
-
 import MsgBox from "../app/MsgBox";
 import LogIn from "pages/auth/LogIn";
 import RightDrawer from "./RightDrawer";
+
+import layoutStore from "stores/layout";
+import authStore from "stores/auth";
+import { useStore17 } from "@priolo/jon";
 
 const DocDetail = lazy(() => import('../../pages/doc/DocDetail'))
 const DocList = lazy(() => import('../../pages/doc/DocList'))
@@ -27,8 +28,9 @@ const UserList = lazy(() => import('../../pages/user/UserList'))
 export default function Main() {
 
 	// HOOKs
-	const { state: layout } = useLayout()
-	const { isLogged, refresh } = useAuth()
+	const layout = useStore17(layoutStore)
+    useStore17(authStore)
+	const { isLogged, refresh } = authStore
 	useEffect(() => { refresh() }, [])
 
 	

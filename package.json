@@ -1,29 +1,32 @@
 {
-  "name": "jon",
-  "version": "0.1.0",
+  "name": "jon-template",
+  "version": "0.2.0",
   "private": false,
   "//dependencies": {
     "@priolo/jon#local": "file:C://Users//iorio//Documents//Jon",
-    "@priolo/jon": "^0.2.2"
+    "@priolo/jon#git": "git+https://priolo@github.com/priolo/jon/tree/listener_stores",
+    "@priolo/jon": "^0.3",
+    "@priolo/jon-utils": "^0.3.0",
+    "@priolo/jon-utils#local": "file:C://Users//iorio//Documents//jon-utils"
   },
   "dependencies": {
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.6.0",
-    "@mui/icons-material": "^5.4.1",
-    "@mui/material": "^5.4.1",
-    "@mui/styles": "^5.4.1",
-    "@priolo/jon": "^0.3",
-    "@priolo/jon-utils": "0.2.5",
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.6.1",
+    "@mui/material": "^5.6.1",
+    "@mui/styles": "^5.6.1",
+    "@priolo/jon": "file:C://Users//iorio//Documents//Jon",
+    "@priolo/jon-utils": "file:C://Users//iorio//Documents//jon-utils",
     "i18next": "^21.6.11",
     "i18next-browser-languagedetector": "^6.1.3",
     "i18next-http-backend": "^1.3.2",
     "js-cookie": "^2.2.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-i18next": "^11.15.4",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.3",
-    "msw": "^0.27.1"
+    "msw": "^0.27.1",
+    "react": "17",
+    "react-dom": "17",
+    "react-scripts": "4",
+    "react-i18next": "^11.16.6",
+    "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
@@ -46,12 +49,17 @@
   },
   "eslintConfig": {
     "extends": [
-      "react-app"
-    ]
+      "react-app",
+      "react-app/jest"
+    ],
+    "rules": {
+      "eqeqeq": "off",
+      "react-hooks/exhaustive-deps": "off"
+    }
   },
   "engines": {
-    "node": "14",
-    "npm": "6"
+    "node": ">=14",
+    "npm": ">=6"
   },
   "browserslist": {
     "production": [

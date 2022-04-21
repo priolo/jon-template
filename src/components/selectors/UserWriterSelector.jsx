@@ -1,19 +1,21 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 import { useEffect } from 'react';
 import {
-    FormControl,
-    Grid,
-    IconButton,
-    InputAdornment,
-    InputLabel,
-    MenuItem,
-    Select,
+	FormControl,
+	Grid,
+	IconButton,
+	InputAdornment,
+	InputLabel,
+	MenuItem,
+	Select,
 } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { Close as CloseIcon } from '@mui/icons-material'
 
-import { useUser } from 'stores/user';
 import { USER_ROLES } from "stores/user/utils"
+
+import userStore from "stores/user";
+import { useStore17 } from "@priolo/jon";
 
 
 function UserWriterSelector({
@@ -25,10 +27,11 @@ function UserWriterSelector({
 
 	// HOOKs
 	const classes = useStyles()
-	const { state: user, fetchAll } = useUser()
+	const user = useStore17(userStore)
+	const { fetchAll } = userStore
 
 	useEffect(() => {
-		if ( user.all.length == 0 ) fetchAll()
+		if (user.all.length == 0) fetchAll()
 	}, [])
 
 
@@ -36,7 +39,7 @@ function UserWriterSelector({
 	const handleClickClear = e => onChange("")
 	const handleChange = e => onChange(e.target.value)
 
-	
+
 	// RENDER
 	return (
 		<Grid container alignItems="center">

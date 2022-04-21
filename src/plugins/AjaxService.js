@@ -1,8 +1,9 @@
 /* eslint eqeqeq: "off" */
-import { getStoreLayout } from "../stores/layout"
 import i18n from "i18next"
 import { DIALOG_TYPES } from "../stores/layout/utils"
-import { getStoreAuth } from "../stores/auth"
+import authStore from "../stores/auth"
+import layoutStore from "../stores/layout"
+
 
 
 /**
@@ -89,8 +90,8 @@ export class AjaxService {
 	 * @param {OptionCall} options
 	 */
 	async send(url, method, data, options = {}) {
-		const { setBusy, dialogOpen, setFocus } = getStoreLayout()
-		const { state:auth } = getStoreAuth()
+		const { setBusy, dialogOpen, setFocus } = layoutStore
+		const { state:auth } = authStore
 
 		if (!options.noBusy) setBusy(true)
 		const token = auth.token

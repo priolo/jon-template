@@ -5,7 +5,7 @@ import i18n from "i18next";
 // used when dialog closed
 let resolveClose = null;
 
-const store = {
+const setup = {
 	state: {
 		dialogIsOpen: false,
 		dialogOptions: null,
@@ -45,7 +45,7 @@ const store = {
 	},
 }
 
-export default store
+export default setup
 
 const optionsDefault = {
 	modal: true,

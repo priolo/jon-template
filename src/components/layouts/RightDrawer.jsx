@@ -7,8 +7,10 @@ import { Close as CloseIcon } from '@mui/icons-material'
 
 import DocFilters from "pages/doc/DocFilters";
 
-import { useLayout } from "stores/layout"
-import { useRoute } from "stores/route";
+import layoutStore from "stores/layout";
+import routeStore from "stores/route";
+import { useStore17 } from "@priolo/jon";
+
 
 
 function RightDrawer() {
@@ -16,8 +18,11 @@ function RightDrawer() {
 	// HOOKs
 	const classes = useStyles()
 	const { t } = useTranslation()
-	const { state: layout, setDrawerRightIsOpen } = useLayout()
-	const { state: route, haveSearchExtra } = useRoute()
+
+	const layout = useStore17(layoutStore)
+	const {setDrawerRightIsOpen} = layoutStore
+	const route = useStore17(routeStore)
+	const {haveSearchExtra} = routeStore
 
 	const haveExtra = haveSearchExtra()
 

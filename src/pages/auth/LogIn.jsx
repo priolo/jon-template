@@ -6,8 +6,9 @@ import { Avatar, Button, TextField, Typography, Container, CircularProgress } fr
 import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material';
 import makeStyles from '@mui/styles/makeStyles';
 
-import { useAuth } from 'stores/auth';
-import { useLayout } from 'stores/layout';
+import authStore from "stores/auth";
+import layoutStore from "stores/layout";
+import { useStore17 } from "@priolo/jon";
 
 
 
@@ -17,8 +18,10 @@ export default function LogIn() {
 	// HOOKS
 	const classes = useStyles()
 	const { t } = useTranslation()
-	const { state: auth, setUsername, setPassword, login } = useAuth()
-	const { state: layout } = useLayout()
+
+	const auth = useStore17(authStore)
+	const { setUsername, setPassword, login } = authStore
+	const layout = useStore17(layoutStore)
 
 	const usernameProp = useValidator(auth.username, [rules.obligatory])
 	const pswProp = useValidator(auth.password, [rules.obligatory])
@@ -71,8 +74,8 @@ export default function LogIn() {
 						{t("pag.login.signin")}
 					</Button>
 				) : (
-						<CircularProgress />
-					)}
+					<CircularProgress />
+				)}
 
 			</div>
 		</Container>

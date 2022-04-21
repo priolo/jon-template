@@ -1,7 +1,7 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 import { Box, Button, TextField } from "@mui/material";
 import { Add as AddIcon } from "@mui/icons-material";
-import { rules, useValidator } from "@priolo/jon";
+
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router";
@@ -12,9 +12,11 @@ import FormRow from "components/form/FormRow";
 import UserWriterSelector from "components/selectors/UserWriterSelector";
 
 import { useConfirmationRouter } from "hooks/useConfirmationRouter";
-import { useDoc } from "stores/doc";
-import { useLayout } from "stores/layout";
-import { useRoute } from "stores/route";
+
+import  docStore  from "stores/doc";
+import  layoutStore  from "stores/layout";
+import  routeStore from "stores/route";
+import { rules, useValidator, useStore17 } from "@priolo/jon";
 
 
 
@@ -25,9 +27,11 @@ function DocDetail() {
 	const { t } = useTranslation()
 	const history = useHistory()
 	
-	const { state: doc, fetchById, edit, setSelectProp, canSave, isSelectChanged, save } = useDoc()
-	const { setCurrentPage } = useRoute()
-	const { setTitle } = useLayout()
+	const doc = useStore17(docStore)
+	const { fetchById, edit, setSelectProp, canSave, isSelectChanged, save } = docStore
+
+	const { setCurrentPage } = routeStore
+	const { setTitle } = layoutStore
 	const titleProp = useValidator(doc.select?.title, [rules.obligatory])
 	const linkProp = useValidator(doc.select?.link, [rules.url])
 

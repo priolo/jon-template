@@ -8,11 +8,12 @@ import Avatar from "../app/Avatar";
 import UserHeader from "pages/user/UserHeader";
 import DocHeader from "pages/doc/DocHeader";
 
-import { useRoute } from "stores/route";
-import { useLayout } from "stores/layout";
 import LangSelector from 'components/selectors/LangSelector';
 import { useTranslation } from 'react-i18next';
 
+import layoutStore from "stores/layout";
+import routeStore from "stores/route";
+import { useStore17 } from "@priolo/jon";
 
 
 function Header() {
@@ -20,15 +21,17 @@ function Header() {
 	// HOOKs
 	const classes = useStyles()
 	const { t } = useTranslation()
-	const { state: layout, toggleDrawerIsOpen } = useLayout()
-	const { state: route } = useRoute()
-	
+
+	const layout = useStore17(layoutStore)
+	const { toggleDrawerIsOpen } = layoutStore
+	const route = useStore17(routeStore)
+
 
 	// RENDER
 	const cnAppBar = `${classes.appBar} ${layout.drawerIsOpen && layout.device == "desktop" ? classes.appBarShift : ""}`
-	
+
 	return (
-        <AppBar position="fixed" className={cnAppBar}>
+		<AppBar position="fixed" className={cnAppBar}>
 			<Toolbar>
 
 				<CentralSpace
@@ -37,15 +40,15 @@ function Header() {
 						<Grid container alignItems="center" wrap="nowrap">
 
 							{!layout.drawerIsOpen && <IconButton
-                                onClick={toggleDrawerIsOpen}
-                                edge="start"
-                                className={classes.menuButton}
-                                size="large"><MenuIcon /></IconButton>}
+								onClick={toggleDrawerIsOpen}
+								edge="start"
+								className={classes.menuButton}
+								size="large"><MenuIcon /></IconButton>}
 
-							{layout.device!="mobile" && <Typography variant="h6" noWrap className={classes.title}>
+							{layout.device != "mobile" && <Typography variant="h6" noWrap className={classes.title}>
 								{t(layout.title)}
 							</Typography>}
-							
+
 						</Grid>
 					}
 					renderRight={<>
@@ -67,7 +70,7 @@ function Header() {
 			{layout.busy && <LinearProgress />}
 
 		</AppBar>
-    );
+	);
 }
 
 export default Header

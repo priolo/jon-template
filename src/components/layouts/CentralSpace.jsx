@@ -1,6 +1,7 @@
 import makeStyles from '@mui/styles/makeStyles';
 
-import { useLayout } from 'stores/layout';
+import layoutStore from "stores/layout";
+import { useStore17 } from "@priolo/jon";
 
 
 export default function CentralSpace({
@@ -13,7 +14,7 @@ export default function CentralSpace({
 
 	// HOOKs
 	const classes = useStyles()
-	const { state:layout } = useLayout();
+	const layout = useStore17(layoutStore)
 
 
 	// RENDER

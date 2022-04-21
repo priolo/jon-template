@@ -10,19 +10,26 @@ import EditDialog from './EditDialog'
 import TableSortProp from 'components/TableSortProp'
 import Form from 'components/form/Form'
 
-import { useRoute } from 'stores/route'
-import { useUser } from 'stores/user'
-import { useLayout } from 'stores/layout'
+import userStore from "stores/user";
+import layoutStore from "stores/layout";
+import routeStore from "stores/route";
+import { useStore17 } from "@priolo/jon";
 
 
 function UserPag() {
 
 	//HOOKs
 	const { t } = useTranslation()
-	const { state: user, fetchAll, edit, destroy, getList } = useUser()
-	const { setTitle } = useLayout()
-	const classes = useStyles()
-	const { state:route, setCurrentPage } = useRoute()
+    const classes = useStyles()
+	
+	const user = useStore17(userStore)
+    const { fetchAll, edit, destroy, getList } = userStore
+
+	useStore17(layoutStore)
+    const { setTitle } = layoutStore
+
+    const route = useStore17(routeStore)
+    const { setCurrentPage, getSearchUrl } = routeStore
 
 	useEffect(() => {
 		setCurrentPage("user.list")
@@ -36,7 +43,7 @@ function UserPag() {
 		() => getList(), 
 		[user.all, route.queryUrl]
 	)
-
+    const nameTest = getSearchUrl("sortName")
 
 	//HANDLEs
 	const handleClickRow = item => edit(item)
@@ -53,7 +60,7 @@ function UserPag() {
 
 	return (
         <Form
-            renderFooter={
+            renderFooter={<>
                 <Button
                     variant="contained"
                     color="primary"
@@ -62,7 +69,8 @@ function UserPag() {
                 >
                     {t("pag.user.list.btt_new")}
                 </Button>
-            }
+                
+                </>}
         >
             <TableContainer component={Paper}>
 

@@ -11,10 +11,11 @@ import TableSortProp from 'components/TableSortProp';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 
-import { useDoc } from 'stores/doc';
-import { useUser } from 'stores/user';
-import { useRoute } from 'stores/route';
-import { useLayout } from 'stores/layout';
+import docStore from "stores/doc";
+import userStore from "stores/user";
+import routeStore from "stores/route";
+import layoutStore from "stores/layout";
+import { useStore17 } from "@priolo/jon";
 
 
 
@@ -23,10 +24,16 @@ function DocList() {
 	// HOOKs
 	const { t } = useTranslation()
 	const history = useHistory()
-	const { state: doc, fetchAll, getList, destroy, setSelect } = useDoc();
-	const { getById: getUserById } = useUser()
-	const { state: route, setCurrentPage } = useRoute()
-	const { setTitle } = useLayout()
+
+	const doc = useStore17(docStore);
+    const { fetchAll, getList, destroy, setSelect } = docStore
+    useStore17(userStore)
+	const { getById: getUserById } = userStore
+    const route = useStore17(routeStore);
+	const { setCurrentPage } = routeStore
+    useStore17(layoutStore)
+	const { setTitle } = layoutStore
+
 	const classes = useStyles()
 
 	useEffect(() => {

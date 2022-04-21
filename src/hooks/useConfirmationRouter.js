@@ -4,6 +4,10 @@ import { useHistory } from "react-router-dom";
 import { useLayout } from "../stores/layout";
 import i18n from "i18next"
 
+import layoutStore from "stores/layout";
+import { useStore17 } from "@priolo/jon";
+
+
 /**
  * If there is a "change" it asks the user if he really wants to change the page
  * @param {()=>boolean} callbackChanged call to understand if anything has changed on the page
@@ -11,7 +15,8 @@ import i18n from "i18next"
 export function useConfirmationRouter(callbackChanged) {
 
 	const history = useHistory()
-	const { dialogOpen } = useLayout()
+	useStore17(layoutStore)
+	const { dialogOpen } = layoutStore
 
 	useEffect(() => {
 		/**

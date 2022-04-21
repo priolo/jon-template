@@ -5,10 +5,11 @@ import { AccountCircle as AccountIcon, ExitToApp as LogoutIcon, Face as ProfileI
 import { IconButton, Menu, MenuItem, Typography, Box, Divider, ListItemIcon, Switch } from '@mui/material';
 
 import { useTranslation } from 'react-i18next';
-import { useAuth } from "stores/auth"
 import { useHistory } from "react-router-dom";
-import { useLayout } from 'stores/layout';
 
+import layoutStore from "stores/layout";
+import authStore from "stores/auth";
+import { useStore17 } from "@priolo/jon";
 
 function Avatar() {
 
@@ -17,8 +18,11 @@ function Avatar() {
 	const history = useHistory()
 	const [anchorEl, setAnchorEl] = useState(null)
 	const { t } = useTranslation()
-	const { state: auth, logout } = useAuth()
-	const { toggleTheme, isDarkTheme } = useLayout()
+
+	const auth = useStore17(authStore)
+	const { logout } = authStore
+	useStore17(layoutStore)
+	const { toggleTheme, isDarkTheme } = layoutStore
 
 
 	// HANDLEs
