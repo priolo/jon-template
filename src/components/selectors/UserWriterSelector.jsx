@@ -1,15 +1,6 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 import { useEffect } from 'react';
-import {
-	FormControl,
-	Grid,
-	IconButton,
-	InputAdornment,
-	InputLabel,
-	MenuItem,
-	Select,
-} from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
+import { FormControl, Grid, IconButton, InputAdornment, InputLabel, MenuItem, Select } from '@mui/material';
 import { Close as CloseIcon } from '@mui/icons-material'
 
 import { USER_ROLES } from "stores/user/utils"
@@ -26,7 +17,6 @@ function UserWriterSelector({
 }) {
 
 	// HOOKs
-	const classes = useStyles()
 	const user = useStore17(userStore)
 	const { fetchAll } = userStore
 
@@ -51,7 +41,7 @@ function UserWriterSelector({
 						value={value}
 						onChange={handleChange}
 						disabled={disabled}
-						endAdornment={<InputAdornment className={classes.selectAdornment} position="end">
+						endAdornment={<InputAdornment sx={cssSelectAdornment} position="end">
 							{value && (<IconButton size="small" onClick={handleClickClear}>
 								<CloseIcon fontSize="small" />
 							</IconButton>)}
@@ -78,12 +68,6 @@ function UserWriterSelector({
 
 export default UserWriterSelector
 
-
-
-
-
-const useStyles = makeStyles(theme => ({
-	selectAdornment: {
-		marginRight: theme.spacing(3),
-	},
-}));
+const cssSelectAdornment = theme => ({
+	marginRight: theme.spacing(3),
+})

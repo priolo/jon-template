@@ -4,7 +4,7 @@ import { Add as AddIcon } from "@mui/icons-material";
 
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useHistory, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 import Form from "components/form/Form";
 import FormParagraph from "components/form/FormParagraph";
@@ -25,7 +25,7 @@ function DocDetail() {
 	// HOOKS
 	const { id } = useParams()
 	const { t } = useTranslation()
-	const history = useHistory()
+	const navigate = useNavigate()
 	
 	const doc = useStore17(docStore)
 	const { fetchById, edit, setSelectProp, canSave, isSelectChanged, save } = docStore
@@ -56,9 +56,9 @@ function DocDetail() {
 	const handleChangeDesc = e => setSelectProp({ name: "desc", value: e.target.value })
 	const handleChangeLink = e => setSelectProp({ name: "link", value: e.target.value })
 	const handleChangeAuthor = value => setSelectProp({ name: "author_id", value })
-	const handleClickCancel = e => history.goBack()
+	const handleClickCancel = e => navigate(-1)
 	const handleClickSave = e => save().then((success) => {
-		if (success) history.goBack()
+		if (success) navigate(-1)
 	})
 
 

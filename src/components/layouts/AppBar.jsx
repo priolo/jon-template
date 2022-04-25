@@ -1,6 +1,5 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
-import makeStyles from '@mui/styles/makeStyles';
-import { AppBar, Toolbar, Typography, IconButton, LinearProgress, Grid } from "@mui/material"
+import { AppBar, Toolbar, Typography, IconButton, LinearProgress, Grid, Box } from "@mui/material"
 import { Menu as MenuIcon } from "@mui/icons-material"
 
 import CentralSpace from "./CentralSpace";
@@ -19,7 +18,6 @@ import { useStore17 } from "@priolo/jon";
 function Header() {
 
 	// HOOKs
-	const classes = useStyles()
 	const { t } = useTranslation()
 
 	const layout = useStore17(layoutStore)
@@ -28,10 +26,10 @@ function Header() {
 
 
 	// RENDER
-	const cnAppBar = `${classes.appBar} ${layout.drawerIsOpen && layout.device == "desktop" ? classes.appBarShift : ""}`
+	const sxAppBar = theme => cssAppBar(theme, layout.drawerIsOpen && layout.device == "desktop")
 
 	return (
-		<AppBar position="fixed" className={cnAppBar}>
+		<AppBar position="fixed" sx={sxAppBar}>
 			<Toolbar>
 
 				<CentralSpace
@@ -42,17 +40,17 @@ function Header() {
 							{!layout.drawerIsOpen && <IconButton
 								onClick={toggleDrawerIsOpen}
 								edge="start"
-								className={classes.menuButton}
+								sx={cssMenuButton}
 								size="large"><MenuIcon /></IconButton>}
 
-							{layout.device != "mobile" && <Typography variant="h6" noWrap className={classes.title}>
+							{layout.device != "mobile" && <Typography variant="h6" noWrap sx={cssTitle}>
 								{t(layout.title)}
 							</Typography>}
 
 						</Grid>
 					}
 					renderRight={<>
-						<div className={classes.grow}></div>
+						<Box sx={cssGrow} />
 						<LangSelector />
 						<Avatar />
 					</>}
@@ -75,17 +73,16 @@ function Header() {
 
 export default Header
 
-const useStyles = makeStyles(theme => ({
-	appBar: {
-		zIndex: theme.zIndex.drawer + 1,
-		transition: theme.transitions.create(['width', 'margin'], {
-			easing: theme.transitions.easing.sharp,
-			duration: theme.transitions.duration.leavingScreen,
-		}),
-	},
-	appBarShift: {
+
+const cssAppBar = (theme, isOpen) => ({
+	//zIndex: theme.zIndex.drawer + 1,
+	transition: theme.transitions.create(['width', 'margin'], {
+		easing: theme.transitions.easing.sharp,
+		duration: theme.transitions.duration.leavingScreen,
+	}),
+	...(isOpen && {
 		marginLeft: theme.app.drawer.width,
-		width: `calc(100% - ${theme.app.drawer.width}px)`,
+		width: `calc(100% - ${theme.app.drawer.width})`,
 		"&.mobile": {
 			marginLeft: "0px",
 			width: "100%",
@@ -94,17 +91,17 @@ const useStyles = makeStyles(theme => ({
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.enteringScreen,
 		}),
-	},
-	menuButton: {
-		color: "inherit",
-		marginRight: "10px",
-	},
+	})
+})
 
-	title: {
-		minWidth: "150px",
-	},
-	grow: {
-		flexGrow: 1,
-	},
+const cssMenuButton = theme => ({
+	color: "inherit",
+	marginRight: "10px",
+})
 
-}));
+const cssTitle = theme => ({
+	minWidth: "150px",
+})
+const cssGrow = theme => ({
+	flexGrow: 1,
+})

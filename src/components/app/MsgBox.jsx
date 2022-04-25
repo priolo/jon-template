@@ -1,21 +1,13 @@
-/* eslint eqeqeq: "off" */
 import React from 'react';
 
-import {
-	Snackbar,
-	IconButton,
-	Button,
-	Dialog,
-	DialogActions,
-	DialogContent,
-	DialogContentText,
-	DialogTitle,
-} from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
+// mui
+import { Snackbar, IconButton, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import { Close as CloseIcon } from '@mui/icons-material';
 
+// stores
 import layoutStore from "stores/layout";
 import { useStore17 } from "@priolo/jon";
+import { DIALOG_TYPES } from 'stores/layout/utils';
 
 
 export default function MsgBox() {
@@ -23,31 +15,29 @@ export default function MsgBox() {
 	// HOOKs
 	const layout = useStore17(layoutStore)
 	const { dialogOptions: options } = layout
-	const {dialogClose} = layoutStore
-	
-	const classes = useStyles();
+	const { dialogClose } = layoutStore
 
 
 	// RENDER
 	if (!options) return null
-	
+	const sxType = theme => cssInfo(theme, options.type)
+
 	return options.modal ? (
 		<Dialog
 			open={layout.dialogIsOpen}
 			onClose={() => dialogClose(false)}
 		>
-
-			<DialogTitle className={classes[options.type]}>
+			<DialogTitle sx={sxType}>
 				{options.title}
 			</DialogTitle>
 
 			<DialogContent>
-				<DialogContentText className={classes.text}>
+				<DialogContentText sx={cssText}>
 					{options.text}
 				</DialogContentText>
 			</DialogContent>
 
-			<DialogActions className={classes.actions}>
+			<DialogActions sx={cssActions}>
 				{options.labelCancel && (
 					<Button
 						color="secondary"
@@ -67,7 +57,7 @@ export default function MsgBox() {
 
 		</Dialog>
 	) : (
-		<Snackbar ContentProps={{ className: classes[options.type] }}
+		<Snackbar ContentProps={{ sx: sxType }}
 			open={options.modal == false && layout.dialogIsOpen}
 			autoHideDuration={6000}
 			onClose={dialogClose}
@@ -85,30 +75,31 @@ export default function MsgBox() {
 	)
 }
 
-const useStyles = makeStyles((theme) => ({
-	info: {
+const cssInfo = (theme, type) => ({
+	[DIALOG_TYPES.INFO]: {
 		backgroundColor: theme.palette.primary.main,
 		color: theme.palette.primary.contrastText,
 	},
-	warning: {
+	[DIALOG_TYPES.WARNING]: {
 		backgroundColor: theme.palette.warning.main,
 		color: theme.palette.warning.contrastText,
 	},
-	error: {
+	[DIALOG_TYPES.ERROR]: {
 		backgroundColor: theme.palette.error.main,
 		color: theme.palette.error.contrastText,
 	},
-	success: {
+	[DIALOG_TYPES.SUCCESS]: {
 		backgroundColor: theme.palette.success.main,
 		color: theme.palette.success.contrastText,
 	},
+}[type])
 
-	text: {
-		padding: "20px 20px 10px 20px",
-		minWidth: "250px",
-		whiteSpace: "pre-wrap",
-	},
-	actions: {
-		margin: "10px 20px 20px 20px",
-	},
-}))
+const cssText = theme => ({
+	padding: "20px 20px 10px 20px",
+	minWidth: "250px",
+	whiteSpace: "pre-wrap",
+})
+
+const cssActions = theme => ({
+	margin: "10px 20px 20px 20px",
+})
