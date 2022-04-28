@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 
 import layoutStore from "stores/layout";
 import routeStore from "stores/route";
-import { useStore17 } from "@priolo/jon";
+import { useStore } from "@priolo/jon";
 
 
 function Header() {
@@ -20,9 +20,9 @@ function Header() {
 	// HOOKs
 	const { t } = useTranslation()
 
-	const layout = useStore17(layoutStore)
+	const layout = useStore(layoutStore)
 	const { toggleDrawerIsOpen } = layoutStore
-	const route = useStore17(routeStore)
+	const route = useStore(routeStore)
 
 
 	// RENDER

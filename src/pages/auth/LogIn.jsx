@@ -1,4 +1,3 @@
-/* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 import { useValidator, rules } from '@priolo/jon';
 import { useTranslation } from 'react-i18next';
 
@@ -7,7 +6,7 @@ import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material';
 
 import authStore from "stores/auth";
 import layoutStore from "stores/layout";
-import { useStore17 } from "@priolo/jon";
+import { useStore } from "@priolo/jon";
 
 
 export default function LogIn() {
@@ -15,9 +14,9 @@ export default function LogIn() {
 	// HOOKS
 	const { t } = useTranslation()
 
-	const auth = useStore17(authStore)
+	const auth = useStore(authStore)
 	const { setUsername, setPassword, login } = authStore
-	const layout = useStore17(layoutStore)
+	const layout = useStore(layoutStore)
 
 	const usernameProp = useValidator(auth.username, [rules.obligatory])
 	const pswProp = useValidator(auth.password, [rules.obligatory])

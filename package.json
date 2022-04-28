@@ -10,10 +10,10 @@
     "@priolo/jon-utils#local": "file:C://Users//iorio//Documents//jon-utils"
   },
   "dependencies": {
-    "@emotion/react": "^11.9.0",
-    "@emotion/styled": "^11.8.1",
-    "@mui/icons-material": "^5.6.1",
-    "@mui/material": "^5.6.1",
+    "@emotion/react": "11",
+    "@emotion/styled": "11",
+    "@mui/icons-material": "5",
+    "@mui/material": "5",
     "@priolo/jon": "file:C://Users//iorio//Documents//Jon",
     "@priolo/jon-utils": "file:C://Users//iorio//Documents//jon-utils",
     "i18next": "^21.6.11",

@@ -6,7 +6,7 @@ import { Close as CloseIcon } from '@mui/icons-material'
 import { USER_ROLES } from "stores/user/utils"
 
 import userStore from "stores/user";
-import { useStore17 } from "@priolo/jon";
+import { useStore } from "@priolo/jon";
 
 
 function UserWriterSelector({
@@ -17,7 +17,7 @@ function UserWriterSelector({
 }) {
 
 	// HOOKs
-	const user = useStore17(userStore)
+	const user = useStore(userStore)
 	const { fetchAll } = userStore
 
 	useEffect(() => {

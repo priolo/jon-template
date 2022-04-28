@@ -3,7 +3,7 @@ import { TableSortLabel } from '@mui/material';
 import React from 'react';
 
 import routeStore from "stores/route";
-import { useStore17 } from "@priolo/jon";
+import { useStore } from "@priolo/jon";
 
 
 function TableSortProp({
@@ -12,7 +12,7 @@ function TableSortProp({
 }) {
 
 	// HOOKs
-	useStore17(routeStore)
+	useStore(routeStore)
 	const { setSort, getSearchUrl } = routeStore
 
 	const active = getSearchUrl("sortName") == name

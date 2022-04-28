@@ -12,7 +12,7 @@ import Form from 'components/form/Form'
 import userStore from "stores/user";
 import layoutStore from "stores/layout";
 import routeStore from "stores/route";
-import { useStore17 } from "@priolo/jon";
+import { useStore } from "@priolo/jon";
 
 
 function UserPag() {
@@ -20,13 +20,13 @@ function UserPag() {
     //HOOKs
     const { t } = useTranslation()
 
-    const user = useStore17(userStore)
+    const user = useStore(userStore)
     const { fetchAll, edit, destroy, getList } = userStore
 
-    useStore17(layoutStore)
+    useStore(layoutStore)
     const { setTitle } = layoutStore
 
-    const route = useStore17(routeStore)
+    const route = useStore(routeStore)
     const { setCurrentPage } = routeStore
 
     useEffect(() => {

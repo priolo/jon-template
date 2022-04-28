@@ -1,5 +1,5 @@
 import layoutStore from "stores/layout";
-import { useStore17 } from "@priolo/jon";
+import { useStore } from "@priolo/jon";
 import { Box } from "@mui/material";
 
 
@@ -9,7 +9,7 @@ function Body({
 }) {
 
 	// HOOKs
-	const layout = useStore17(layoutStore)
+	const layout = useStore(layoutStore)
 
 	// RENDER
 	const sxContent = theme => cssContent(theme, layout.drawerIsOpen && layout.device == "desktop")

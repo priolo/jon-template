@@ -4,7 +4,7 @@ import { UNSAFE_NavigationContext as NavigationContext } from "react-router-dom"
 import i18n from "i18next"
 
 import layoutStore from "stores/layout";
-import { useStore17 } from "@priolo/jon";
+import { useStore } from "@priolo/jon";
 
 
 /**
@@ -14,7 +14,7 @@ import { useStore17 } from "@priolo/jon";
 export function useConfirmationRouter(callbackChanged) {
 
 	const { navigator } = useContext( NavigationContext );
-	useStore17(layoutStore)
+	useStore(layoutStore)
 	const { dialogOpen } = layoutStore
 
 	useEffect(() => {

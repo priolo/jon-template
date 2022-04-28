@@ -6,14 +6,14 @@ import { Close as CloseIcon } from '@mui/icons-material';
 
 // stores
 import layoutStore from "stores/layout";
-import { useStore17 } from "@priolo/jon";
+import { useStore } from "@priolo/jon";
 import { DIALOG_TYPES } from 'stores/layout/utils';
 
 
 export default function MsgBox() {
 
 	// HOOKs
-	const layout = useStore17(layoutStore)
+	const layout = useStore(layoutStore)
 	const { dialogOptions: options } = layout
 	const { dialogClose } = layoutStore
 

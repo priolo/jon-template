@@ -1,4 +1,3 @@
-/* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 import { Box, Button, TextField } from "@mui/material";
 import { Add as AddIcon } from "@mui/icons-material";
 
@@ -13,12 +12,12 @@ import UserWriterSelector from "components/selectors/UserWriterSelector";
 
 import { useConfirmationRouter } from "hooks/useConfirmationRouter";
 
-import  docStore  from "stores/doc";
-import  layoutStore  from "stores/layout";
-import  routeStore from "stores/route";
-import { rules, useValidator, useStore17 } from "@priolo/jon";
+import docStore from "stores/doc";
+import layoutStore from "stores/layout";
+import routeStore from "stores/route";
+import { rules, useValidator, useStore } from "@priolo/jon";
 
-
+let count = 0
 
 function DocDetail() {
 
@@ -26,8 +25,8 @@ function DocDetail() {
 	const { id } = useParams()
 	const { t } = useTranslation()
 	const navigate = useNavigate()
-	
-	const doc = useStore17(docStore)
+
+	const doc = useStore(docStore)
 	const { fetchById, edit, setSelectProp, canSave, isSelectChanged, save } = docStore
 
 	const { setCurrentPage } = routeStore
@@ -49,8 +48,6 @@ function DocDetail() {
 
 	useConfirmationRouter(isSelectChanged)
 
-
-
 	// HANDLERS
 	const handleChangeTitle = e => setSelectProp({ name: "title", value: e.target.value })
 	const handleChangeDesc = e => setSelectProp({ name: "desc", value: e.target.value })
@@ -60,8 +57,6 @@ function DocDetail() {
 	const handleClickSave = e => save().then((success) => {
 		if (success) navigate(-1)
 	})
-
-
 
 	// RENDER
 	if (!doc.select) return null

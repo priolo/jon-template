@@ -13,7 +13,7 @@ import docStore from "stores/doc";
 import userStore from "stores/user";
 import routeStore from "stores/route";
 import layoutStore from "stores/layout";
-import { useStore17 } from "@priolo/jon";
+import { useStore } from "@priolo/jon";
 
 
 function DocList() {
@@ -22,13 +22,13 @@ function DocList() {
 	const { t } = useTranslation()
 	const navigate = useNavigate()
 
-	const doc = useStore17(docStore);
+	const doc = useStore(docStore);
     const { fetchAll, getList, destroy, setSelect } = docStore
-    useStore17(userStore)
+    useStore(userStore)
 	const { getById: getUserById } = userStore
-    const route = useStore17(routeStore);
+    const route = useStore(routeStore);
 	const { setCurrentPage } = routeStore
-    useStore17(layoutStore)
+    useStore(layoutStore)
 	const { setTitle } = layoutStore
 
 	useEffect(() => {
@@ -75,7 +75,7 @@ function DocList() {
             <TableContainer component={Paper}>
 
                 <Table sx={cssTable}>
-                    
+
                     <TableHead>
                         <TableRow>
                             <TableCell>

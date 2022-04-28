@@ -2,14 +2,14 @@ import { Divider, Drawer, IconButton, List, Box } from "@mui/material"
 import { ChevronLeft as ChevronLeftIcon } from "@mui/icons-material"
 
 import ItemMenu from "./ItemMenu"
-import { useStore17 } from "@priolo/jon"
+import { useStore } from "@priolo/jon"
 import layoutStore from "stores/layout"
 
 
 function MainDrawer() {
 
 	// HOOKs
-	const layout = useStore17(layoutStore)
+	const layout = useStore(layoutStore)
 	const { toggleDrawerIsOpen, getDrawerList } = layoutStore
 
 	// RENDER

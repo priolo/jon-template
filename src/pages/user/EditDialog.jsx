@@ -9,13 +9,13 @@ import RolesSelector from 'components/selectors/RolesSelector';
 
 import { USER_ROLES } from 'stores/user/utils';
 import userStore from "stores/user";
-import { useStore17 } from "@priolo/jon";
+import { useStore } from "@priolo/jon";
 
 
 function EditDialog() {
 
 	// HOOKs
-	const user = useStore17(userStore)
+	const user = useStore(userStore)
 	const { setEmail, setUsername, setRole, save, canSave, setDialogEditIsOpen } = userStore
 
 	const { t } = useTranslation();

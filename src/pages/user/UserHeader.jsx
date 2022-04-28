@@ -1,11 +1,11 @@
 import SearchBox from "components/SearchBox"
 import routeStore from "stores/route";
-import { useStore17 } from "@priolo/jon";
+import { useStore } from "@priolo/jon";
 
 
 function UserHeader() {
 
-	useStore17(routeStore)
+	useStore(routeStore)
 	const { getSearchUrl, setSearchUrl } = routeStore
 
 	return (

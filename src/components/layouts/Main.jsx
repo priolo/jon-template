@@ -17,7 +17,7 @@ import RightDrawer from "./RightDrawer";
 
 import layoutStore from "stores/layout";
 import authStore from "stores/auth";
-import { useStore17 } from "@priolo/jon";
+import { useStore } from "@priolo/jon";
 
 // const DocDetail = lazy(() => import('../../pages/doc/DocDetail'))
 // const DocList = lazy(() => import('../../pages/doc/DocList'))
@@ -30,8 +30,8 @@ import UserList from '../../pages/user/UserList'
 export default function Main() {
 
     // HOOKs
-    const layout = useStore17(layoutStore)
-    useStore17(authStore)
+    const layout = useStore(layoutStore)
+    useStore(authStore)
     const { isLogged, refresh } = authStore
     useEffect(() => { refresh() }, [])
 

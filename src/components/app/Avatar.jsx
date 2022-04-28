@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 // stores
 import layoutStore from "stores/layout";
 import authStore from "stores/auth";
-import { useStore17 } from "@priolo/jon";
+import { useStore } from "@priolo/jon";
 
 
 function Avatar() {
@@ -19,9 +19,9 @@ function Avatar() {
 	const [anchorEl, setAnchorEl] = useState(null)
 	const { t } = useTranslation()
 
-	const auth = useStore17(authStore)
+	const auth = useStore(authStore)
 	const { logout } = authStore
-	useStore17(layoutStore)
+	useStore(layoutStore)
 	const { toggleTheme, isDarkTheme } = layoutStore
 
 	// HANDLEs

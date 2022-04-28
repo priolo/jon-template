@@ -1,5 +1,5 @@
 import layoutStore from "stores/layout";
-import { useStore17 } from "@priolo/jon";
+import { useStore } from "@priolo/jon";
 import { Box } from '@mui/system';
 
 
@@ -12,7 +12,7 @@ export default function CentralSpace({
 }) {
 
 	// HOOKs
-	const layout = useStore17(layoutStore)
+	const layout = useStore(layoutStore)
 
 	// RENDER
 	const sxContainer = theme => cssContainer(theme, sx, isCentered)

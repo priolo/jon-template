@@ -7,7 +7,7 @@ import DocFilters from "pages/doc/DocFilters";
 
 import layoutStore from "stores/layout";
 import routeStore from "stores/route";
-import { useStore17 } from "@priolo/jon";
+import { useStore } from "@priolo/jon";
 
 
 
@@ -16,9 +16,9 @@ function RightDrawer() {
 	// HOOKs
 	const { t } = useTranslation()
 
-	const layout = useStore17(layoutStore)
+	const layout = useStore(layoutStore)
 	const { setDrawerRightIsOpen } = layoutStore
-	const route = useStore17(routeStore)
+	const route = useStore(routeStore)
 	const { haveSearchExtra } = routeStore
 
 	const haveExtra = haveSearchExtra()

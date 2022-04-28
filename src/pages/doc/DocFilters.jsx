@@ -1,11 +1,11 @@
 import UserWriterSelector from "components/selectors/UserWriterSelector"
 import routeStore from "stores/route";
-import { useStore17 } from "@priolo/jon";
+import { useStore } from "@priolo/jon";
 
 
 function DocFilters() {
 
-	useStore17(routeStore)
+	useStore(routeStore)
 	const { getSearchUrl, setSearchUrl } = routeStore
 
 	const handleChange = value => setSearchUrl({ name: "author", value })
