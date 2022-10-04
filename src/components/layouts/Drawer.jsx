@@ -3,14 +3,13 @@ import { ChevronLeft as ChevronLeftIcon } from "@mui/icons-material"
 
 import ItemMenu from "./ItemMenu"
 import { useStore } from "@priolo/jon"
-import layoutStore from "stores/layout"
+import layoutStr from "stores/layout"
 
 
 function MainDrawer() {
 
 	// HOOKs
-	const layout = useStore(layoutStore)
-	const { toggleDrawerIsOpen, getDrawerList } = layoutStore
+	const layout = useStore(layoutStr)
 
 	// RENDER
 	const variant = layout.device == "desktop" ? "persistent" : null
@@ -19,16 +18,16 @@ function MainDrawer() {
 		<Drawer sx={cssDrawer}
 			variant={variant}
 			open={layout.drawerIsOpen}
-			ModalProps={{ onBackdropClick: toggleDrawerIsOpen }}
+			ModalProps={{ onBackdropClick: layoutStr.toggleDrawerIsOpen }}
 		>
 			<Box sx={cssDrawerHeader}>
-				<IconButton onClick={toggleDrawerIsOpen} size="large">
+				<IconButton onClick={layoutStr.toggleDrawerIsOpen} size="large">
 					<ChevronLeftIcon />
 				</IconButton>
 			</Box>
 			<Divider />
 			<List>
-				{getDrawerList().map(item => (
+				{layoutStr.getDrawerList().map(item => (
 					<ItemMenu value={item} key={item.label} />
 				))}
 			</List>

@@ -11,7 +11,7 @@ const themeCommon = {
 			width: "240px",
 		},
 		header: {
-			height: "64px",
+			height: 64,
 		},
 	},
 	mixins: {

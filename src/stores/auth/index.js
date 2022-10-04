@@ -69,13 +69,13 @@ const store = createStore({
 		isChangePasswordOpen: false,
 	},
 	getters: {
-		isLogged: state => state.token != null && state.user != null,
-		isRepassword: state => {
+		isLogged: (_, {state}) => state.token != null && state.user != null,
+		isRepassword: (_, {state}) => {
 			return state.user != null && state.user.has_to_change_password == true
 		},
 	},
 	actions: {
-		login: async (state, payload, store) => {
+		login: async (_, {state, ...store}) => {
 			const { dialogOpen } = layoutStore
 
 			const res = validateAll()
@@ -102,18 +102,18 @@ const store = createStore({
 			// get the user
 			await store.fetchCurrentUser()
 		},
-		logout: (state, { flash } = { flash: false }, store) => {
+		logout: ({ flash } = { flash: false }, store) => {
 			const { dialogOpen } = layoutStore
 			store.stopPollingRefreshToken()
 			store.setToken(null)
 			store.setUser(null)
 			if (flash) dialogOpen({ type: DIALOG_TYPES.SUCCESS, text: i18n.t("app.auth.logout"), modal: false })
 		},
-		refresh: async (state, payload, store) => {
+		refresh: async (_, {state, ...store}) => {
 			if (state.token == null) return
 			await store.fetchCurrentUser()
 		},
-		changePassword: async (state, payload, store) => {
+		changePassword: async (_, {state, ...store}) => {
 			const { dialogOpen } = layoutStore
 			const data = {
 				old_password: state.oldpassword,
@@ -135,7 +135,7 @@ const store = createStore({
 			store.setUser({ ...state.user, has_to_change_password: false })
 			return { error: false }
 		},
-		fetchCurrentUser: async (state, payload, store) => {
+		fetchCurrentUser: async (_, store) => {
 			try {
 				const response = await ajax.get("auth/me");
 				store.setUser(response)
@@ -144,7 +144,7 @@ const store = createStore({
 				store.logout()
 			}
 		},
-		refreshToken: async (state, payload, store) => {
+		refreshToken: async (_, store) => {
 			try {
 				const response = await ajax.get("auth/refresh", null, { noBusy: true });
 				store.setToken(response.access_token)
@@ -152,14 +152,14 @@ const store = createStore({
 				store.logout()
 			}
 		},
-		startPollingRefreshToken: (state, payload, store) => {
+		startPollingRefreshToken: (_, store) => {
 			if (idPolling != null) return;
 			const delay = process.env.REACT_APP_TOKEN_POLLING_TIME != null ? +process.env.REACT_APP_TOKEN_POLLING_TIME : 720000
 			idPolling = setInterval(() => {
 				store.refreshToken()
 			}, delay)
 		},
-		stopPollingRefreshToken: (state, payload, store) => {
+		stopPollingRefreshToken: (_, store) => {
 			if (idPolling == null) return;
 			clearInterval(idPolling)
 			idPolling = null
@@ -167,8 +167,8 @@ const store = createStore({
 	},
 	mutators: {
 		// [II] deve essere il layout che pesca lo user e adatta la lista non il contrario
-		setUser: (state, user, store) => ({ user }),
-		setToken: (state, token, store) => {
+		setUser: user => ({ user }),
+		setToken: token => {
 			if (token == null) {
 				Cookies.remove('token');
 			} else {
@@ -176,13 +176,13 @@ const store = createStore({
 			}
 			return { token }
 		},
-		setIsChangePasswordOpen: (state, isChangePasswordOpen) => ({ isChangePasswordOpen }),
+		setIsChangePasswordOpen: isChangePasswordOpen => ({ isChangePasswordOpen }),
 
-		setUsername: (state, username) => ({ username }),
-		setPassword: (state, password) => ({ password }),
-		setOldPassword: (state, oldpassword) => ({ oldpassword }),
-		setRepassword: (state, repassword) => ({ repassword }),
-		resetTexts: (state) => {
+		setUsername: username => ({ username }),
+		setPassword: password => ({ password }),
+		setOldPassword: oldpassword => ({ oldpassword }),
+		setRepassword: repassword => ({ repassword }),
+		resetTexts: _ => {
 			resetAll()
 			return { username: "", password: "", repassword: "", oldpassword: "" }
 		},

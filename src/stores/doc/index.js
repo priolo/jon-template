@@ -1,7 +1,7 @@
 /* eslint eqeqeq: "off" */
 import ajax from "plugins/AjaxService"
 import { validateAll, createStore } from "@priolo/jon"
-import utils from "@priolo/jon-utils"
+import { eq } from "@priolo/jon-utils"
 import i18n from "i18next";
 
 import routeStore from "../route"
@@ -16,7 +16,7 @@ const store = createStore({
 		selectOrigin: null,
 	},
 	getters: {
-		getList: (state, _, store) => {
+		getList: (_, {state}) => {
 			const { getSearchUrl, getSorted } = routeStore
 			let docs = [...state.all]
 
@@ -33,27 +33,27 @@ const store = createStore({
 			docs = getSorted({items: docs})
 			return docs
 		},
-		canSave: (state, _, store) => {
+		canSave: (_, {state}) => {
 			const { select: doc, selectOrigin: original } = state
-			return doc && !utils.isEqualDeep(doc, original)
+			return doc && !eq.isEqualDeep(doc, original)
 		},
-		isSelectChanged: (state, _, store) => {
+		isSelectChanged: (_, {state}) => {
 			const { select: doc, selectOrigin: original } = state
-			return doc && !utils.isEqualDeep(doc, original)
+			return doc && !eq.isEqualDeep(doc, original)
 		},
 	},
 	actions: {
 		// get alla DOCs
-		fetchAll: async (state, _, store) => {
+		fetchAll: async (_, store) => {
 			const data = await ajax.get(`docs`)
 			store.setAll(data)
 		},
-		fetchById: async (state, id, store) => {
+		fetchById: async (id, store) => {
 			const data = await ajax.get(`docs/${id}`);
 			store.setSelect(data)
 			return data
 		},
-		edit: async (state, doc, store) => {
+		edit: async (doc, store) => {
 			if (!doc) doc = {
 				title: "",
 				desc: "",
@@ -62,7 +62,7 @@ const store = createStore({
 			}
 			store.setSelect(doc)
 		},
-		save: async (state, _, store) => {
+		save: async (_, {state, ...store}) => {
 			const { dialogOpen } = layoutStore
 			const { select: doc } = state
 			if (!doc) return false
@@ -83,7 +83,7 @@ const store = createStore({
 			return true
 		},
 
-		destroy: async (state, doc, store) => {
+		destroy: async (doc, store) => {
 			const { dialogOpen } = layoutStore
 			if (!doc) return
 
@@ -104,9 +104,9 @@ const store = createStore({
 
 	},
 	mutators: {
-		setAll: (state, all) => ({ all }),
-		setSelect: (state, selectOrigin) => ({ selectOrigin, select: selectOrigin ? { ...selectOrigin }: null }),
-		setSelectProp: (state, {name, value}) => ({ select: {...state.select, [name]: value} }),
+		setAll: all => ({ all }),
+		setSelect: selectOrigin => ({ selectOrigin, select: selectOrigin ? { ...selectOrigin }: null }),
+		setSelectProp: ({name, value}, {state}) => ({ select: {...state.select, [name]: value} }),
 	},
 })
 

@@ -17,7 +17,6 @@ import layoutStore from "stores/layout";
 import routeStore from "stores/route";
 import { rules, useValidator, useStore } from "@priolo/jon";
 
-let count = 0
 
 function DocDetail() {
 

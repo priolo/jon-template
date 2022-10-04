@@ -1,6 +1,6 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 import { themeLight, themeDark } from "theme"
-import { People, Description } from '@mui/icons-material';
+
 import Cookies from "js-cookie";
 import { mixStores, createStore } from "@priolo/jon";
 
@@ -16,41 +16,41 @@ const setup = {
 		drawerIsOpen: true,
 		drawerRightIsOpen: false,
 
-		theme: Cookies.get('theme') == "dark" ? themeDark : themeLight,
+		theme: Cookies.get('theme'),
 
 		menu: [
-			{ label: "Users", icon: People, route: "/users" },
-			{ label: "Docs", icon: Description, route: "/docs" },
+			{ label: "Users", icon: "users", route: "/users" },
+			{ label: "Docs", icon: "docs", route: "/docs" },
 		],
 
 		device: null,
 	},
 	getters: {
-		getDrawerList: (state, _, store) => {
+		getDrawerList: (_, {state}) => {
 			return state.menu
 		},
-		isDarkTheme: (state, _, store) => state.theme == themeDark,
+		isDarkTheme: (_, {state}) => state.theme == "dark",
+		getMuiTheme: (_, {state}) => state.theme == "dark" ? themeDark : themeLight,
 	},
 	actions: {
 	},
 	mutators: {
-		setBusy: (state, busy) => ({ busy }),
-		setTitle: (state, title) => ({ title }),
-		setFocus: (state, focus) => ({ focus }),
+		setBusy: busy => ({ busy }),
+		setTitle: title => ({ title }),
+		setFocus: focus => ({ focus }),
 
-		setDrawerIsOpen: (state, drawerIsOpen) => ({ drawerIsOpen }),
-		toggleDrawerIsOpen: (state) => ({ drawerIsOpen: !state.drawerIsOpen }),
+		setDrawerIsOpen: drawerIsOpen => ({ drawerIsOpen }),
+		toggleDrawerIsOpen: (_, {state}) => ({ drawerIsOpen: !state.drawerIsOpen }),
 
-		setDrawerRightIsOpen: (state, drawerRightIsOpen) => ({ drawerRightIsOpen }),
+		setDrawerRightIsOpen: drawerRightIsOpen => ({ drawerRightIsOpen }),
 
-		toggleTheme: (state) => {
-			Cookies.set("theme", state.theme == themeLight ? "dark" : "light")
-			return {
-				theme: state.theme == themeLight ? themeDark : themeLight
-			}
+		toggleTheme: (_, {state}) => {
+			const newTheme = state.theme == "dark" ? "light" : "dark"
+			Cookies.set("theme", newTheme)
+			return { theme: newTheme }
 		},
 
-		setDevice: (state, device) => ({ device }),
+		setDevice: device => ({ device }),
 	},
 }
 
@@ -60,8 +60,8 @@ const store = createStore(allSetup)
 
 const checkDevice = () => {
 	const deviceName = window.innerWidth < 767 ? "mobile"
-		: window.innerWidth < 950 ? "pad" 
-		: "desktop"
+		: window.innerWidth < 950 ? "pad"
+			: "desktop"
 	store.setDevice(deviceName)
 }
 window.addEventListener("resize", (e) => checkDevice());

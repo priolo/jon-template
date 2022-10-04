@@ -63,6 +63,6 @@ function RightDrawer() {
 export default RightDrawer
 
 const cssContainer = theme => ({
-	margin: `${theme.app.header.height + 10} 15px 10px 15px`,
+	margin: `15px 15px 10px 15px`,
 	width: theme.app.drawer.width,
 })

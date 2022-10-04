@@ -11,13 +11,13 @@ const setup = {
 		dialogOptions: null,
 	},
 	actions: {
-		dialogOpen: (state, options, store) => {
+		dialogOpen: (options, store) => {
 			store.setDialogOpen(options)
 			return new Promise((resolve, reject) => {
 				resolveClose = resolve
 			})
 		},
-		dialogClose: (state, payload, store) => {
+		dialogClose: (payload, store) => {
 			store.setDialogClose()
 			if (resolveClose) resolveClose(payload)
 			resolveClose = null
@@ -25,7 +25,7 @@ const setup = {
 		}
 	},
 	mutators: {
-		setDialogOpen: (state, options) => {
+		setDialogOpen: options => {
 			options = { ...optionsDefault, ...options }
 			if (options.type && options.modal) {
 				const path = `dialog.${options.type}.default`
@@ -41,7 +41,7 @@ const setup = {
 				dialogIsOpen: true
 			}
 		},
-		setDialogClose: (state, _) => ({ dialogIsOpen: false }),
+		setDialogClose: _ => ({ dialogIsOpen: false }),
 	},
 }
 

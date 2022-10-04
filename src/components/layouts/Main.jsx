@@ -1,5 +1,5 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
-import React, { lazy, useEffect } from "react"
+import React, { /*lazy,*/ useEffect } from "react"
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
@@ -30,16 +30,15 @@ import UserList from '../../pages/user/UserList'
 export default function Main() {
 
     // HOOKs
-    const layout = useStore(layoutStore)
+    useStore(layoutStore)
     useStore(authStore)
     const { isLogged, refresh } = authStore
     useEffect(() => { refresh() }, [])
 
-
     // RENDER
     return (
         <BrowserRouter>
-            <ThemeProvider theme={layout.theme}>
+            <ThemeProvider theme={layoutStore.getMuiTheme()}>
                 <CssBaseline />
                     <MsgBox />
                     {isLogged() ? (<>

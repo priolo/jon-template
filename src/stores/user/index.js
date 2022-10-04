@@ -1,6 +1,6 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 import { validateAll, resetAll, createStore } from "@priolo/jon"
-import utils from "@priolo/jon-utils"
+import { eq } from "@priolo/jon-utils"
 import i18n from "i18next";
 import ajax from "plugins/AjaxService"
 
@@ -25,7 +25,7 @@ const store = createStore({
 		selectOrigin: null,
 	},
 	getters: {
-		getList: (state, _, store) => {
+		getList: (_, {state}) => {
 			const { getSearchUrl, getSorted } = routeStore
 			let users = [...state.all]
 
@@ -39,23 +39,23 @@ const store = createStore({
 			users = getSorted({ items: users })
 			return users
 		},
-		canSave: (state, _, store) => {
+		canSave: (_, {state}) => {
 			const { select: user, selectOrigin: original } = state
-			return user && !utils.isEqualDeep(user, original)
+			return user && !eq.isEqualDeep(user, original)
 		},
-		getById: (state, id, store) => {
+		getById: (id, {state}) => {
 			return state.all.find(user => user.id == id)
 		}
 	},
 	actions: {
 		// get alla USER
-		fetchAll: async (state, _, store) => {
+		fetchAll: async (_, store) => {
 			const data = await ajax.get(`users`);
 			store.setAll(data)
 			//store.setQueryUrl(document.location.search)
 		},
 
-		edit: async (state, user, store) => {
+		edit: async (user, store) => {
 			if (!user) user = {
 				username: "",
 				email: "",
@@ -66,7 +66,7 @@ const store = createStore({
 			store.setDialogEditIsOpen(true)
 		},
 
-		save: async (state, _, store) => {
+		save: async (_, {state, ...store}) => {
 			const { dialogOpen } = layoutStore
 			const { select: user } = state
 			if (!user) return false
@@ -91,7 +91,7 @@ const store = createStore({
 			store.fetchAll()
 		},
 
-		destroy: async (state, user, store) => {
+		destroy: async (user, store) => {
 			const { dialogOpen } = layoutStore
 			if (!user) return
 
@@ -112,12 +112,12 @@ const store = createStore({
 
 	},
 	mutators: {
-		setAll: (state, all) => ({ all }),
-		setDialogEditIsOpen: (state, dialogEditIsOpen) => ({ dialogEditIsOpen }),
-		setSelect: (state, selectOrigin) => ({ selectOrigin, select: { ...selectOrigin } }),
-		setEmail: (state, email) => ({ select: { ...state.select, email } }),
-		setUsername: (state, username) => ({ select: { ...state.select, username } }),
-		setRole: (state, role) => ({ select: { ...state.select, role } }),
+		setAll: all => ({ all }),
+		setDialogEditIsOpen: dialogEditIsOpen => ({ dialogEditIsOpen }),
+		setSelect: selectOrigin => ({ selectOrigin, select: { ...selectOrigin } }),
+		setEmail: (email, {state}) => ({ select: { ...state.select, email } }),
+		setUsername: (username, {state}) => ({ select: { ...state.select, username } }),
+		setRole: (role, {state}) => ({ select: { ...state.select, role } }),
 	},
 })
 
