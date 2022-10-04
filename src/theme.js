@@ -8,12 +8,17 @@ const themeCommon = {
 			zIndex: 1201,
 		},
 		drawer: {
-			width: 240,
+			width: "240px",
 		},
 		header: {
 			height: 64,
 		},
-	}
+	},
+	mixins: {
+		toolbar: {
+			minHeight: "64px",
+		},
+	},
 }
 
 export const themeLight = createTheme({

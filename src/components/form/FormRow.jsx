@@ -1,7 +1,7 @@
-/* eslint eqeqeq: "off" */
 import React from 'react';
-import { Grid, Typography } from "@mui/material";
-import makeStyles from '@mui/styles/makeStyles';
+
+// mui
+import { Box, Grid, Typography } from "@mui/material";
 import { EditOutlined } from '@mui/icons-material';
 
 
@@ -15,27 +15,23 @@ export default function FormRow({
 	isDense,
 }) {
 
-	// HOOKs
-	const classes = useStyles();
-
-
 	// RENDER
 	return (
-		<Grid container alignItems="center" className={classes.root}>
+		<Grid container alignItems="center" sx={cssRoot}>
 
 			<Grid item
 				sm={isDense ? 2 : 3}
 				onClick={onClickLabel}
-				className={onClickLabel && classes.labelClickable}
+				sx={onClickLabel && cssLabelClickable}
 			>
 
-				<div className={classes.containerLabels}>
-					<div className={classes.label}>
-						{isChanged && <EditOutlined color="secondary" className={classes.icon} />}
+				<Box sx={cssContainerLabels}>
+					<Box sx={cssLabel}>
+						{isChanged && <EditOutlined color="secondary" sx={cssIcon} />}
 						<Typography variant="body2">{label}</Typography>
-					</div>
-					{sublabel && <Typography variant="caption" className={classes.sublabel}>{sublabel}</Typography>}
-				</div>
+					</Box>
+					{sublabel && <Typography variant="caption" sx={cssSublabel}>{sublabel}</Typography>}
+				</Box>
 
 			</Grid>
 
@@ -52,31 +48,30 @@ export default function FormRow({
 }
 
 
-const useStyles = makeStyles(theme => ({
-	root: {
-		minHeight: "44px",
-		marginBottom: "10px",
-		"&:last-child": {
-			marginBottom: "0px",
-		}
-	},
-	containerLabels: {
-		display: "flex",
-		flexDirection: "column",
-	},
-	labelClickable: {
-		cursor: "pointer",
-	},
-	label: {
-		display: "flex",
-	},
-	sublabel: {
-		fontWeight: "100",
-		color: theme.palette.text.secondary,
-	},
-	icon: {
-		fontSize: "17px",
-		color: theme.palette.secondary.main,
-		margin: "0px 2px 0px -19px",
-	},
-}))
+
+const cssRoot = theme => ({
+	minHeight: "44px",
+	marginBottom: "10px",
+	"&:last-child": {
+		marginBottom: "0px",
+	}
+})
+const cssContainerLabels = theme => ({
+	display: "flex",
+	flexDirection: "column",
+})
+const cssLabelClickable = theme => ({
+	cursor: "pointer",
+})
+const cssLabel = theme => ({
+	display: "flex",
+})
+const cssSublabel = theme => ({
+	fontWeight: "100",
+	color: theme.palette.text.secondary,
+})
+const cssIcon = theme => ({
+	fontSize: "17px",
+	color: theme.palette.secondary.main,
+	margin: "0px 2px 0px -19px",
+})

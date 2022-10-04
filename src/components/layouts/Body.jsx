@@ -1,7 +1,7 @@
-/* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
-import makeStyles from '@mui/styles/makeStyles';
+import layoutStore from "stores/layout";
+import { useStore } from "@priolo/jon";
+import { Box } from "@mui/material";
 
-import { useLayout } from "stores/layout";
 
 
 function Body({
@@ -9,43 +9,39 @@ function Body({
 }) {
 
 	// HOOKs
-	const classes = useStyles()
-	const { state: layout } = useLayout()
-
+	const layout = useStore(layoutStore)
 
 	// RENDER
-	const cnContent = `${classes.content} ${layout.drawerIsOpen && layout.device == "desktop" ? classes.contentShift : ""}`
-	
+	const sxContent = theme => cssContent(theme, layout.drawerIsOpen && layout.device == "desktop")
+
 	return (
-		<main className={cnContent}>
-			<div className={classes.drawerHeader} />
+		<Box sx={sxContent}>
+			<Box sx={cssDrawerHeader} />
 			{children}
-		</main>
+		</Box>
 	)
 }
 
 export default Body
 
-const useStyles = makeStyles((theme) => ({
-	content: {
-		display: "flex", flexDirection: "column",
-		height: "100%",
-		transition: theme.transitions.create("margin", {
-			easing: theme.transitions.easing.sharp,
-			duration: theme.transitions.duration.leavingScreen
-		}),
-		marginLeft: 0
-	},
-	contentShift: {
+const cssContent = (theme, isOpen) => ({
+	display: "flex", flexDirection: "column",
+	height: "100%",
+	transition: theme.transitions.create("margin", {
+		easing: theme.transitions.easing.sharp,
+		duration: theme.transitions.duration.leavingScreen
+	}),
+	marginLeft: 0,
+	...(isOpen && {
 		transition: theme.transitions.create("margin", {
 			easing: theme.transitions.easing.easeOut,
 			duration: theme.transitions.duration.enteringScreen
 		}),
 		marginLeft: theme.app.drawer.width,
-	},
-	drawerHeader: {
-		// necessary for content to be below app bar
-		flex: `0 1 ${theme.app.header}`,
-		...theme.mixins.toolbar
-	}
-}))
+	}),
+})
+const cssDrawerHeader = theme => ({
+	// necessary for content to be below app bar
+	flex: `0 1 ${theme.app.header}`,
+	...theme.mixins.toolbar
+})

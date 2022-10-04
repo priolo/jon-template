@@ -1,59 +1,64 @@
-/* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 import { useEffect, useMemo } from 'react'
 
-import makeStyles from '@mui/styles/makeStyles';
 import { useTranslation } from 'react-i18next'
+// mui
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton, Button, Paper } from '@mui/material'
 import { Delete as DeleteIcon, Add as AddIcon } from '@mui/icons-material'
 
 import EditDialog from './EditDialog'
 import TableSortProp from 'components/TableSortProp'
 import Form from 'components/form/Form'
-
-import { useRoute } from 'stores/route'
-import { useUser } from 'stores/user'
-import { useLayout } from 'stores/layout'
+// store
+import userStore from "stores/user";
+import layoutStore from "stores/layout";
+import routeStore from "stores/route";
+import { useStore } from "@priolo/jon";
 
 
 function UserPag() {
 
-	//HOOKs
-	const { t } = useTranslation()
-	const { state: user, fetchAll, edit, destroy, getList } = useUser()
-	const { setTitle } = useLayout()
-	const classes = useStyles()
-	const { state:route, setCurrentPage } = useRoute()
+    //HOOKs
+    const { t } = useTranslation()
 
-	useEffect(() => {
-		setCurrentPage("user.list")
-		setTitle("pag.user.list.title")
-		fetchAll()
-	}, [])
+    const user = useStore(userStore)
+    const { fetchAll, edit, destroy, getList } = userStore
 
+    useStore(layoutStore)
+    const { setTitle } = layoutStore
 
-	//PROPERTIES
-	const users = useMemo(
-		() => getList(), 
-		[user.all, route.queryUrl]
-	)
+    const route = useStore(routeStore)
+    const { setCurrentPage } = routeStore
+
+    useEffect(() => {
+        setCurrentPage("user.list")
+        setTitle("pag.user.list.title")
+        fetchAll()
+    }, [])
 
 
-	//HANDLEs
-	const handleClickRow = item => edit(item)
-	const handleClickDelete = (user, e) => {
-		e.stopPropagation()
-		destroy(user)
-	}
-	const handleClickAdd = e => edit()
+    //PROPERTIES
+    const users = useMemo(
+        () => getList(),
+        [user.all, route.queryUrl]
+    )
+    //const nameTest = getSearchUrl("sortName")
+
+    //HANDLEs
+    const handleClickRow = item => edit(item)
+    const handleClickDelete = (user, e) => {
+        e.stopPropagation()
+        destroy(user)
+    }
+    const handleClickAdd = e => edit()
 
 
-	// RENDER
+    // RENDER
 
-	if (!user.all || user.all.length == 0) return null
+    if (!user.all || user.all.length == 0) return null
 
-	return (
+    return (
         <Form
-            renderFooter={
+            renderFooter={<>
                 <Button
                     variant="contained"
                     color="primary"
@@ -62,11 +67,12 @@ function UserPag() {
                 >
                     {t("pag.user.list.btt_new")}
                 </Button>
-            }
+
+            </>}
         >
             <TableContainer component={Paper}>
 
-                <Table className={classes.table} aria-label="simple table">
+                <Table>
 
                     <TableHead>
                         <TableRow>
@@ -80,7 +86,7 @@ function UserPag() {
                                     {t("pag.user.list.role")}
                                 </TableSortProp>
                             </TableCell>
-                            <TableCell align="center" className={classes.actionsCell}>
+                            <TableCell align="center" sx={cssActionsCell}>
                                 {t("pag.user.list.actions")}
                             </TableCell>
                         </TableRow>
@@ -90,12 +96,12 @@ function UserPag() {
                         {users.map(user => (
 
                             <TableRow hover key={user.id}
-                                className={classes.row}
+                                sx={cssRow}
                                 onClick={e => handleClickRow(user)}
                             >
                                 <TableCell >{user.username}</TableCell>
                                 <TableCell >{t(`app.roles.${user.role}`)}</TableCell>
-                                <TableCell align="center" className={classes.actionsCell}>
+                                <TableCell align="center" sx={cssActionsCell}>
                                     <IconButton id="btt-delete" onClick={(e) => handleClickDelete(user, e)} size="large"><DeleteIcon /></IconButton>
                                 </TableCell>
                             </TableRow>
@@ -115,19 +121,15 @@ function UserPag() {
 
 export default UserPag
 
-const useStyles = makeStyles({
-	table: {
-		//minWidth: 650,
-	},
-	row: {
-		cursor: "pointer",
-	},
-	container: {
-		display: "flex",
-		justifyContent: "flex-end",
-		marginTop: "14px",
-	},
-	actionsCell: {
-		width: "100px"
-	}
-});
+
+const cssRow = theme => ({
+    cursor: "pointer",
+})
+// const cssContainer = theme => ({
+//     display: "flex",
+//     justifyContent: "flex-end",
+//     marginTop: "14px",
+// })
+const cssActionsCell = theme => ({
+    width: "100px"
+})

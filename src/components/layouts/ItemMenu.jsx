@@ -1,9 +1,7 @@
 import React from 'react';
-import makeStyles from '@mui/styles/makeStyles';
-import createStyles from '@mui/styles/createStyles';
-import {ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import { useHistory, useRouteMatch } from "react-router-dom";
-
+import { ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { useMatch, useNavigate } from "react-router-dom";
+import { People, Description } from '@mui/icons-material';
 
 
 function ItemMenu({
@@ -11,26 +9,20 @@ function ItemMenu({
 }) {
 
 	// HOOKs
-	const classes = useStyles()
-	const history = useHistory()
-	const match = useRouteMatch(value.route)
-	
+	const navigate = useNavigate()
+	const match = useMatch(value.route)
 
 	// HANDLEs
-	const handleClick = item => history.push(item.route)
-
+	const handleClick = item => navigate(item.route)
 
 	// RENDER
-	const cnItem = match ? classes.selected : ""
-	const cnIcon = match ? classes.selectedIcon : ""
-	
 	return (
 		<ListItem button
-			onClick={() => handleClick(value)} 
-			className={cnItem}
+			onClick={() => handleClick(value)}
+			sx={match && cssSelected}
 		>
 			<ListItemIcon>
-				<value.icon className={cnIcon} />
+				<Icon name={value.icon} sx={match && cssSelectedIcon} />
 			</ListItemIcon>
 			<ListItemText primary={value.label} />
 		</ListItem>
@@ -39,17 +31,22 @@ function ItemMenu({
 
 export default ItemMenu
 
-const useStyles = makeStyles((theme) =>
-	createStyles({
-		selected: {
-			backgroundColor: theme.palette.primary.main,
-			color: theme.palette.primary.contrastText,
-			"&:hover": {
-				backgroundColor: theme.palette.primary.light,
-			},
-		},
-		selectedIcon: {
-			color: theme.palette.primary.contrastText,
-		},
-	}),
-);
+const Icon = ({
+	name,
+	sx,
+}) => ({
+	"users": <People sx={sx} />,
+	"docs": <Description sx={sx} />,
+}[name])
+
+const cssSelected = theme => ({
+	backgroundColor: theme.palette.primary.main,
+	color: theme.palette.primary.contrastText,
+	"&:hover": {
+		backgroundColor: theme.palette.primary.light,
+	},
+})
+
+const cssSelectedIcon = theme => ({
+	color: theme.palette.primary.contrastText,
+})

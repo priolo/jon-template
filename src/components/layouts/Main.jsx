@@ -1,7 +1,7 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
-import React, { lazy, Suspense, useEffect } from "react"
-import { ThemeProvider, StyledEngineProvider, CssBaseline } from '@mui/material';
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom"
+import React, { /*lazy,*/ useEffect } from "react"
+import { ThemeProvider, CssBaseline } from '@mui/material';
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 import AppBar from "./AppBar"
 import Drawer from "./Drawer"
@@ -11,73 +11,52 @@ import Body from "./Body"
 //import DocList from "../../pages/doc/DocList";
 //import DocDetail from "../../pages/doc/DocDetail";
 
-import { useLayout } from "stores/layout";
-import { useAuth } from "stores/auth";
-
 import MsgBox from "../app/MsgBox";
 import LogIn from "pages/auth/LogIn";
 import RightDrawer from "./RightDrawer";
 
-const DocDetail = lazy(() => import('../../pages/doc/DocDetail'))
-const DocList = lazy(() => import('../../pages/doc/DocList'))
-const UserList = lazy(() => import('../../pages/user/UserList'))
+import layoutStore from "stores/layout";
+import authStore from "stores/auth";
+import { useStore } from "@priolo/jon";
 
+// const DocDetail = lazy(() => import('../../pages/doc/DocDetail'))
+// const DocList = lazy(() => import('../../pages/doc/DocList'))
+// const UserList = lazy(() => import('../../pages/user/UserList'))
+import DocDetail from '../../pages/doc/DocDetail'
+import DocList from '../../pages/doc/DocList'
+import UserList from '../../pages/user/UserList'
 
 
 export default function Main() {
 
-	// HOOKs
-	const { state: layout } = useLayout()
-	const { isLogged, refresh } = useAuth()
-	useEffect(() => { refresh() }, [])
+    // HOOKs
+    useStore(layoutStore)
+    useStore(authStore)
+    const { isLogged, refresh } = authStore
+    useEffect(() => { refresh() }, [])
 
-	
-	// RENDER
-	return (
-        <StyledEngineProvider injectFirst>
-            <ThemeProvider theme={layout.theme}>
+    // RENDER
+    return (
+        <BrowserRouter>
+            <ThemeProvider theme={layoutStore.getMuiTheme()}>
                 <CssBaseline />
-                <MsgBox />
-                { isLogged() ? (
-                    <Router>
+                    <MsgBox />
+                    {isLogged() ? (<>
                         <AppBar />
                         <Drawer />
                         <RightDrawer />
                         <Body>
-                            {/* ATTENTION: the order is important */}
-                            <Switch>
-
-                                <Route path={["/docs/:id"]} 
-                                //component={DocDetail}
-                                >
-                                    <Suspense fallback={null}>
-                                        <DocDetail />
-                                    </Suspense>
-                                </Route>
-
-                                <Route path={["/docs"]} 
-                                //component={DocList}
-                                >
-                                    <Suspense fallback={null}>
-                                        <DocList />
-                                    </Suspense>
-                                </Route>
-
-                                <Route path={["/", "/users"]} 
-                                //component={UserList}
-                                >
-                                    <Suspense fallback={null}>
-                                        <UserList />
-                                    </Suspense>
-                                </Route>
-
-                            </Switch>
+                            <Routes>
+                                <Route path={"/docs/:id"} element={<DocDetail/>} />
+                                <Route path="/docs" element={<DocList />} />
+                                <Route index path={"/users"} element={<UserList/>} />
+                            </Routes>
                         </Body>
-                    </Router>
-                ) : (
-                    <LogIn />
-                )}
+                    </>) : (
+                        <LogIn />
+                    )}
+                
             </ThemeProvider>
-        </StyledEngineProvider>
+        </BrowserRouter>
     );
 }

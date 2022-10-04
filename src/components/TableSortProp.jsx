@@ -1,23 +1,28 @@
 /* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 import { TableSortLabel } from '@mui/material';
 import React from 'react';
-import { useRoute } from '../stores/route';
+
+import routeStore from "stores/route";
+import { useStore } from "@priolo/jon";
 
 
-
-function TableSortProp ({
+function TableSortProp({
 	children,
 	name,
 }) {
 
 	// HOOKs
-	const { getSearchUrl, setSort } = useRoute()
-	const active = getSearchUrl("sortName") == name
-	const direction = getSearchUrl("isAsc")== "true" ? "asc" : "desc"
+	useStore(routeStore)
+	const { setSort, getSearchUrl } = routeStore
 
-	
+	const active = getSearchUrl("sortName") == name
+	const direction = getSearchUrl("isAsc") == "true" ? "asc" : "desc"
+
+
 	// HANDLEs
-	const handleClickSort = e => setSort(name)
+	const handleClickSort = e => {
+		setSort(name)
+	}
 
 
 	// RENDER

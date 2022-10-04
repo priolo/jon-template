@@ -1,10 +1,12 @@
 import SearchBox from "components/SearchBox"
-import { useRoute } from "stores/route"
+import routeStore from "stores/route";
+import { useStore } from "@priolo/jon";
 
 
 function UserHeader() {
 
-	const { getSearchUrl, setSearchUrl } = useRoute()
+	useStore(routeStore)
+	const { getSearchUrl, setSearchUrl } = routeStore
 
 	return (
 		<SearchBox

@@ -1,8 +1,11 @@
 /* eslint react-hooks/exhaustive-deps: "off" */
-import { useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { useLayout } from "../stores/layout";
+import { useContext, useEffect } from "react";
+import { UNSAFE_NavigationContext as NavigationContext } from "react-router-dom";
 import i18n from "i18next"
+
+import layoutStore from "stores/layout";
+import { useStore } from "@priolo/jon";
+
 
 /**
  * If there is a "change" it asks the user if he really wants to change the page
@@ -10,14 +13,16 @@ import i18n from "i18next"
 */
 export function useConfirmationRouter(callbackChanged) {
 
-	const history = useHistory()
-	const { dialogOpen } = useLayout()
+	const { navigator } = useContext( NavigationContext );
+	useStore(layoutStore)
+	const { dialogOpen } = layoutStore
 
 	useEffect(() => {
 		/**
 		 * @see https://github.com/remix-run/history/blob/main/docs/blocking-transitions.md
+		 * https://gist.github.com/rmorse/426ffcc579922a82749934826fa9f743
 		 */
-		let unblock = history.block((location) => {
+		let unblock = navigator.block((location) => {
 			if (location.hash?.length > 0) return true
 
 			// if something has changed on the page then ask for confirmation
@@ -31,7 +36,7 @@ export function useConfirmationRouter(callbackChanged) {
 						labelCancel: i18n.t("pag.default.dlg.router_confirm.labelCancel"),
 					})) {
 						unblock()
-						history.push(location)
+						navigator.push(location)
 					}
 				})()
 				return false

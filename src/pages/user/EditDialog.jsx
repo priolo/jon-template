@@ -1,35 +1,25 @@
-/* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 import { useValidator, rules } from '@priolo/jon';
-import {
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    TextField,
-    Grid,
-    Box,
-    Divider,
-} from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Grid, Box, Divider } from '@mui/material';
 import { Link as LinkIcon } from '@mui/icons-material';
 
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
 import RolesSelector from 'components/selectors/RolesSelector';
 
-import { useUser } from 'stores/user';
 import { USER_ROLES } from 'stores/user/utils';
+import userStore from "stores/user";
+import { useStore } from "@priolo/jon";
 
 
 function EditDialog() {
 
 	// HOOKs
-	const { state: user, setEmail, setUsername, setRole, save, canSave, setDialogEditIsOpen } = useUser()
+	const user = useStore(userStore)
+	const { setEmail, setUsername, setRole, save, canSave, setDialogEditIsOpen } = userStore
+
 	const { t } = useTranslation();
-	const classes = useStyles()
-	const history = useHistory()
+	const navigate = useNavigate()
 	const uniqueUserRole = (value) => value != user.selectOrigin?.username && user.all.some(user => user.username == value) ? "not.univoque" : null
 	const usernameProps = useValidator(user.select?.username, [rules.obligatory, uniqueUserRole])
 	const emailProps = useValidator(user.select?.email, [rules.email])
@@ -42,7 +32,7 @@ function EditDialog() {
 	const handleChangeUsername = e => setUsername(e.target.value)
 	const handleChangeRole = e => setRole(e.target.value)
 	const handleClickSave = e => save()
-	const handleClickBook = e => history.push(`/docs?author=${user.select.id}`)
+	const handleClickBook = e => navigate(`/docs?author=${user.select.id}`)
 
 
 	// RENDER
@@ -53,13 +43,13 @@ function EditDialog() {
 			open={user.dialogEditIsOpen}
 			onClose={handleCloseDialog}
 		>
-			<DialogTitle classes={{ root: classes.title }}>
+			<DialogTitle sx={cssTitle}>
 				{t(`pag.user.dlg.${user.select.id ? "title_edit" : "title_new"}`)}
 			</DialogTitle>
 
 			<Divider />
 
-			<DialogContent classes={{ root: classes.content }}>
+			<DialogContent sx={cssContent}>
 
 				<Grid item sm>
 					<TextField autoFocus fullWidth
@@ -97,7 +87,7 @@ function EditDialog() {
 
 			</DialogContent>
 
-			<DialogActions classes={{ root: classes.action }}>
+			<DialogActions sx={cssAction}>
 				<Button color="secondary" onClick={handleCloseDialog} >
 					{t(`pag.user.dlg.cancel`)}
 				</Button>
@@ -115,18 +105,17 @@ function EditDialog() {
 
 export default EditDialog
 
-const useStyles = makeStyles(theme => ({
-	title: {
-		padding: "25px 50px 16px 50px",
-	},
-	subtitle: {
-		color: theme.palette.grey.A700,
-	},
-	content: {
-		paddingLeft: "50px",
-		paddingRight: "50px"
-	},
-	action: {
-		padding: "16px 34px 16px 40px",
-	},
-}))
+
+const cssTitle = theme => ({
+	padding: "25px 50px 16px 50px",
+})
+// const cssSubtitle = theme => ({
+// 	color: theme.palette.grey.A700,
+// })
+const cssContent = theme => ({
+	paddingLeft: "50px",
+	paddingRight: "50px"
+})
+const cssAction = theme => ({
+	padding: "16px 34px 16px 40px",
+})

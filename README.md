@@ -46,7 +46,6 @@ run:
 
 ---
 
-
 The template is based on a library for managing the STORE in REACT:   
 [Jon](https://github.com/priolo/jon)   
 and the concepts solved are:

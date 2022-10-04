@@ -5,19 +5,19 @@ import i18n from "i18next";
 // used when dialog closed
 let resolveClose = null;
 
-const store = {
+const setup = {
 	state: {
 		dialogIsOpen: false,
 		dialogOptions: null,
 	},
 	actions: {
-		dialogOpen: (state, options, store) => {
+		dialogOpen: (options, store) => {
 			store.setDialogOpen(options)
 			return new Promise((resolve, reject) => {
 				resolveClose = resolve
 			})
 		},
-		dialogClose: (state, payload, store) => {
+		dialogClose: (payload, store) => {
 			store.setDialogClose()
 			if (resolveClose) resolveClose(payload)
 			resolveClose = null
@@ -25,7 +25,7 @@ const store = {
 		}
 	},
 	mutators: {
-		setDialogOpen: (state, options) => {
+		setDialogOpen: options => {
 			options = { ...optionsDefault, ...options }
 			if (options.type && options.modal) {
 				const path = `dialog.${options.type}.default`
@@ -41,11 +41,11 @@ const store = {
 				dialogIsOpen: true
 			}
 		},
-		setDialogClose: (state, _) => ({ dialogIsOpen: false }),
+		setDialogClose: _ => ({ dialogIsOpen: false }),
 	},
 }
 
-export default store
+export default setup
 
 const optionsDefault = {
 	modal: true,

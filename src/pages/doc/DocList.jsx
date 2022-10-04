@@ -1,7 +1,5 @@
-/* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 import { useEffect, useMemo } from 'react';
 
-import makeStyles from '@mui/styles/makeStyles';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton, Button, Paper } from '@mui/material';
 import { Delete as DeleteIcon, Add as AddIcon } from '@mui/icons-material';
 
@@ -9,25 +7,29 @@ import Form from 'components/form/Form';
 import TableSortProp from 'components/TableSortProp';
 
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 
-import { useDoc } from 'stores/doc';
-import { useUser } from 'stores/user';
-import { useRoute } from 'stores/route';
-import { useLayout } from 'stores/layout';
-
+import docStore from "stores/doc";
+import userStore from "stores/user";
+import routeStore from "stores/route";
+import layoutStore from "stores/layout";
+import { useStore } from "@priolo/jon";
 
 
 function DocList() {
 
 	// HOOKs
 	const { t } = useTranslation()
-	const history = useHistory()
-	const { state: doc, fetchAll, getList, destroy, setSelect } = useDoc();
-	const { getById: getUserById } = useUser()
-	const { state: route, setCurrentPage } = useRoute()
-	const { setTitle } = useLayout()
-	const classes = useStyles()
+	const navigate = useNavigate()
+
+	const doc = useStore(docStore);
+    const { fetchAll, getList, destroy, setSelect } = docStore
+    useStore(userStore)
+	const { getById: getUserById } = userStore
+    const route = useStore(routeStore);
+	const { setCurrentPage } = routeStore
+    useStore(layoutStore)
+	const { setTitle } = layoutStore
 
 	useEffect(() => {
 		setCurrentPage("doc.list")
@@ -45,8 +47,8 @@ function DocList() {
 
 
 	//HANDLEs
-	const handleClickRow = id => history.push(`/docs/${id}`)
-	const handleClickNew = _ => history.push(`/docs/new`)
+	const handleClickRow = id => navigate(`/docs/${id}`)
+	const handleClickNew = _ => navigate(`/docs/new`)
 	const handleClickDelete = (doc, e) => {
 		e.stopPropagation()
 		destroy(doc)
@@ -72,7 +74,8 @@ function DocList() {
         >
             <TableContainer component={Paper}>
 
-                <Table className={classes.table}>
+                <Table sx={cssTable}>
+
                     <TableHead>
                         <TableRow>
                             <TableCell>
@@ -90,7 +93,7 @@ function DocList() {
                                     {t("pag.doc.list.link")}
                                 </TableSortProp>
                             </TableCell>
-                            <TableCell align="center" className={classes.actionsCell}>
+                            <TableCell align="center" sx={cssActionsCell}>
                                 {t("pag.user.list.actions")}
                             </TableCell>
                         </TableRow>
@@ -100,13 +103,13 @@ function DocList() {
                         {docs.map(doc => (
 
                             <TableRow hover key={doc.id}
-                                className={classes.row}
+                                sx={cssRow}
                                 onClick={e => handleClickRow(doc.id)}
                             >
                                 <TableCell >{doc.title}</TableCell>
                                 <TableCell >{getUserById(doc.author_id)?.username}</TableCell>
                                 <TableCell >{doc.link}</TableCell>
-                                <TableCell align="center" className={classes.actionsCell}>
+                                <TableCell align="center" sx={cssActionsCell}>
                                     <IconButton id="btt-delete" onClick={(e) => handleClickDelete(doc, e)} size="large"><DeleteIcon /></IconButton>
                                 </TableCell>
                             </TableRow>
@@ -126,19 +129,17 @@ function DocList() {
 
 export default DocList
 
-const useStyles = makeStyles({
-	table: {
-		//minWidth: 650,
-	},
-	row: {
-		cursor: "pointer",
-	},
-	container: {
-		display: "flex",
-		justifyContent: "flex-end",
-		marginTop: "14px",
-	},
-	actionsCell: {
-		width: "100px"
-	}
-});
+const cssTable = theme => ({
+    //minWidth: 650,
+})
+const cssRow = theme => ({
+    cursor: "pointer",
+})
+// const cssContainer = theme => ({
+//     display: "flex",
+//     justifyContent: "flex-end",
+//     marginTop: "14px",
+// })
+const cssActionsCell = theme => ({
+    width: "100px"
+})

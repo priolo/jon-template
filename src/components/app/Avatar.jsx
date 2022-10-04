@@ -1,25 +1,28 @@
 import React, { useState } from 'react';
 
-import makeStyles from '@mui/styles/makeStyles';
+// mui
 import { AccountCircle as AccountIcon, ExitToApp as LogoutIcon, Face as ProfileIcon } from '@mui/icons-material';
 import { IconButton, Menu, MenuItem, Typography, Box, Divider, ListItemIcon, Switch } from '@mui/material';
-
+// 
 import { useTranslation } from 'react-i18next';
-import { useAuth } from "stores/auth"
-import { useHistory } from "react-router-dom";
-import { useLayout } from 'stores/layout';
+import { useNavigate } from "react-router-dom";
+// stores
+import layoutStore from "stores/layout";
+import authStore from "stores/auth";
+import { useStore } from "@priolo/jon";
 
 
 function Avatar() {
 
 	// HOOKs
-	const classes = useStyles()
-	const history = useHistory()
+	const navigate = useNavigate()
 	const [anchorEl, setAnchorEl] = useState(null)
 	const { t } = useTranslation()
-	const { state: auth, logout } = useAuth()
-	const { toggleTheme, isDarkTheme } = useLayout()
 
+	const auth = useStore(authStore)
+	const { logout } = authStore
+	useStore(layoutStore)
+	const { toggleTheme, isDarkTheme } = layoutStore
 
 	// HANDLEs
 	const handleClose = () => setAnchorEl(null)
@@ -30,9 +33,8 @@ function Avatar() {
 	}
 	const handleClickProfile = e => {
 		handleClose()
-		history.push("/profile")
+		navigate("/profile")
 	}
-
 
 	// RENDER
 	return <>
@@ -46,7 +48,7 @@ function Avatar() {
 			open={Boolean(anchorEl)}
 			onClose={handleClose}
 		>
-			<Box className={classes.box}>
+			<Box sx={cssBox}>
 				<Typography variant="subtitle2">{auth.user.email}</Typography>
 				<Typography variant="caption">({t(`app.roles.${auth.user.role}`)})</Typography>
 			</Box>
@@ -76,14 +78,12 @@ function Avatar() {
 				{t("app.avatar.logout")}
 			</MenuItem>
 		</Menu>
-	</>;
+	</>
 }
 
 export default Avatar
 
-const useStyles = makeStyles((theme) => ({
-	box: {
-		padding: theme.spacing(1, 2, 1, 2),
-		display: "flex", flexDirection: "column"
-	}
-}));
+const cssBox = theme => ({
+	padding: theme.spacing(1, 2, 1, 2),
+	display: "flex", flexDirection: "column"
+})

@@ -2,20 +2,22 @@ import { Badge, Grid, IconButton } from "@mui/material"
 import { FilterList as FiltersIcon } from '@mui/icons-material'
 
 import SearchBox from "components/SearchBox"
-import { useLayout } from "stores/layout"
-import { useRoute } from "stores/route"
+import layoutStore from "stores/layout";
+import routeStore from "stores/route";
+import { useStore } from "@priolo/jon";
 
 
 function DocHeader() {
 
-	const { state: layout, setDrawerRightIsOpen } = useLayout()
-	const { getSearchUrl, setSearchUrl } = useRoute()
+    const layout = useStore(layoutStore)
+    const { setDrawerRightIsOpen } = layoutStore
+    useStore(routeStore)
+    const { getSearchUrl, setSearchUrl } = routeStore
+    
+    const notHaveFilter = !getSearchUrl("author")
+    const handleClickFilter = e => setDrawerRightIsOpen(!layout.drawerRightIsOpen)
 
-	const notHaveFilter = !getSearchUrl("author")
-
-	const handleClickFilter = e => setDrawerRightIsOpen(!layout.drawerRightIsOpen)
-
-	return (
+    return (
         <Grid container wrap="nowrap">
             <SearchBox
                 value={getSearchUrl("search")}

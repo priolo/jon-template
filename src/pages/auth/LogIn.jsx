@@ -1,24 +1,22 @@
-/* eslint eqeqeq: "off", react-hooks/exhaustive-deps: "off"*/
 import { useValidator, rules } from '@priolo/jon';
 import { useTranslation } from 'react-i18next';
 
-import { Avatar, Button, TextField, Typography, Container, CircularProgress } from '@mui/material';
+import { Avatar, Button, TextField, Typography, Container, CircularProgress, Box } from '@mui/material';
 import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material';
-import makeStyles from '@mui/styles/makeStyles';
 
-import { useAuth } from 'stores/auth';
-import { useLayout } from 'stores/layout';
-
-
+import authStore from "stores/auth";
+import layoutStore from "stores/layout";
+import { useStore } from "@priolo/jon";
 
 
 export default function LogIn() {
 
 	// HOOKS
-	const classes = useStyles()
 	const { t } = useTranslation()
-	const { state: auth, setUsername, setPassword, login } = useAuth()
-	const { state: layout } = useLayout()
+
+	const auth = useStore(authStore)
+	const { setUsername, setPassword, login } = authStore
+	const layout = useStore(layoutStore)
 
 	const usernameProp = useValidator(auth.username, [rules.obligatory])
 	const pswProp = useValidator(auth.password, [rules.obligatory])
@@ -26,9 +24,9 @@ export default function LogIn() {
 	// RENDER
 	return (
 		<Container component="main" maxWidth="xs">
-			<div className={classes.paper}>
+			<Box sx={cssPaper}>
 
-				<Avatar className={classes.avatar}>
+				<Avatar sx={cssAvatar}>
 					<LockOutlinedIcon />
 				</Avatar>
 
@@ -65,37 +63,36 @@ export default function LogIn() {
 					<Button fullWidth
 						variant="contained"
 						color="primary"
-						className={classes.submit}
+						sx={cssSubmit}
 						onClick={() => login()}
 					>
 						{t("pag.login.signin")}
 					</Button>
 				) : (
-						<CircularProgress />
-					)}
+					<CircularProgress />
+				)}
 
-			</div>
+			</Box>
 		</Container>
 	);
 }
 
 
-const useStyles = makeStyles((theme) => ({
-	paper: {
-		marginTop: theme.spacing(8),
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-	},
-	avatar: {
-		margin: theme.spacing(1),
-		backgroundColor: theme.palette.secondary.main,
-	},
-	form: {
-		width: '100%', // Fix IE 11 issue.
-		marginTop: theme.spacing(1),
-	},
-	submit: {
-		margin: theme.spacing(3, 0, 2),
-	},
-}));
+
+const cssPaper = theme => ({
+	marginTop: theme.spacing(8),
+	display: 'flex',
+	flexDirection: 'column',
+	alignItems: 'center',
+})
+const cssAvatar = theme => ({
+	margin: theme.spacing(1),
+	backgroundColor: theme.palette.secondary.main,
+})
+// const cssForm = theme => ({
+// 	width: '100%', // Fix IE 11 issue.
+// 	marginTop: theme.spacing(1),
+// })
+const cssSubmit = theme => ({
+	margin: theme.spacing(3, 0, 2),
+})
