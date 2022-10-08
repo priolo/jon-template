@@ -39,7 +39,7 @@ enter:
 `cd jon-template`  
 install npm modules:  
 `npm install`  
-install MSW (for mock) 
+install MSW (for mock)  
 `npx msw init public/ --save`  
 run:  
 `npm run start`  
@@ -142,15 +142,15 @@ But if necessary, since it is a `class`, several instances can be created.
 
 I can use STORE even outside REACT (and therefore in SERVICE AJAX)  
 For example, here I set the STATE `busy` of the STORE` layout` when the SERVICE is busy:  
-[in SERVICE (outside REACT)](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/plugins/AjaxService.js#L43)
+[in SERVICE (outside REACT)](https://github.com/priolo/jon-template/blob/55c78b6d04e9cc235df5a0a2d493ac41c7872cfd/src/plugins/AjaxService.js#L111)
 ```js
-// I download the "layout" store
-const { setBusy } = getStoreLayout()
+// destructure
+const { setBusy } = layoutStore
 // if necessary set "busy" == true
 setBusy(true)
 ```
 
-While in the [STORE layout](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/stores/layout/store.js#L14)  
+While in the [STORE layout]https://github.com/priolo/jon-template/blob/55c78b6d04e9cc235df5a0a2d493ac41c7872cfd/src/stores/layout/index.js#L13)  
 ```js
 // I define the `busy` prop in readable/writable
 export default {
@@ -158,15 +158,15 @@ export default {
 		busy: false,
 	}.
 	mutators: {
-		setBusy: (state, busy) => ({ busy }),
+		setBusy: busy => ({ busy }),
 	}
 }
 ```
  
-[In VIEW](https://github.com/priolo/jon-template/blob/7f8c02cbd72371c1018f7a689ed625577f22f206/src/components/layouts/AppBar.jsx#L60) I can catch this event  
+[In VIEW](https://github.com/priolo/jon-template/blob/55c78b6d04e9cc235df5a0a2d493ac41c7872cfd/src/components/layouts/AppBar.jsx#L23) I can catch this event  
 ```jsx
 function Header() {
-	const { state: layout } = useLayout()
+	const layout = useStore(layoutStore)
 	return (
 		<AppBar>
 			{
@@ -461,12 +461,16 @@ A [sandbox](https://codesandbox.io/s/example-1-5d2tt) (that does NOT use MATERIA
 To find out more, check out [Jon](https://github.com/priolo/jon)  
 However, in this TEMPLATE you can find the BINDINGS [everywhere](https://github.com/priolo/jon-template/blob/5593323c8a3ca30ed9023e6708124a191552b13e/src/pages/user/EditDialog.jsx#L54)  
 
+
+
 ### VALIDATOR
+
 Form validation is always left for last :smile:  
 There is a simple mechanism for validating Material-UI components.
 
 Just connect a value to a `rule` (with a HOOK)  
 and assign the obtained `props` to the MATERIAL-UI component
+
 ```jsx
 import { rules, useValidator } from "@priolo/jon";
  
@@ -489,6 +493,7 @@ function Form() {
 ```
 
 And validate in the STORE before sending the data
+
 ```js
 import { validateAll } from "@priolo/jon"
 
@@ -511,71 +516,72 @@ const store = {
 }
 ```
 
-an example [here](https://github.com/priolo/jon-template/blob/5593323c8a3ca30ed9023e6708124a191552b13e/src/stores/user/store.js#L73)
+an example [here](https://github.com/priolo/jon-template/blob/55c78b6d04e9cc235df5a0a2d493ac41c7872cfd/src/stores/user/index.js#L75)
+
+
 
 ### DYNAMIC THEME
 
 Once you understand how the STORES work, you use them for everything
 ... of course also to manage the THEME  
 
-In the [STORE `layout`](https://github.com/priolo/jon-template/blob/177dca2bafb4e1cf2fa22dfc2a45a703a89c6c04/src/stores/layout/store.js) I put everything that characterizes the general appearance of the APP  
+In the [STORE `layout`](https://github.com/priolo/jon-template/blob/master/src/stores/layout/index.js) I put everything that characterizes the general appearance of the APP  
 The THEME of MATERIAL-UI  
 but also the title on the AppBar, if the APP is waiting (loading ...), if the side DRAWERS are open, the main menu, the "message box", where the focus is set etc etc  
 
 However the THEME settings must be kept even when **reload the page**   
 The problem is that in this case the browser makes a new request to the server and the **STORE is reloaded from scratch**!   
 So I used the `coockies` to store the name of the selected THEME  
-you can see it [here](https://github.com/priolo/jon-template/blob/336589e17b1fa05a198f1d24322b9c78bbeff0ca/src/stores/layout/store.js#L20)  
+you can see it [here](https://github.com/priolo/jon-template/blob/55c78b6d04e9cc235df5a0a2d493ac41c7872cfd/src/stores/layout/index.js#L19)  
 
 The store theme is initially set with the cookie  
-and when the THEME is changed [here](https://github.com/priolo/jon-template/blob/336589e17b1fa05a198f1d24322b9c78bbeff0ca/src/stores/layout/store.js#L70)  
+and when the THEME is changed [here](https://github.com/priolo/jon-template/blob/55c78b6d04e9cc235df5a0a2d493ac41c7872cfd/src/stores/layout/index.js#L47)  
+
 ```js
 export default {
 	state: {
 		theme: Cookies.get('theme'),
 	},
 	mutators: {
-		setTheme: (state, theme) => {
+		setTheme: (theme) => {
 			Cookies.set("theme", theme)
 			return { theme }
 		},
 	}
 }
 ```
+
 Even if you use the cookies to memorize the name of the THEME  
 however, it is necessary to modify the STORE variable (more correctly "the STATE of the store")  
 Otherwise the VIEW does not receive the event!  
 In general the VIEW updates ONLY IF the `state` object of the STORE changes
 
+
+
 ### Responsive Design
 
 There are tools in MATERIAL-UI for this [here](https://material-ui.com/guides/responsive-ui/)
 But what if we don't use MATERIAL-UI?
-
 We can use the STORE! I initialize the STORE by hooking it to the window resize event
+
 ```js
-const store =  {
-	state: {
-		device: null,
-	},
-	// chiamato UNA SOLA VOLTA per inizializzare lo store
-	init: (store) => {
-		const checkDevice = ()=> {
-			const deviceName = window.innerWidth < 767 ? "mobile" 
-				: window.innerWidth < 950 ? "pad"
-				: "desktop"
-			store.setDevice(deviceName)
-		}
-		window.addEventListener("resize", (e) => checkDevice());
-		checkDevice()
-	},
-	mutators: {
-		setDevice: ( state, device ) => ({ device }),
-	},
+const store = createStore(allSetup)
+
+const checkDevice = () => {
+	const deviceName = window.innerWidth < 767 ? "mobile"
+		: window.innerWidth < 950 ? "pad"
+			: "desktop"
+	store.setDevice(deviceName)
 }
+window.addEventListener("resize", (e) => checkDevice());
+checkDevice()
+
+export default store
 ```
 
+[here](https://github.com/priolo/jon-template/blob/master/src/stores/layout/index.js)  
 And I use it to modify the VIEW based on the device
+
 ```js
 function MainDrawer () {
 	const { state: layout } = useLayout()
@@ -592,7 +598,8 @@ function MainDrawer () {
 }
 ```
 
-Of course you can also use it for: classes and style css or conditional render
+Of course you can also use it for: classes and style css or conditional render.
+But in this way you have absolute control over React and its components without having "to bridge" with css.
 
 ---
 
@@ -606,7 +613,7 @@ Then the selected TABs, filters and sorting on the lists.
 they must be kept in the [`search` of the current URL](https://developer.mozilla.org/en-US/docs/Web/API/URL/search) also called *query string*  
 ... in short, what is after the "?" in the URL  
 
-In STORE [Route](https://github.com/priolo/jon-template/blob/336589e17b1fa05a198f1d24322b9c78bbeff0ca/src/stores/route/store.js) I can get or set a variable of `query string`  
+In STORE [Route](https://github.com/priolo/jon-template/blob/master/src/stores/route/index.js) I can get or set a variable of `query string`  
 which can be used in VIEW  
 
 An excerpt from the STORE:
@@ -616,13 +623,13 @@ export default {
 		queryUrl: "",
 	},
 	getters: {
-		getSearchUrl: (state, name, store) => {
+		getSearchUrl: (name) => {
 			const searchParams = new URLSearchParams(window.location.search)
 			return (searchParams.get(name) ?? "")
 		},
 	},
 	mutators: {
-		setSearchUrl: (state, { name, value }) => {
+		setSearchUrl: ({ name, value }) => {
 			const queryParams = new URLSearchParams(window.location.search)
 			if (value && value.toString().length > 0) {
 				queryParams.set(name, value)
@@ -636,7 +643,7 @@ export default {
 }
 ```
 
-then I use it in the [list](https://github.com/priolo/jon-template/blob/336589e17b1fa05a198f1d24322b9c78bbeff0ca/src/pages/doc/DocList.jsx) to filter the elements
+then I use it in the [list](https://github.com/priolo/jon-template/blob/master/src/pages/doc/DocList.jsx) to filter the elements
 ```js
 function DocList() {
 	const { state: route, getSearchUrl } = useRoute()
@@ -661,12 +668,15 @@ function DocList() {
 }
 ```
 
-meanwhile in the [HEADER](https://github.com/priolo/jon-template/blob/336589e17b1fa05a198f1d24322b9c78bbeff0ca/src/pages/user/UserHeader.jsx) I have the text-box to modify the filter
+meanwhile in the [HEADER](https://github.com/priolo/jon-template/blob/master/src/pages/user/UserHeader.jsx) I have the text-box to modify the filter
 ```js
-import { useRoute } from "../../stores/route"
+import { useStore } from "@priolo/jon";
+import routeStore from "stores/route";
 
 function Header() {
-	const { getSearchUrl, setSearchUrl } = useRoute()
+	useStore(routeStore)
+	const { getSearchUrl, setSearchUrl } = routeStore
+
 	return (
 		<SearchBox
 			value={getSearchUrl("search")}
@@ -686,7 +696,7 @@ If I were to duplicate the page in the browser the filter would remain intact.
 ## AUTH
 
 The AUTH is not complete (a matter of time ... I'll finish it)!  
-It is managed by the STORE `auth` [here](https://github.com/priolo/jon-template/blob/be1ebdb0cacddd049d0a6c78bf88dc0c152e4b55/src/stores/auth/store.js)
+It is managed by the STORE `auth` [here](https://github.com/priolo/jon-template/blob/master/src/stores/auth/index.js)
 
 ### JWT (JSON Web Token)
 
@@ -705,15 +715,15 @@ The `token` have an "expiration" forcing the client to re-authenticate to genera
 Of course you have to use an HTTPS connection to be safe.
 
 Assuming you want to implement the token in the HEADER:
-The ajax plugin includes the `token` if available [here](https://github.com/priolo/jon-template/blob/be1ebdb0cacdd049d0a6c78bf88dc0c152e4b55/src/plugins/AjaxService.js#L52)  
+The ajax plugin includes the `token` if available [here](https://github.com/priolo/jon-template/blob/master/src/plugins/AjaxService.js)  
 ```js
-import { getStoreAuth } from "../stores/auth"
+import authStore from "../stores/auth"
 ...
 
 export class AjaxService {
 	...
 	async send(url, method, data) {
-		const { state:auth } = getStoreAuth()
+		const { state:auth } = authStore
 		...
 		
 		const response = await fetch(
@@ -734,7 +744,7 @@ export class AjaxService {
 }
 ```
 
-The token is accessible in the [STORE auth](https://github.com/priolo/jon-template/blob/be1ebdb0cacddd049d0a6c78bf88dc0c152e4b55/src/stores/auth/store.js).  
+The token is accessible in the [STORE auth](https://github.com/priolo/jon-template/blob/master/src/stores/auth/index.js).  
 I used cookies to avoid having to login again on "reload" *(it does not work with MSW)*  
 > Cookies should only be used with HTTPS
 ```js
@@ -745,14 +755,14 @@ export default {
 		token: Cookies.get('token'),
 	},
 	getters: {
-		isLogged: state => state.token != null,
+		isLogged: (_, {state}) => state.token != null && state.user != null,
 	},
 	mutators: {
-		setToken: (state, token, store) => {
+		setToken: token => {
 			if (token == null) {
 				Cookies.remove('token')
 			} else {
-				Cookies.set('token', token)
+				Cookies.set('token', token) 
 			}
 			return { token }
 		},
